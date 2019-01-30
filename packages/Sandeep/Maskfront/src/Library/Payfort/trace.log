@@ -1,0 +1,1140 @@
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00008
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => b67cbf3c14d92554ffd8b27dce8e34a69346a38299467a0f3f78b956b2d6e97dc92e14a5226e4e936e5704414f2058b4ecd996fd2fa12c612cca4305b5bb7de1
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Signature mismatch
+    [merchant_reference] => 352161854
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [status] => 00
+)
+
+
+========================================================
+
+Invalid Signature. Calculated Signature: b67cbf3c14d92554ffd8b27dce8e34a69346a38299467a0f3f78b956b2d6e97dc92e14a5226e4e936e5704414f2058b4ecd996fd2fa12c612cca4305b5bb7de1, Response Signature: 150a72cf5685ce1ce963c5976b16d4d242716f25c17e2b846d72bc253617470d
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00046
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 5daa08770904d949b72328e3a6930733d1e6110d6af88502daca376faef06127d3cb4279e94e1f1a4196cc8968f4c28697a72bc007eca3c6bdca2b715a66a9c7
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Channel not configured for selected payment option
+    [merchant_reference] => 299259364
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [status] => 00
+)
+
+
+========================================================
+
+Channel not configured for selected payment option
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 81a9e54e378da644248f950c158da5797731da0b1fa4e0abbac52f676d3e13adca058232eb27ebb13ac45f38a313b39de1e203bb0c1adeeacd575f6c85a4741b
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2024019304
+    [token_name] => 7621790B85BA4D33E0530100007F6E6B
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 2024019304
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.173.145.222
+    [amount] => 100
+    [currency] => SAR
+    [customer_email] => support@mask-app.com
+    [customer_name] => Vandana abrol
+    [token_name] => 7621790B85BA4D33E0530100007F6E6B
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 5b4435efda247a989f4b84f90635f589a3fe99b061420446d5b3ded869ffbaa6f9e54e34e31230f8d034c0044e690d180f05850a837222e3cc4ce92296d9ca4a
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 100
+    [response_code] => 20064
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => eaa5b986c9095720622e68e2d93519698d01bef5c5214424bab3ead701d42c593f42a4f427aa5111697ca5b3d0c1ab6f1c6b3a9fe50f7ec78b081887a6d0c9c2
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => MADA
+    [expiry_date] => 2008
+    [customer_ip] => 122.173.145.222
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153727228400000515
+    [command] => PURCHASE
+    [3ds_url] => https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=81184j7QDSB1H1mmhwr9KLbOmF7vVo
+    [response_message] => 3-D Secure check requested
+    [merchant_reference] => 2024019304
+    [customer_email] => support@mask-app.com
+    [currency] => SAR
+    [customer_name] => Vandana abrol
+    [status] => 20
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 81a9e54e378da644248f950c158da5797731da0b1fa4e0abbac52f676d3e13adca058232eb27ebb13ac45f38a313b39de1e203bb0c1adeeacd575f6c85a4741b
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2024019304
+    [token_name] => 7621790B85BA4D33E0530100007F6E6B
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Redirect to 3DS URL : https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=81184j7QDSB1H1mmhwr9KLbOmF7vVo
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 191528df4628cab3fe2372ce2be057cd3a9362a03fad161691fc4d17414e4da7c57f281a19b94702f1847636e30dc6c86ff556e3e18990c37e3459e8c5fa8709
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2015429886
+    [token_name] => 7603BF9C3D974D11E0530100007F7C18
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 2015429886
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.173.145.222
+    [amount] => 100
+    [currency] => SAR
+    [customer_email] => support@mask-app.com
+    [customer_name] => Vandana abrol
+    [token_name] => 7603BF9C3D974D11E0530100007F7C18
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 7725c646d909c3e210226193afa34d4b15b9c34adf67b5a372a9a0ed653649a41db9d7f0917496b8524fd18730e385cc73157b11f6fdd428293618576bdeaf90
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 100
+    [response_code] => 20064
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => a84a8bec4aa416bfaa0d650311cadff4e378e1457e2d4277a5c615e0ad630deee54ada406e289bf51ba212f21e7484b5a951d8543604b54b10a3063a72759107
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => MADA
+    [expiry_date] => 2008
+    [customer_ip] => 122.173.145.222
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153727238300000756
+    [command] => PURCHASE
+    [3ds_url] => https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=62196UUC1Z6dG1mE29bE582ZN1FKId
+    [response_message] => 3-D Secure check requested
+    [merchant_reference] => 2015429886
+    [customer_email] => support@mask-app.com
+    [currency] => SAR
+    [customer_name] => Vandana abrol
+    [status] => 20
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 191528df4628cab3fe2372ce2be057cd3a9362a03fad161691fc4d17414e4da7c57f281a19b94702f1847636e30dc6c86ff556e3e18990c37e3459e8c5fa8709
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2015429886
+    [token_name] => 7603BF9C3D974D11E0530100007F7C18
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Redirect to 3DS URL : https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=62196UUC1Z6dG1mE29bE582ZN1FKId
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 1728317204
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => 45fbfcd038a45ce4e9fb18c5718bd11750c0a3e3923d1846ad2ffa95232d8a042c276e527eeb8b8a44642a931bb01a1d7e2adef655d300355abff63dfd143aeb
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 4b53a8739ad4e411fa46d257b8b3029d71ccec711536f4ec05be84fad35ba05b35faf1ce703494b321a5fe6b570c5a2b8005ea09e61c7f37e2e22f0e6554a668
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1728317204
+    [token_name] => 76215450EF4F4D01E0530100007F1A66
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 1728317204
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 51.39.59.93
+    [amount] => 100
+    [currency] => SAR
+    [customer_email] => alwsha23@gmail.com
+    [customer_name] => Mohammed Alfadly
+    [token_name] => 76215450EF4F4D01E0530100007F1A66
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 74f02f88d3db86b42b7a441e2d5c889bca3dfd72346b41070c6b12292eaa961588c8b20bee4d6b5353163bad99cfc5e1b4cde64338d3af22e83970e593f2e043
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 100
+    [response_code] => 20064
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 5619ec3a20dbf64ac739c56e234f383c7e6ead7fd92c841ed47fec8b04f6f05c05e772419a3765cd4e3bdd38e36ffed623fc67e77c37ace22f96e0885ced0ac9
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => MADA
+    [expiry_date] => 2008
+    [customer_ip] => 51.39.59.93
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153728654100036093
+    [command] => PURCHASE
+    [3ds_url] => https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=62193biwiZBHT9GJNNeCrBO20LwpRd
+    [response_message] => 3-D Secure check requested
+    [merchant_reference] => 1728317204
+    [customer_email] => alwsha23@gmail.com
+    [currency] => SAR
+    [customer_name] => Mohammed Alfadly
+    [status] => 20
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 4b53a8739ad4e411fa46d257b8b3029d71ccec711536f4ec05be84fad35ba05b35faf1ce703494b321a5fe6b570c5a2b8005ea09e61c7f37e2e22f0e6554a668
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2008
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1728317204
+    [token_name] => 76215450EF4F4D01E0530100007F1A66
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 531095
+    [status] => 18
+)
+
+
+========================================================
+
+Redirect to 3DS URL : https://checkout.payfort.com/FortAPI/redirectionResponse/threeDsRedirectURL?token=62193biwiZBHT9GJNNeCrBO20LwpRd
+
+========================================================
+
+Fort Redirect Response Parameters 
+Array
+(
+    [r] => processResponse
+    [amount] => 100
+    [response_code] => 14000
+    [card_number] => 531095******6110
+    [card_holder_name] => Mohammed E. Alfadly
+    [signature] => 315ea87c4f712fe680ad0c22ff7199cea00e77c419fb87ad931ddee49735a35928b8e0e3da1fe7fae0b0c0738f9b0a68305eb0613d2105458b0883727d244787
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => MADA
+    [expiry_date] => 2008
+    [customer_ip] => 51.39.59.93
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153728654100036093
+    [command] => PURCHASE
+    [response_message] => Success
+    [merchant_reference] => 1728317204
+    [authorization_code] => 865784
+    [customer_email] => alwsha23@gmail.com
+    [currency] => SAR
+    [customer_name] => Mohammed Alfadly
+    [status] => 14
+)
+
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 1274452839
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => c144647b3196323985038549f06f855b3a83530f3e70da036669518b9538c4b62950ac140e2d855654ce4fcceba826dcd54ad4575995cbb8a61b19f9cca2e34a
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => a4158385e376ce0645cdded022f3df2313fd6a994d7f3709981d487acd7e1ace91e89c7431b0335d65428d9180bb609f25e1ef64ec751bd7d9a14187ee9c196d
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 1812
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1274452839
+    [token_name] => 7601025CF31A4D55E0530100007F846B
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 1274452839
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.180.31.15
+    [amount] => 100
+    [currency] => SAR
+    [customer_email] => harman.digittrix@gmail.com
+    [customer_name] => Harman 
+    [token_name] => 7601025CF31A4D55E0530100007F846B
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => f7494c80677af3ddfd75613d68fafa9f32754bb8d9b1c937932429ea2ec5c5225bc801cd43c285b54c42ef81e22767ddfea510a94a5e5aba23564a3ffa8d50c4
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 100
+    [response_code] => 10785
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 83fdc0c223da56c1ceb0f40bde33390c767944bce54e701f950013a8852b2c6c780974870ab845ec1b48e417f397845bc82001af65b3481560e91b9869a34919
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => VISA
+    [expiry_date] => 1812
+    [customer_ip] => 122.180.31.15
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153733332900003013
+    [command] => PURCHASE
+    [response_message] => Transaction blocked by fraud check
+    [merchant_reference] => 1274452839
+    [customer_email] => harman.digittrix@gmail.com
+    [currency] => SAR
+    [customer_name] => Harman 
+    [status] => 10
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => a4158385e376ce0645cdded022f3df2313fd6a994d7f3709981d487acd7e1ace91e89c7431b0335d65428d9180bb609f25e1ef64ec751bd7d9a14187ee9c196d
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 1812
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1274452839
+    [token_name] => 7601025CF31A4D55E0530100007F846B
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Transaction blocked by fraud check
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 318786532
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => 122e34258a23d74dd2f3ba92771b43f97cbfe6bb7d03393c387b714084207be5a3afabad80a12feb2aa6e91eea56d093aed9eb62d6a4a83c67ca105ee5fee4ab
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => abc
+    [signature] => 67d1041ab45c0efc484f5d77bf80fd4b69e6eaa60c72390f32727564e66c423f2bc7ffcd4933629523dbba988d2b5700d4303fff5a6e6cf73fb32e4d4d1d8a17
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2201
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 318786532
+    [token_name] => 75FEEC7F41524D2DE0530100007F0EBD
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 318786532
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.180.31.15
+    [amount] => 1500
+    [currency] => SAR
+    [customer_email] => harman.digittrix@gmail.com
+    [customer_name] => Harish kumar
+    [token_name] => 75FEEC7F41524D2DE0530100007F0EBD
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 22ace7a603b602359dc490ba5919ca96efa563f9dc2413b1ac8b8a03325df74d557c8ef3882fa943c3b73b74b2afb9a7154fe2696bdf0c6de4f1f9538ac1d80d
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 1500
+    [response_code] => 10785
+    [card_number] => 411111******1111
+    [card_holder_name] => abc
+    [signature] => ddf1f236fd806a8690beba7c84e7d012261b15547abd21768d1dec208f63e8daead151de720f6d48ef1f364d53ad31536ab689946eed5e09fd892279d274f05d
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => VISA
+    [expiry_date] => 2201
+    [customer_ip] => 122.180.31.15
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153733365800003672
+    [command] => PURCHASE
+    [response_message] => Transaction blocked by fraud check
+    [merchant_reference] => 318786532
+    [customer_email] => harman.digittrix@gmail.com
+    [currency] => SAR
+    [customer_name] => Harish kumar
+    [status] => 10
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => abc
+    [signature] => 67d1041ab45c0efc484f5d77bf80fd4b69e6eaa60c72390f32727564e66c423f2bc7ffcd4933629523dbba988d2b5700d4303fff5a6e6cf73fb32e4d4d1d8a17
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2201
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 318786532
+    [token_name] => 75FEEC7F41524D2DE0530100007F0EBD
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Transaction blocked by fraud check
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 389921473
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => ec8efdf2f9b3c7cf3dd1f34aa1cb4c4d3b5c5b2c6630b22e60650cc9794e1611c64b92549774ce5adf9cca0d82d9594a0ff09307233306ace99c04d639e9d5ec
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => qww
+    [signature] => 5c6b6122e622f45b8e3b5ac436022c070c6b8ae8155d33942695cb5de6cc1c38ce7f943fcba7877108d89d7cff70db5375ec75fc1564edb06c43c38cd3392f82
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2701
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 389921473
+    [token_name] => 75FEFE69CED04D59E0530100007F8391
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 389921473
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.180.31.15
+    [amount] => 13011
+    [currency] => SAR
+    [customer_email] => harman.digittrix@gmail.com
+    [customer_name] => Harish kumar
+    [token_name] => 75FEFE69CED04D59E0530100007F8391
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 1a5e2dcdc6070b10be1ef687691dbd40ca1e30833b821df86e6d8ec890043f599191bae3fd3442fa4741f37017df1d0aefd9d0b748f19a8ae96981661a6ad003
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 13011
+    [response_code] => 10785
+    [card_number] => 411111******1111
+    [card_holder_name] => qww
+    [signature] => 7af9c08666700628342242980cd3182dfed00136c31061544007a6171e5d33f4a7456c1a1e37f086128c0c0db71b7c9c6bbe955537e269b488b80035862e5000
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => VISA
+    [expiry_date] => 2701
+    [customer_ip] => 122.180.31.15
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153751636600024677
+    [command] => PURCHASE
+    [response_message] => Transaction blocked by fraud check
+    [merchant_reference] => 389921473
+    [customer_email] => harman.digittrix@gmail.com
+    [currency] => SAR
+    [customer_name] => Harish kumar
+    [status] => 10
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => qww
+    [signature] => 5c6b6122e622f45b8e3b5ac436022c070c6b8ae8155d33942695cb5de6cc1c38ce7f943fcba7877108d89d7cff70db5375ec75fc1564edb06c43c38cd3392f82
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2701
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 389921473
+    [token_name] => 75FEFE69CED04D59E0530100007F8391
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Transaction blocked by fraud check
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 2030465996
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => e58d1b03f7ace3589df87434ee331c485c1fe72f59ec6f5f23289103c9d1a1ee5ed60dbb8357ab48f96dd0b37806170fa4d4fb1d948bf4da69fe69a6a7ff64f3
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 294aacabee9b181ba5d1726b2655b1d1b70e3c5d95f93960149b1c6dfab5ab713c0e84e563be3ba06f63cce39804c26a39b0ed79ca110a397e25a099e1b91296
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2301
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2030465996
+    [token_name] => 76687DE8FA134CD7E0530100007F695E
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 2030465996
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.180.31.15
+    [amount] => 5000
+    [currency] => SAR
+    [customer_email] => harman.digittrix@gmail.com
+    [customer_name] => Harman 
+    [token_name] => 76687DE8FA134CD7E0530100007F695E
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 70f00050d2c7047e58075ace549951b46946a90814a76df8d89739a58dca4480a8b9f77ec08ef8bef73bc80ed35268d2688efb46ea6c4f96fe47968a93c66c87
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 5000
+    [response_code] => 10785
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 0dcafb0be6237ea495d1a6bb20ddd19df8edef9ed0c533ceed2007e1cc1249ae29d9d51ebd94fc5977f40c04f51734352f9ab40112a626a9b670b448149a6729
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => VISA
+    [expiry_date] => 2301
+    [customer_ip] => 122.180.31.15
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153864764000094766
+    [command] => PURCHASE
+    [response_message] => Transaction blocked by fraud check
+    [merchant_reference] => 2030465996
+    [customer_email] => harman.digittrix@gmail.com
+    [currency] => SAR
+    [customer_name] => Harman 
+    [status] => 10
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 294aacabee9b181ba5d1726b2655b1d1b70e3c5d95f93960149b1c6dfab5ab713c0e84e563be3ba06f63cce39804c26a39b0ed79ca110a397e25a099e1b91296
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2301
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 2030465996
+    [token_name] => 76687DE8FA134CD7E0530100007F695E
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Transaction blocked by fraud check
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 1407201939
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => 61722843f03b2842251ccf68f98dfc5c9ee17e969bfdcf121f7f29cc2e138b95ba909fe538dd4513d562f7348bbd58de8683752a953ff3476d3b68853c7854fb
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 555866397c2796e699654d7dabaa83a18023868974c35782bb48e69d54965ea3b08ba8234eb98eafeb84ad35163b17e60fe650989a524b47df3f56cfabf9e330
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2201
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1407201939
+    [token_name] => 75FF078EB8BD4D27E0530100007F5B6A
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Fort Host2Host Request Parameters 
+Array
+(
+    [merchant_reference] => 1407201939
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [command] => PURCHASE
+    [merchant_identifier] => OHimEBGV
+    [customer_ip] => 122.180.31.15
+    [amount] => 5000
+    [currency] => SAR
+    [customer_email] => harman.digittrix@gmail.com
+    [customer_name] => Harman 
+    [token_name] => 75FF078EB8BD4D27E0530100007F5B6A
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=processResponse
+    [signature] => 0fb71b5cfdb024245751cb5cd07a01826c3bfd7437dede30bd8214756a55fb042d8e71c3d9460099b814df3d6876ce5bc4827166e9aaf6b48fce2c6c061dfb09
+)
+
+
+========================================================
+
+Fort Host2Host Response Parameters 
+Array
+(
+    [amount] => 5000
+    [response_code] => 10785
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 0be7a95674433f2e4eeb22b2c4658bb92df9c5c51a7d05ea342b5dd1e369ee7b6e1026a0e419210b5e7e336c1131a09fbac65a448a272e407db2e0afb9a2a12c
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [payment_option] => VISA
+    [expiry_date] => 2201
+    [customer_ip] => 122.180.31.15
+    [language] => en
+    [eci] => ECOMMERCE
+    [fort_id] => 153864769800094962
+    [command] => PURCHASE
+    [response_message] => Transaction blocked by fraud check
+    [merchant_reference] => 1407201939
+    [customer_email] => harman.digittrix@gmail.com
+    [currency] => SAR
+    [customer_name] => Harman 
+    [status] => 10
+)
+
+
+========================================================
+
+Fort Merchant Page Host2Hots Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 18000
+    [card_number] => 411111******1111
+    [card_holder_name] => test
+    [signature] => 555866397c2796e699654d7dabaa83a18023868974c35782bb48e69d54965ea3b08ba8234eb98eafeb84ad35163b17e60fe650989a524b47df3f56cfabf9e330
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 2201
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Success
+    [merchant_reference] => 1407201939
+    [token_name] => 75FF078EB8BD4D27E0530100007F5B6A
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [card_bin] => 411111
+    [status] => 18
+)
+
+
+========================================================
+
+Transaction blocked by fraud check
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [merchant_reference] => 1708813650
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/wp-content/plugins/activity_managment/includes/classes/payfort-php-sdk/route.php?r=merchantPageReturn
+    [signature] => 7141e0472150fb852765de0d8a8e7ec7487f52d1fbad9a7942250286c6ae14d0eb66a58b3d63e24d3354c925ebdc773d2b4ba3fedd1969829a2c37b4deff0b64
+)
+
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [merchant_reference] => 950514971
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [signature] => 6d54e77691c4fa9295202d3b3d5bac829258658a20b21319dfa3fc7a54adeae66fc395bc328bbe64a8e9a327708678c40c9cdd5082e4d0e1fe1ca125bd06bdd6
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00009
+    [card_holder_name] => saaa
+    [card_number] => 444444******4444
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [expiry_date] => 1801
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Invalid merchant identifier
+    [merchant_reference] => 950514971
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [status] => 00
+)
+
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [merchant_reference] => 1394341242
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [signature] => 3d00ee1ebe36af1a6be9e666196ea45b7b80981a8c4c24b69c21645186c2ff29b24c0c2b45acf21146a6d6732e64586b7f02489d00e4aeb646d8397c34b151a5
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00009
+    [card_holder_name] => sandeep
+    [card_number] => 444444******4444
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [expiry_date] => 1801
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Invalid merchant identifier
+    [merchant_reference] => 1394341242
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [status] => 00
+)
+
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [merchant_reference] => 471302598
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [signature] => dc1167885697e5727b3b55420ab40c696f96ac326a0c2210032dd5190bf02c834434961ae6ca65bd9aa0b234948c2d50971e62c6e0ca0d160a26c497ba973214
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00009
+    [service_command] => TOKENIZATION
+    [response_message] => Invalid merchant identifier
+    [merchant_identifier] => AMWVZgXN
+    [merchant_reference] => 471302598
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [expiry_date] => 1801
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [language] => en
+    [status] => 00
+)
+
+
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [merchant_reference] => 2080797159
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [signature] => f9eb28abd1c292077f0ead00f56ef539208686e5386af4c19ec64be45683b3f12969119e4d1c1cfd245a42e1a7155ef5f71a8062b8fa16b45164a546c518b1f6
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00009
+    [card_holder_name] => NNAN
+    [card_number] => 113131*****0321
+    [merchant_identifier] => AMWVZgXN
+    [access_code] => AJ0nLP8zk81phXcdGTYy
+    [expiry_date] => 2809
+    [language] => en
+    [service_command] => TOKENIZATION
+    [response_message] => Invalid merchant identifier
+    [merchant_reference] => 2080797159
+    [return_url] => https://www.mask-app.org/en/payment?r=merchantPageReturn
+    [status] => 00
+)
+
+

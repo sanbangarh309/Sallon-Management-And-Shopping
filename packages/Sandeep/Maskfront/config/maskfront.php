@@ -1,0 +1,41 @@
+<?php
+
+return [
+    'fixed_cats' => ['salons'=>'Salons','cosmetic_center'=>'Beauty Centers','gift_shop'=>'Gift & flowers shops','photography_studios'=>'Photography studios','makeup_artist'=>'Makeup artist','fashion_designers'=>'Fashion designers','massage_SPA'=>'Gym & Fitness'],
+    'dropdown_fixed' => ['salons'=>'Salons','cosmetic_center'=>'Cosmetic center','dentistry'=>'Dentistry','massage_SPA'=>'Massage & SPA','gym'=>'Gym & Fitness','gift_shop'=>'Gift & flowers shops','makeup_artist'=>'Makeup artist','fashion_designers'=>'Fashion designers','photography_studios'=>'Photography studios','wedding_occasions_centers'=>'Wedding & Occasions centers'],
+    'mask_pages' => ['team','career','offer','terms-and-conditions','privacy','sitemap','blog','videos','help-center'],
+    'google_key' => 'AIzaSyABUgL0EM0WtQY0OXjgEz4eowfVk-raUeo',
+    'google_key2' => 'AIzaSyAsofg0B5nlWPk-SG-s54D2IpmYZXMex4A',
+    'fb_id' => '103194920329038',
+    'sms_url' => 'http://apps.gateway.sa/vendorsms/pushsms.aspx?',
+    'reward_values' => [
+            'new_register' => 5,
+            'new_booking' => 5,
+            'new_order' => 5,
+            'new_booking_200' => 10,
+            'new_review' => 5,
+            'booking_canceled' => 5,
+            'booking_rejected' => 5,
+        ],
+    'colors' => [
+            "black"     => '#000000',
+            "green"     => '#008000',
+            "silver"    => '#C0C0C0',
+            "lime"      => '#00FF00',
+            "gray"      => '#808080',
+            "olive"     => '#808000',
+            "white"     => '#FFFFFF',
+            "yellow"    => '#FFFF00',
+            "maroon"    => '#800000',
+            "navy"      => '#000080',
+            "red"       => '#FF0000',
+            "blue"      => '#0000FF',
+            "purple"    => '#800080',
+            "teal"      => '#008080',
+            "fuchsia"   => '#FF00FF',
+            "aqua"      => '#00FFFF',
+            "pink"      => '#FFC0CB',
+            "orange"    => '#FFA500',
+            "brown"     => '#A52A2A',
+        ]
+];

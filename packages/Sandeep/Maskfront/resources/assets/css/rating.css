@@ -1,0 +1,26 @@
+#product_star_rating ul {
+	margin: 0;
+	padding: 5px;
+}
+.ratings-box ul {
+	margin: 0;
+	padding: 5px;
+}
+
+#product_star_rating li, .ratings-box li{
+	cursor: pointer;
+	list-style-type: none;
+	display: inline-block;
+	color: #F0F0F0;
+	text-shadow: 0 0 1px #666666;
+	font-size: 20px;
+}
+
+#product_star_rating .highlight, #product_star_rating .selected {
+	color: #F4B30A;
+	text-shadow: 0 0 1px #F48F0A;
+}
+.ratings-box .highlight, .ratings-box .selected {
+	color: #F4B30A;
+	text-shadow: 0 0 1px #F48F0A;
+}

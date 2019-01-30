@@ -1,0 +1,178 @@
+/* lg */ 
+@media (min-width: 1200px) {
+
+}
+
+/* md */
+@media (min-width: 992px) and (max-width: 1199px) {
+	.pad-sm-0{padding:0;} p{font-size:13px;} h1{font-size:30px!important;} h2{font-size:20px!important;} h3{font-size:18px!important;}
+	#services-pro .featured-serv { margin-top:0px;}
+ 	#home-slider, #myslider2 {position: relative;	min-height: 42vh;}
+	div#myslider2 > ul > li > img{min-height: 42vh;}
+	.navbar-brand-tp img {max-width: 60px;}
+	.ex-head {margin-left: 15px;}
+	#home-bannerinner {bottom:-95px;}
+	.main-nav .navbar-collapse{padding:0;margin-top: -26px;}
+	.navigation-main > li > a {font-size: 13px;	padding: 15px;}
+	.main-nav {	margin-top: 30px;}
+	.col-sm-12.ex-head {padding-left: 0; padding-right: 30px;width: 73%;}
+	img.hexa-icon {max-width: 80px;top: -87px;}
+	.feature-well {min-height: 190px;}
+	.feature-well::before {border-left: 20px solid transparent; border-right: 20px solid transparent;border-top: 17px solid #000; width: 40px;}
+	.img-well {height: 210px;}
+	.caption { margin: 5px 0;   padding: 15px;   width: 100%;}
+	.caption-inner h4 {font-size: 15px;}
+	img.app-icons {width: 100%;}
+	.bottom-menu li { margin-bottom: 10px;}
+	.bottom-menu li a {font-size: 14px;}
+	.social li a {font-size: 19px;}
+	.navbar-fixed-top {margin-top: 0;   padding-top: 27px;}
+	.navbar-fixed-top ul{padding-left:80px;}
+	#page .navbar-brand img{margin-top:-15px; max-width:64px;}
+	.page-fluid {padding-left: 15px;	padding-right: 15px;}
+	.item.list-group-item .captions {padding: 5px;	float: left;	width: 100%;}
+	.list-group-item-heading {font-size: 15px;	margin: 8px 0 5px;}
+	.user-areas > .img-sec {width: 73%;	float: left;}
+	.captions .share {margin-top: 10px;	width: 27%;}
+	.thumb {width: 100%;}
+	.featured-serv  .share-list li a {margin-bottom: 0;}
+	.feed, .btn-sec {float: left;	width: 100%;	text-align: center;}
+	.featured-serv .btn-sec{margin-top:10px;}
+	.featured-serv .btn-sec a{margin:10px 0;width: 95%;}
+	.page-nav .navbar-header {width: 72%;}
+	.page-search {padding-left: 15px;}
+	#page .navbar-fixed-top ul {padding-left: 1px;}
+}
+
+/* sm */
+@media (min-width: 768px) and (max-width: 991px) {
+	.pad-sm-0{padding:0;} p{font-size:13px;} h1{font-size:30px!important;} h2{font-size:20px!important;} h3{font-size:18px!important;}
+	section {padding: 60px 0;}
+	section#featured-service{margin-top:0;}
+	.form-panel {margin-top: 14px;}
+	#services-pro .featured-serv { margin-top:0px;}
+ 	#home-slider, #myslider2 {position: relative;	min-height: 42vh;}
+	div#myslider2 > ul > li > img{min-height: 42vh;}
+	.navbar-brand-tp img {max-width: 60px;}
+	.ex-head {margin-left: 15px;}
+	#home-bannerinner {bottom:-95px;}
+	.main-nav .navbar-collapse{padding:0;margin-top: -26px;}
+	.navigation-main > li > a {font-size: 13px;	padding: 15px 7px;}
+	.main-nav {	margin-top: 30px;}
+	.col-sm-12.ex-head {padding-left: 0; padding-right: 30px;}
+	img.hexa-icon {max-width: 80px;top: -87px;}
+	.feature-well {min-height: 140px;}
+	.feature-well::before {border-left: 20px solid transparent; border-right: 20px solid transparent;border-top: 17px solid #000; width: 40px;}
+	.img-well {height: 210px;}
+	.caption { margin: 5px 0;   padding: 15px;   width: 100%;}
+	.caption-inner h4 {font-size: 15px;}
+	img.app-icons {width: 100%;}
+	.bottom-menu li { margin-bottom: 10px;}
+	.bottom-menu li a {font-size: 14px;}
+	.social li a {font-size: 19px;}
+	#page .navbar-brand img{margin-top:0px; max-width:64px;}
+	.page-fluid {padding-left: 15px;	padding-right: 15px;}
+	.item.list-group-item .captions {padding: 5px;	float: left;	width: 100%;}
+	.list-group-item-heading {font-size: 15px;	margin: 8px 0 5px;}
+	.user-areas > .img-sec {width: 73%;	float: left;}
+	.captions .share {margin-top: 10px;	width: 27%;}
+	.thumb {width: 100%;}
+	.featured-serv  .share-list li a {margin-bottom: 0;}
+	.feed, .btn-sec {float: left;	width: 100%;	text-align: center;}
+	.featured-serv .btn-sec{margin-top:10px;}
+	.featured-serv .btn-sec a{margin:10px 0;width: 95%;}
+	.tab-inner > .bottom-menu7  > ul > li > a img{max-width:37px;}
+	
+	
+	
+	
+}
+/* xs */
+@media (max-width: 767px) {
+	body {font-size: 12px;} p{font-size:12px!important;} .h2, h2 {font-size:18px!important;} h3 {font-size:16px!important;} .pad-xs-0{padding:0;} .hidden-xs{display:none;}
+	.main-nav {margin-top: 0;position: fixed;top: 0;width: 100%;z-index: 999999;}
+	#home-slider, #myslider2 {position: relative;min-height: 100vh;	float: left;	width: 100%;}
+	#home-bannerinner {	position: relative;	width: 100%;	left: 0;	bottom: 0;margin-top:94px;}
+	.navbar-brand img {max-width: 50px !important;	margin-top: -21px;}
+	#banner {margin-top: 53px;}
+	#home-bannerinner h1 {margin-top: 10px;	font-size: 19px;margin-bottom: 5px;}
+	.lp-banner-browse-txt {font-size: 9px;	margin-top: 0;}
+	.form-panel .form-group { margin-bottom: 15px;}
+	.form-panel .input-group .input-group-addon {border: none;	padding: 5px 12px; min-width:37px}
+	.cstm--checkbox {padding-top: 11px;	margin-left: -12px;	margin-top: -10px;}
+	.form-panel input{border:none;}
+	.caption-bottom {position: relative;	top: 19px;}
+	.navigation-main > li > a {padding: 5px 37px;}
+	.navigation-main {padding-top:25px;}
+	section {padding: 25px 0;float: left;	width: 100%;	clear: both;}
+	.featured-serv {margin-top: -70px;}
+	.featured-serv a {margin-bottom: 100px;	float: left;	width: 100%;}
+	.app-icons {float: left;	width: 100%;	margin-bottom: 45px;}
+	.foot-hd {margin-bottom: 15px;padding: 0;}	
+	.foot-hd a{background:#d68311; padding:2px 5px; color:#fff; cursor:pointer;}
+	.box-foot > div{padding:15px 0 0 0;}
+	.box-foot > div .bottom-menu{float:left; width:100%;}
+	.footer-bottom p{text-align:center;}
+	.scl-box {float: none !important;margin: 0 auto;text-align: center;}
+	#app-section::after, #footer::before {border:none;}
+	.footer-top {padding: 30px 0 0;}
+	.page-nav .navbar-header {width: 25%;float: left;}
+	.page-nav .navbar-right {float: left;	width: 85%;	padding-left: 30px;	margin: 0;}
+	#page .navbar-right li:first-child a {padding: 0 5px;}
+	#page .navbar-right li:first-child {max-width: 145px;	float: right;}
+	#page .navbar-right li ul {	position: absolute;	background: #ccc;	left: 0;	width: 100%;	max-width: 100%;	min-width: 100%;}
+	#page .navbar-right li ul li:first-child{max-width:100%; float:left;}
+	.page-fluid {padding-left: 15px;	padding-right: 15px;}
+	.mob-feature a {margin-bottom: 0;}
+	#page .navbar-brand img{margin-top:0px;}
+	.right-map iframe{float:left; width:100%;}
+	.item.list-group-item .captions {padding: 5px;	float: left;	width: 100%;}
+	.list-group-item-heading {font-size: 15px;	margin: 8px 0 5px;}
+	.user-areas > .img-sec {width: 73%;	float: left;}
+	.captions .share {margin-top: 10px;	width: 27%;}
+	.thumb {width: 100%;}
+	.featured-serv  .share-list li a {margin-bottom: 0;}
+	.feed, .btn-sec {float: left;	width: 100%;	text-align: center;}
+	.featured-serv .btn-sec{margin-top:10px;}
+	.featured-serv .btn-sec a{margin:10px 0;width: 95%;}
+	.profile-tabs li {float: left !important;	width: 22%; }
+	.profile-tabs li a{font-size:13px; padding:10px 5px;}
+	.profile-tabs li:nth-child(2){width: 34%;}
+	.profile-dash a img {max-width: 70px;}
+	.top-mapp, .top-mapp + .col-sm-12, .right-sidebar, .buss-time {float: left;	width: 100%;}
+	.members-list > li {width: 50%;}
+	.team-member img {max-width: 60px;}
+	.tabs-well {margin-top: 10px;padding: 15px 0;}
+	.catt-tab > li > a > img{display:none;}
+	.butt-select {background: #bc883f;padding: 10px 12px;	font-size: 15px;	color: #fff !important;	font-weight: 600;	border-radius: 3px;	cursor: pointer;margin-bottom:15px;}
+	.butt-select i{padding-top:5px; font-size:19px;}
+	.bottom-menu7 {position: absolute;	top: 100%;	left: 0;	width: 100%;	z-index: 1;	background: #ddd;}
+	.bottom-menu7 ul li a {font-size: 15px;	color: #333;padding: 1px 15px;text-align: left !important;}
+	.next-btn {position: relative;bottom: 0;	width: 100%;}
+	.custom-check2 {width: 100%;float: left;text-align: center;}
+	.custom-check2 img {float: none;}
+	.outer-bx::after {height: 103%;margin-bottom: 14px;left:0;width: 100%;}
+	.custom-check2 h4 {float: left;font-size: 14px;width: 100%;	margin-bottom: 12px;}
+	.custom-check2 > input {height: 100%;}
+	.btm-section {position: relative;	bottom: 0;}
+	.btm-section .btn{float:left; width:100%;}
+	.setup-content .ui-datepicker td, .setup-content .ui-datepicker th {font-size: 13px!important;	padding: 5px;}
+	.setup-content .ui-datepicker td a {width: auto;font-size: 13px;}
+	.time-boxes {width: 100%;	padding-left: 0;}
+	.time-list > li input[type="radio"] + span {padding: 6px 10px;}
+	.payment-panel ul li {padding: 0 5px;}
+	.payment-panel ul li a {font-size: 32px;}
+	#payment-form {padding: 0;}
+	.gallery-well{padding:15px;}
+	.gallery-well li {width: 50%;padding:10px;}
+	.rev-list .media-object {max-width: 100%;}
+	
+	
+}
+
+/* XS Portrait */
+@media (max-width: 479px) {
+  
+	
+}
+

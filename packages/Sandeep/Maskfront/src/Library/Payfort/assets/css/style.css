@@ -1,0 +1,112 @@
+.h-seperator{
+  width: 100%;
+  border-bottom: 2px dashed #C9D0E1;
+  margin: 2em auto 2em auto;
+  display: block;
+  padding: 0em;
+  opacity: .3;
+}
+.lead{
+  font-size: 1.1em;
+  color: #444;
+  font-weight: 700;
+  padding: 5px 2px 15px;
+  display: inline-block;
+  width: auto;
+}
+.icon-basket:before { content: '\e800'; } /* '' */
+.icon-tags:before { content: '\e801'; } /* '' */
+.icon-money:before { content: '\e802'; } /* '' */
+/*****************order info******************/
+.order-info{
+  width:100%;
+  border:1px solid #C9D0E1;
+  padding:3%;
+  margin: 2em auto;
+  border-radius:4px;
+  overflow: hidden;
+  color: #838F96;
+
+}
+.items{
+  width:80%;
+  height: auto;
+  float: left;
+
+}
+.items li{
+  font-size: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: .5em 3em;
+}
+.items .lead,
+.price .lead{
+  text-transform: uppercase;
+  padding: 0.5em .6em;
+}
+.price{
+  width: 20%;
+  height: auto;
+  float: left;
+}
+.price li{
+  margin: .5em 3em;
+  font-weight: 700;
+}
+
+/*****************actions******************/
+.actions{
+  width: 100%;
+  height: auto;
+  padding: 1em 0;
+  overflow: hidden;
+  margin:3em auto;
+}
+.actions a {
+    width: 80%;
+    padding: 1em .5em;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: .8em;
+    color: #fff;
+    margin: 0 auto;
+    text-transform: uppercase;
+    line-height: 1.4em;
+}
+.actions a:hover{
+  opacity: .9
+}
+.actions .back{
+  background: #fff;
+  color: #189D5B;
+  border:1px solid #189D5B
+}
+.actions .continue{
+  float: right;
+  background: #bc883f;
+}
+.actions .btm{
+  width: auto;
+  max-width: 300px;
+  float: none;
+  background: #189D5B;
+  text-align: center;
+  margin:auto;
+  padding: 1em 2em;
+}
+em.seperator{
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #b9c0c4;
+  padding-top:10px;
+}
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
