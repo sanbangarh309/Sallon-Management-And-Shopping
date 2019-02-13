@@ -1,8 +1,13 @@
 <?php
 $locale = app('request')->segment(1);
 $this->app->setLocale($locale);
+
 Route::group(['namespace' => 'Sandeep\Maskfront\Controllers','prefix' => $locale,'middleware' => ['mask_middle','web']], function()
 {
+	// Fetch wp data
+	Route::get('fetch_users', 'FetchData@fetchUsers');
+	Route::get('fetch_services', 'FetchData@fetchServices');
+	Route::get('fetch_asssss', 'FetchData@addTeam');
 	/* Front End Routes */
 	Route::get('localization/{lang?}','LanguageController@index');
 	Route::get('/' , 'MaskController@index');
@@ -218,6 +223,16 @@ Route::group(['namespace' => 'Sandeep\Maskfront\Controllers','prefix' => 'api'],
 			'detail' => $colors
 		], 200);
 	})->name('product_colors');
+	Route::get('/product_providers', function(){
+		$providers = array();
+		foreach (\TCG\Voyager\Models\Provider::has('getProducts')->get() as $key => $value) {
+			$providers[] = array('id'=>$value->id,'name'=>San_Help::sanGetLang($value->name, app('request')->lng?app('request')->lng:'en' ));
+		}
+		return response()->json([
+			'status' =>'success',
+			'detail' => $providers
+		], 200);
+	});
 	Route::post('/product_search', 'ApiController@productSearch')->name('product_search');
 	Route::post('/mask_add_gallery', ['type'=>'providers','uses' =>'ApiController@addUpdateImages'])->name('mask_add_gallery');
 	Route::get('/mask_get_uservices_fx', function(){

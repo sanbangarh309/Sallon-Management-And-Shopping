@@ -110,11 +110,11 @@
                 <blockquote>
                   <div class="row">
                     <div class="col-sm-12 text-center">
-                      <img class="img-circle" src="{{url('files/'.\App\User::find($review->user_id)->avatar)}}" style="width: 100px;height:100px;">
+                      <img class="img-circle" src="@if(\App\User::find($review->user_id)){{url('files/'.\App\User::find($review->user_id)->avatar)}}@else {{url('files/users/default.png')}} @endif" style="width: 100px;height:100px;">
                     </div>
                     <div class="col-sm-12 text-center">
                       <p>“{!!$review->review!!}”</p>
-                      <small>{{ \App\User::find($review->user_id)->name }}</small>
+                      <small>@if(\App\User::find($review->user_id)){{ \App\User::find($review->user_id)->name }}@endif</small>
                     </div>
                   </div>
                 </blockquote>

@@ -26,7 +26,11 @@
 		<div class="form-group filter_1 p-0">
 			<label>Select a color</label>
 			<ul class="list-inline colors-list">
-				<li class="black"><input name="color" class="custom-radio" type="radio"><label></label></li>
+				@foreach(config('maskfront.colors') as $color_name => $color_code)
+					<li class="{{trim($color_name)}}"><input name="color" class="custom-radio" onchange="searchProduct(this.value,'products','color','{{json_encode($_GET)}}')" @if(isset($_GET['clr']) && $_GET['clr'] == $color_name) checked="checked" @endif type="radio" value="{{$color_name}}"><label></label></li>
+					<!-- <option @if(isset($_GET['clr']) && $_GET['clr'] == $color_name) selected="selected" @endif value="{{$color_name}}">{{$color_name}}</option> -->
+				@endforeach
+				<!-- <li class="black"><input name="color" class="custom-radio" type="radio"><label></label></li>
 				<li class="green"><input name="color" class="custom-radio" type="radio"><label></label></li>
 				<li class="silver"><input name="color" class="custom-radio" type="radio"><label></label></li>
 				<li class="lime"><input name="color" class="custom-radio" type="radio"><label></label></li>
@@ -43,7 +47,7 @@
 				<li class="fuchsia"><input name="color" class="custom-radio" type="radio"><label></label></li>
 				<li class="aqua"><input name="color" class="custom-radio" type="radio"><label></label></li>
 				<li class="orange"><input name="color" class="custom-radio" type="radio"><label></label></li>
-				<li class="brown"><input name="color" class="custom-radio" type="radio"><label></label></li>
+				<li class="brown"><input name="color" class="custom-radio" type="radio"><label></label></li> -->
 			</ul>
 		</div>
 		<!--div class="form-group filter_1 p-0">

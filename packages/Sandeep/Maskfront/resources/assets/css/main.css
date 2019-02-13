@@ -3133,7 +3133,7 @@ main h1 {
 	box-shadow: 0 0 1px #ccc; 
 }
 .colors-list li.black input[type="radio"] + label{background:#000;}
-.selection-list li.green input[type="radio"] + label{background:#28a745;}
+.colors-list li.green input[type="radio"] + label{background:green;}
 .colors-list li.silver input[type="radio"] + label{background:#C0C0C0;}
 .colors-list li.lime input[type="radio"] + label{background:#BFFF00;}
 .colors-list li.gray input[type="radio"] + label{background:gray;}
@@ -3146,10 +3146,11 @@ main h1 {
 .colors-list li.blue input[type="radio"] + label{background:blue;}
 .colors-list li.purple input[type="radio"] + label{background:#6f42c1;}
 .colors-list li.teal input[type="radio"] + label{background:#20c997;}
-.colors-list li.fuchsia input[type="radio"] + label{background:#FF00FF;}
+.colors-list li.fuchsia input[type="radio"] + label{background:#FF77FF;}
 .colors-list li.aqua input[type="radio"] + label{background:#00FFFF;}
 .colors-list li.orange input[type="radio"] + label{background:#FF8000;}
 .colors-list li.brown input[type="radio"] + label{background:#A52A2A;}
+.colors-list li.pink input[type="radio"] + label{background:pink;} 
 
 .colors-list li input[type="radio"] + label::before {
 	content: "";

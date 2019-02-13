@@ -1512,7 +1512,7 @@ class ApiController extends Controller
       //   'assistants' => $services
       // ]);
       $order_summ['services'] = $services;
-      $order_summ['org_price'] = $price;
+      $order_summ['org_price'] = number_format($price, 2, '.', '');
       $order_summ['price'] = San_Help::moneyApi($price,$this->currency);
 
       $order_summ['date'] = $this->request->date_mask;
@@ -1526,11 +1526,12 @@ class ApiController extends Controller
         $msg = $this->sanApplyCoupon();
         if (!empty($msg)) {
           if ($msg['success'] == 1) {
-            $order_summ['price'] = (string) $price-$msg['discount'];
+            $order_summ['price'] = (string) San_Help::moneyApi($price-$msg['discount'],$this->currency);
             $order_summ['discount'] = $msg['discount'];
           }
         }
       }
+      // print_r(json_encode($order_summ));exit;
       return response()->json([
         'status' => 'success',
         'rewardpoint_balance' => $rewardpoint_balance,
@@ -2149,10 +2150,19 @@ class ApiController extends Controller
         }
         $query = $query->whereIn('id', $pro_ids);
       }
-      // Filter End
-      if ($this->request->has('provider_id')) {
-        $query->where('provider_id',$this->request->provider_id);
+      if ($this->request->has('minprice') && $this->request->has('maxprice')) {
+        $min = $this->request->minprice?$this->request->minprice:0;
+        $max = $this->request->maxprice;
+        if ($this->request->maxprice =='') {
+          $query = $query->where('price','>=', (int) $min);
+        }else{
+          $query = $query->whereBetween('price', [(int) $min,(int) $max]);
+        }
       }
+      if ($this->request->has('provider') && $this->request->provider !='') {
+        $query = $query->where('provider_id', $this->request->provider);
+      }
+
       if ($this->request->has('product_id')) {
         $product = $query->where('id',$this->request->product_id)->first();
         $newcolors = array();
@@ -2742,6 +2752,32 @@ class ApiController extends Controller
                       return $queryy->where('name', 'like', '%' . $x->pro_name . '%')
                           ->orWhereIn('category_id', $x->cids);
                   });
+      }
+
+      if ($this->request->clr != '' && $this->request->clr != '+') {
+        $pro_ids = array();
+        foreach ($query->get() as $p_key => $p_value) {
+          if ($p_value->color) {
+              $colors = explode(',', $p_value->color);
+              $colors = array_map('strtolower', $colors);
+              if (in_array(trim(strtolower($this->request->clr)), $colors)) {
+                  array_push($pro_ids,$p_value->id);
+              }
+          }
+        }
+        $query = $query->whereIn('id', $pro_ids);
+      }
+      if ($this->request->has('minprice') && $this->request->has('maxprice')) {
+        $min = $this->request->minprice?$this->request->minprice:0;
+        $max = $this->request->maxprice;
+        if ($this->request->maxprice =='') {
+          $query = $query->where('price','>=', (int) $min);
+        }else{
+          $query = $query->whereBetween('price', [(int) $min,(int) $max]);
+        }
+      }
+      if ($this->request->has('provider') && $this->request->provider !='') {
+        $query = $query->where('provider_id', $this->request->provider);
       }
 
       $data = $query->get();

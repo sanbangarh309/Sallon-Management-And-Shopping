@@ -115,7 +115,7 @@ class San_Help
 				return round($amount * $value, 2);
 			}
 		}
-		return $amount;
+		return number_format($amount, 2, '.', '');
 		// return new Money($amount, Self::currency($currency), $convert);
 	}
 
@@ -714,7 +714,6 @@ class San_Help
 						'relation' => $relation
 					);
 					\TCG\Voyager\Models\Reward::firstOrCreate($data);
-
 					$user = User::find($user_id);
 					if ($_data['rewardtype'] == 'credit') {
 						$user->rewardpoint_balance = $user->rewardpoint_balance+$total_rewards;
