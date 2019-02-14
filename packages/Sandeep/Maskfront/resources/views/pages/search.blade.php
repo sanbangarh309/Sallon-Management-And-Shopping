@@ -19,8 +19,8 @@
 @endif
 @endsection
 @section('main-content')
-<input type="hidden" value="https://mask-app.com/wp-content/plugins/activity_managment//public/assets/images/market.png" id="marker1">
-<input type="hidden" value="https://mask-app.com/wp-content/plugins/activity_managment//public/assets/images/market_light_80.png" id="marker2">
+<input type="hidden" value="{{url('files/market.png')}}" id="marker1">
+<input type="hidden" value="{{url('files/market_light_80.png')}}" id="marker2">
 <section id="search-result">
 	<input type="hidden" value='@if(isset($sallons) && !empty($sallons)){{json_encode($sallons)}}@endif' id="sallons_array">
 	<div class="container-fluid page-fluid">

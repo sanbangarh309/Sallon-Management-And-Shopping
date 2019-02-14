@@ -21,7 +21,7 @@ function initialize() {
     }catch(err){
     var location = locations;
     }
-    console.log(location);
+    // console.log(location);
     	var san_lat = location['0']['latitude'];
     	var san_long = location['0']['longitude'];
 

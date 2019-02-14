@@ -37,8 +37,6 @@ function searchProduct(id,type,search_type='',data){
 	if(search_type == 'seller'){
 		url = url+'&provider='+id;
 	}
-	console.log(fin_data);
-	console.log(url);
 	window.location.href = url;
 }
 /* Submit login using ajax */

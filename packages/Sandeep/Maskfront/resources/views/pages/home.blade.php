@@ -25,6 +25,7 @@
     <div class="col-sm-12 featured-serv pad-xs-0">
       <div class="row">
         @if(app('request')->segment(2) == 'shop')
+        @if(!$prods->isEmpty())
         @foreach($prods as $prod)
         <div class="col-sm-4 wow fadeInleft" data-wow-duration="500ms" data-wow-delay="150ms">
           <div class="well img-well img-well" style="background:url({{url('files/'.$prod->image)}})">
@@ -41,11 +42,6 @@
                     @endif
                     <li><span class="fa fa-star {{$selected}}"></span></li>
                     @endfor
-                    <!-- <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li> -->
                   </ul>
                 </div>
                 <div class="col-sm-12 pad-0">
@@ -56,7 +52,14 @@
           </div>
         </div>
         @endforeach
+        @else
+        <div class="col-sm-12 wow fadeInleft" data-wow-duration="500ms" data-wow-delay="150ms">
+            <h2 style="text-align:center">We are loading products..</h2>
+        </div>
+        @endif
+        @if(!$prods->isEmpty())
         <div class="home_read_more"><a href="{{url($locale.'/search?type=products&pr=&wr=')}}">See More</a></div>
+        @endif
         @else
         @foreach($sallons as $sallon)
         <div class="col-sm-4 wow fadeInleft" data-wow-duration="500ms" data-wow-delay="150ms">
@@ -89,7 +92,9 @@
           </div>
         </div>
         @endforeach
+        @if(!$sallons->isEmpty())
         <div class="home_read_more"><a href="{{url($locale.'/search?type=services&sr=&wr=')}}">See More</a></div>
+        @endif
         @endif
       </div>
     </div>

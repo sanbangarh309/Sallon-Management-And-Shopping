@@ -126,7 +126,7 @@ class MaskController extends Controller
     {
         $session_cart = array('temp_book_id','product_qty','product_color','product_id','provider_id','booking_type','bookid','reward_points','sids','aids','book_date','book_time','total_amnt','total_amount');
         $this->data['data'] = $this->request->session()->all();
-        // print_r($this->data['data']);exit;
+        // echo '<pre>';print_r($this->request->all());exit;
         if (isset($this->userId) && isset($this->data['data']['book_date'])) {
             if(isset($this->data['data']['product_id'])){
                 Cart::where('user_id',Auth::user()->id)->where('product_id',$this->data['data']['product_id'])->where('color',$this->data['data']['product_color'])->delete();
@@ -136,6 +136,11 @@ class MaskController extends Controller
             }
             foreach ($session_cart as $session_var) {
                 $this->request->session()->forget($session_var);
+            }
+            if($this->request->error_msg){
+                $this->request->session()->put('message', $this->request->error_msg);
+                $this->request->session()->put('alert-type', 'warning');
+                return redirect($this->data['locale'] . '/');
             }
             $this->data['cart_data'] = Cart::with('product')->where('user_id',$this->userId)->get();
             return View('maskFront::pages.thankyou', $this->data);
@@ -740,7 +745,7 @@ class MaskController extends Controller
 
     public function booking($id)
     {
-        // echo "<pre>";print_r($this->request->session()->all());exit;
+        // echo "<pre>";print_r($this->request->all());exit;
         if (! isset($this->request->tab)) {
             $this->request->session()->forget('sids');
             $this->request->session()->forget('aids');
@@ -2150,21 +2155,36 @@ class MaskController extends Controller
 
     function proceesRoute()
     {
-        // echo "<pre>";print_r($this->request->all());exit;
         if (! isset($this->request->r)) {
             die('Page Not Found!');
         }
-        $objFort = new \San_Payfort();
-        $objFort->language = $this->data['locale'];
-        if ($this->request->r == 'getPaymentPage') {
-            $objFort->processRequest($this->request->paymentMethod);
-        } elseif ($this->request->r == 'merchantPageReturn') {
-            $objFort->processMerchantPageResponse();
-        } elseif ($this->request->r == 'processResponse') {
-            $objFort->processResponse();
-        } else {
-            echo 'Page Not Found!';
-            exit();
+        if(isset($this->userId)){
+            $user = User::find($this->userId);
+            $sids = $this->request->session()->get('sids');
+            $ids = unserialize($sids);
+            $serarray = Service::whereIn('id',$ids)->pluck('name')->toArray();
+            $objFort = new \San_Payfort();
+            $objFort->language = $this->data['locale'];
+            $objFort->booking_id = $this->request->session()->get('temp_book_id');
+            $objFort->amount = $this->request->session()->get('total_amnt');
+            $objFort->itemName = $serarray ? implode(',',$serarray) : '';
+            // echo "<pre>";print_r($this->request->session()->all());exit;
+            $objFort->customerEmail = $user->email;
+            $objFort->customername = $user->name;
+            $objFort->sallon_link = url($this->data['locale'] . '/thankyou/' . $this->request->session()->get('pro_id'));
+            if ($this->request->r == 'getPaymentPage') {
+                $objFort->processRequest($this->request->paymentMethod);
+            } elseif ($this->request->r == 'merchantPageReturn') {
+                $objFort->processMerchantPageResponse();
+            } elseif ($this->request->r == 'processResponse') {
+                $objFort->processResponse();
+            } else {
+                echo 'Page Not Found!';
+                exit();
+            }
+        }else{
+            die('Page Not Found!');
         }
+        
     }
 }

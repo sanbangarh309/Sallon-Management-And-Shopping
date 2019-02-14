@@ -7,7 +7,7 @@ function getPaymentPage(paymentMethod) {
     }
     $.ajax({
        headers: {
-                'X-CSRF-TOKEN': $('#csrf_token').val()
+          'X-CSRF-TOKEN': $('#csrf_token').val()
        },
        url: url, 
        type: 'post',

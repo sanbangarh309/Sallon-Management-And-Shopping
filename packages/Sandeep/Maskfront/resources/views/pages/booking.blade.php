@@ -127,7 +127,7 @@ li.disabled{
 																				<ul class="sliding-window nav nav-tabs catt-tab" id="">
 																					@if(isset($cats))
 																					@foreach($cats as $key => $cat)
-																					<li class="@if($key == 0) active @endif"><a data-toggle="tab" href="#catt-{{$cat->id}}"><img src="@if(isset($cat->icon) && $cat->icon !=''){{url('files/'.$cat->icon)}} @else https://mask-app.com/wp-content/uploads/2018/09/spa.png @endif  " alt=""><span class="aside">@if(isset($cat->name)){!!San_Help::sanGetLang($cat->name)!!}@endif</span></a></li>
+																					<li class="@if($key == 0) active @endif"><a data-toggle="tab" href="#catt-{{$cat->id}}"><img src="@if(isset($cat->icon) && $cat->icon !=''){{url('files/'.$cat->icon)}} @else {{url('files/services/spa.png')}} @endif  " alt=""><span class="aside">@if(isset($cat->name)){!!San_Help::sanGetLang($cat->name)!!}@endif</span></a></li>
 																					@endforeach
 																					@endif
 																				</ul>
@@ -240,7 +240,7 @@ li.disabled{
 														<ul class="sliding-window nav nav-tabs catt-tab" id="">
 															@if(isset($cats))
 															@foreach($cats as $key => $cat)
-															<li class="@if($key == 0) active @endif"><a data-toggle="tab" href="#scatt-{{$cat->id}}"><img src="@if(isset($cat->icon) && $cat->icon !=''){{url('files/'.$cat->icon)}} @else https://mask-app.com/wp-content/uploads/2018/09/spa.png @endif  " alt=""><span class="aside">@if(isset($cat->name)){!!San_Help::sanGetLang($cat->name)!!}@endif</span></a></li>
+															<li class="@if($key == 0) active @endif"><a data-toggle="tab" href="#scatt-{{$cat->id}}"><img src="@if(isset($cat->icon) && $cat->icon !=''){{url('files/'.$cat->icon)}} @else {{url('files/services/spa.png')}} @endif  " alt=""><span class="aside">@if(isset($cat->name)){!!San_Help::sanGetLang($cat->name)!!}@endif</span></a></li>
 															@endforeach
 															@endif
 														</ul>

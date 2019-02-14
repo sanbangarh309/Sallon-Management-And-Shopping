@@ -10,6 +10,7 @@ use San_Help;
 use Illuminate\Support\Str;
 use TCG\Voyager\Models\Service;
 use TCG\Voyager\Models\Assistant;
+use TCG\Voyager\Models\Category;
 use TCG\Voyager\Models\Booking;
 use TCG\Voyager\Models\Review;
 use TCG\Voyager\Models\Provider;
@@ -22,7 +23,7 @@ class FetchData extends Controller
   function fetchUsers(){
     $login_detail = new \stdClass();
     $db_ext = DB::connection('mysql2');
-    $users = $db_ext->table('wp_users')->skip(801)->take(200)->get();
+    $users = $db_ext->table('wp_users')->skip(801)->take(100)->get();
     $role_id = '';
     $total_user = [];
     foreach ($users as $key => $user) {
@@ -97,10 +98,13 @@ class FetchData extends Controller
             // DB::table('user_roles')->insert(
             //   ['user_id' => $customuser->id, 'role_id' => $role_id]
             // );
-            $this->updateProfilePic($user->ID);
-            array_push($total_user,$user->ID);
+            
             $pro_count = 0;
             if ($role_id == 2) {
+              // echo '<pre>';print_r($user);
+        // echo '<pre>';print_r($userdata);
+              $this->fetchServices($user->ID);
+              array_push($total_user,$user->ID);
               // $this->addTeam($user->ID);
               // array_push($total_user,$user->ID);
               // $id = $this->addProvider(array_merge(array('san_user_id'=>$customuser->id),(array) $sallon, $sallonmeta, $userdata));
@@ -112,6 +116,8 @@ class FetchData extends Controller
               // $pro_count++;
             }
             if ($role_id == 3) {
+              // $this->updateProfilePic($user->ID);
+              // array_push($total_user,$user->ID);
               // $this->updateUser($user->ID);
               // array_push($total_user,$user->ID);
               // $this->addReview($user->user_email);
@@ -283,54 +289,70 @@ class FetchData extends Controller
     $db_ext = DB::connection('mysql2');
     $fin_arra = [];
     $user = User::where('wp_id',$id)->first();
-    $services = $db_ext->table('wp_posts')->where('post_type','sln_service')->where('post_author',$id)->where('post_status','publish')->get();
+    $sallon_id = $this->getUserMeta($id,'sallon_id');
+    $services = $db_ext->table('wp_posts')->where('post_type','sln_service')->where('post_status','publish')->get();
     $sercount = 1;
     foreach ($services as $key => $value) {
-      if (strpos($value->post_title, '[:en]') !== false) {
-        $name = str_replace("[:en]","",$value->post_title);
-        $name = str_replace("[:ar]",",",$name);
-        $name = str_replace("[:]","",$name);
-      }else{
-        $name = $value->post_title;
-      }
-      if (strpos($value->post_content, '[:en]') !== false) {
-        $content = str_replace("[:en]","",$value->post_content);
-        $content = str_replace("[:ar]",",",$content);
-        $content = str_replace("[:]","",$content);
-      }else{
-        $content = $value->post_content;
-      }
       $srmeta = $this->getPostMeta($value->ID);
-      // echo '<pre>'; print_r($services);
-      // echo '<pre>'; print_r($srmeta);exit;
-      if (isset($name) && $name != '') {
-        $ser = new Service();
-        $ser->name = $name;
-        // $ser->category_id = $this->request->category_id;
-        if (isset($srmeta['_sln_service_price'])) {
-          $ser->price = $srmeta['_sln_service_price'];
+      if(isset($srmeta['_service_sallon']) && $srmeta['_service_sallon'] !='' && $sallon_id == $srmeta['_service_sallon']){
+        if (strpos($value->post_title, '[:en]') !== false) {
+          $name = str_replace("[:en]","",$value->post_title);
+          $name = str_replace("[:ar]",",",$name);
+          $name = str_replace("[:]","",$name);
         }else{
-          $ser->price = 0;
+          $name = $value->post_title;
         }
-
-        $ser->description = $content;
-        if (isset($srmeta['_sln_service_unit']) && $srmeta['_sln_service_unit'] !='') {
-          $ser->per_hour = $srmeta['_sln_service_unit'];
+        $cids = Category::orderBy('id', 'desc')->whereNull('parent_id')->where('type', 'category')->where(function ($query) use($name) {
+          $query->where('name', 'like', '%' . $name . '%')->orWhere('slug', 'like', '%' . $name . '%');
+        })->pluck('id')->toArray();
+        $pserc = Category::whereNotNull('parent_id')->where('parent_id', end($cids))->where('type', 'category')->first();
+        // echo '<pre>';print_r($pserc->id);
+        if (strpos($value->post_content, '[:en]') !== false) {
+          $content = str_replace("[:en]","",$value->post_content);
+          $content = str_replace("[:ar]",",",$content);
+          $content = str_replace("[:]","",$content);
         }else{
-          $ser->per_hour = 0;
+          $content = $value->post_content;
         }
-        if (isset($srmeta['_sln_service_duration'])) {
-          $ser->duration = $srmeta['_sln_service_duration'];
-        }else{
-          $ser->duration = 0;
+        // echo '<pre>'; print_r($services);
+        // echo '<pre>'; print_r($srmeta);exit;
+        if (isset($name) && $name != '') {
+          $ser = new Service();
+          $ser->name = $name;
+          $ser->category_id = end($cids);
+          $ser->parent_service = isset($pserc->id) ? $pserc->id : null;
+          if (isset($srmeta['_sln_service_price'])) {
+            $ser->price = $srmeta['_sln_service_price'];
+          }else{
+            $ser->price = 0;
+          }
+  
+          $ser->description = $content;
+          if (isset($srmeta['_sln_service_unit']) && $srmeta['_sln_service_unit'] !='') {
+            $ser->per_hour = $srmeta['_sln_service_unit'];
+          }else{
+            $ser->per_hour = 0;
+          }
+          if (isset($srmeta['_sln_service_duration'])) {
+            $ser->duration = $srmeta['_sln_service_duration'];
+          }else{
+            $ser->duration = 0;
+          }
+          if(isset($srmeta['_thumbnail_id'])){
+            $thumbid = $srmeta['_thumbnail_id'];
+            $thumbmeta = $this->getPostMeta($thumbid);
+            if(isset($thumbmeta['_wp_attached_file']) && $thumbmeta['_wp_attached_file'] !=''){
+              $ser->image = $thumbmeta['_wp_attached_file'];
+            }
+          }
+          // $ser->parent_service = 
+          // $ser->parent_service = $this->request->parent_service;
+          $ser->provider_id = $user->id;
+          $ser->wp_id = $value->ID;
+          // echo '<pre>';print_r($ser);
+          $ser->save();
         }
-        // $ser->parent_service = $this->request->parent_service;
-        $ser->provider_id = $user->id;
-        $ser->wp_id = $value->ID;
-        $ser->save();
       }
-
-      // echo '<pre>';print_r($ser);
       $sercount++;
     }
   }
@@ -501,25 +523,43 @@ class FetchData extends Controller
 
   function updateProfilePic($id){
     $db_ext = DB::connection('mysql2');
-    // $wp_user = $db_ext->table('wp_users')->where('ID',$id)->first();
+    $wp_user = $db_ext->table('wp_users')->where('ID',$id)->first();
+    
       $orguser = User::where('wp_id',$id)->first();
+      // echo '<pre>';print_r($orguser);
       $umeta = $this->getUserMeta($id);
-      if ($orguser && isset($umeta['user_avatar'])) {
+      // && isset($umeta['user_avatar'])
+      if ($orguser) {
         // $attchmnt = $db_ext->table('wp_posts')->where('ID',$umeta['user_avatar'])->first();
-        $pmeta = $this->getPostMeta($umeta['user_avatar']);
-        if(isset($pmeta['_wp_attached_file']) && $pmeta['_wp_attached_file'] !=''){
-          $imgarr = explode('/',$pmeta['_wp_attached_file']);
-          if($orguser->role_id == 2){
-            $provider = Provider::find($orguser->id);
-            $provider->avatar = 'providers/February2019/'.end($imgarr);
-            $provider->save();
-          }else{
-            $orguser->avatar = 'users/February2019/'.end($imgarr);
+        echo '<pre>';print_r('user id:- ' .$id);
+        $sallon_id = $this->getUserMeta($id,'sallon_id');
+        // echo '<pre>';print_r($balance);
+        echo '<pre>';print_r('Sallon id:-  '.$sallon_id);
+        // if ($sallon_id) {
+        //   $sallonmeta = $this->getPostMeta($sallon_id);
+        //   if (isset($sallonmeta['kdmfi_featured-image-2'])) {
+        //     $sallon_image_id = $sallonmeta['kdmfi_featured-image-2'];
+        //     $sallonimage_meta = $this->getPostMeta($sallon_image_id);
+        //     if(isset($sallonimage_meta['_wp_attached_file']) && $sallonimage_meta['_wp_attached_file'] !=''){
+        //       $imgarr = explode('/',$sallonimage_meta['_wp_attached_file']);
+        //       if($orguser->role_id == 2){
+        //         $provider = Provider::find($orguser->id);
+        //         $provider->avatar = $sallonimage_meta['_wp_attached_file'];
+                
+        //         $provider->save();
+        //       }
+        //     }
+        //   }
+        // }
+
+        if(isset($umeta['user_avatar'])){
+          $pmeta = $this->getPostMeta($umeta['user_avatar']);
+          if(isset($pmeta['_wp_attached_file']) && $pmeta['_wp_attached_file'] !=''){
+            $orguser->avatar = $pmeta['_wp_attached_file'];
             $orguser->save();
           }
-          // echo '<pre>';print_r($orguser);
-          
         }
+        
       }
   }
 

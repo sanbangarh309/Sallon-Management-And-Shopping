@@ -13,14 +13,14 @@ class PayfortIntegration
     /**
      * @var string your Merchant Identifier account (mid)
      */
-    public $merchantIdentifier = 'AMWVZgXN';
-    // public $merchantIdentifier = 'OHimEBGV';
+    // public $merchantIdentifier = 'AMWVZgXN';
+    public $merchantIdentifier = 'OHimEBGV';
     
     /**
      * @var string your access code
      */
-    public $accessCode         = 'AJ0nLP8zk81phXcdGTYy';
-    // public $accessCode         = '5lMhqfXYGhRHBCT5vBH1';
+    // public $accessCode         = 'AJ0nLP8zk81phXcdGTYy';
+    public $accessCode         = '5lMhqfXYGhRHBCT5vBH1';
     
     /**
      * @var string SHA Request passphrase
@@ -73,6 +73,7 @@ class PayfortIntegration
      * @var boolean for live account change it to false
      */
     public $sandboxMode        = false;
+    public $sallon_link  = '';
     /**
      * @var string  project root folder
      * change it if the project is not on root folder.
@@ -82,12 +83,12 @@ class PayfortIntegration
     public function __construct()
     {
         session_start();
+        
         $this->booking_id = 1;//$_SESSION['SLN_Wrapper_Booking_Builderlast_id'];
-        $total = 123;//$_SESSION['SLN_Wrapper_Booking_Buildertotal'];
         $this->itemName = 'hair cut';//$_SESSION['SLN_Wrapper_Booking_Builder_des'];
         $this->customerEmail = 'sandeep.digittrix@gmail.com';//$_SESSION['SLN_Wrapper_Booking_Builde_cust_email'];
         $this->customername = 'sandeep';//$_SESSION['SLN_Wrapper_Booking_Builde_cust_name'];
-        $this->amount = $total;
+        $this->amount = '123';
     }
 
     public function processRequest($paymentMethod)
@@ -247,7 +248,7 @@ class PayfortIntegration
             $p = $params;
             $p['error_msg'] = $reason;
 
-            $_sallon_link = $_SESSION['SLN_Wrapper_sallon_link'];
+            $_sallon_link = $this->sallon_link;
             $p['tab'] = '_services';
             $p['sln_step_page'] = 'details';
             $p['submit_summary'] = '1';
@@ -358,8 +359,7 @@ class PayfortIntegration
             if(!$success) {
                 $p = $params;
                 $p['error_msg'] = $reason;
-
-                $_sallon_link = $_SESSION['SLN_Wrapper_sallon_link'];
+                $_sallon_link = $this->sallon_link;
                 $p['tab'] = '_services';
                 $p['sln_step_page'] = 'details';
                 $p['submit_summary'] = '1';
