@@ -118,7 +118,7 @@
                                   @foreach($products as $key => $product)
                                   <tr>
                                     <td height="36" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#666666; font-weight:bold;">{!!San_Help::sanGetLang($product->name,app('request')->segment(1))!!}</td>
-                                    <td height="36" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#666666; font-weight:bold;">{{$colors[$key]}}</td>
+                                    <td height="36" align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#666666; font-weight:bold;">@if(isset($colors[$key])){{$colors[$key]}}@endif</td>
                                   </tr>
                                   @endforeach
                                 </tbody>

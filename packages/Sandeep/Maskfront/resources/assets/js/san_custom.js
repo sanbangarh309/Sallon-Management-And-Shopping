@@ -2,7 +2,9 @@ $('#login_btnn').on( 'click', function( event ) {
 	$('#login-form').submit();
 });
 function searchProduct(id,type,search_type='',data){
-	var url = 'https://www.mask-app.org/en/search?type='+type;
+    var url = $('#ajax_url').val()+'/search?type='+type; 
+    // console.log(url);
+	// var url = 'https://mask-app.com/en/search?type='+type;
 	if(search_type == 'reset'){
 		window.location.href = url;
 		return;

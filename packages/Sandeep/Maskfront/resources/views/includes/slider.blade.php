@@ -13,7 +13,7 @@
   </div>
   <!-- ***** -->
   <div id="banner" class="visible-xs">
-    <img src="https://mask-app.com/wp-content/themes/mask-sallon/images/mobile_slider.jpg" class="img-responsive banner-img" alt="">
+    <img src="{{ San_Help::san_Asset('images/mobile_slider.jpg') }}" class="img-responsive banner-img" alt="">
   </div>
   @if($page !='business')
   <div id="home-bannerinner">

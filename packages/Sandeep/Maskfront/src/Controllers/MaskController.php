@@ -449,17 +449,22 @@ class MaskController extends Controller
                 $this->data['products'] = $this->data['products']->where('category_id', $this->request->pr);
             }
         }
-        if ($this->request->clr != '' && $this->request->clr != '+') {
-          $pro_ids = array();
-          foreach ($this->data['products']->get() as $p_key => $p_value) {
-            if ($p_value->color) {
-                $colors = explode(',', $p_value->color);
-                $colors = array_map('strtolower', $colors);
-                if (in_array(trim(strtolower($this->request->clr)), $colors)) {
-                    array_push($pro_ids,$p_value->id);
+        if ($this->request->type == 'products') {
+            $pro_ids = array();
+            $colors__ = array();
+            foreach ($this->data['products']->get() as $p_key => $p_value) {
+                if ($p_value->color) {
+                    $colors = explode(',', $p_value->color);
+                    $colors = array_map('strtolower', $colors);
+                    $colors__ = array_unique(array_merge($colors__,$colors));
+                    if (in_array(trim(strtolower($this->request->clr)), $colors)) {
+                        array_push($pro_ids,$p_value->id);
+                    }
                 }
             }
-          }
+        }
+        
+        if ($this->request->clr != '' && $this->request->clr != '+') {
           $this->data['products'] = $this->data['products']->whereIn('id', $pro_ids);
         }
         if ($this->request->has('price') && $this->request->price !='' && $this->request->type == 'products') {
@@ -534,7 +539,7 @@ class MaskController extends Controller
         }
         if ($this->request->type == 'products') {
           $this->data['products'] = $this->data['products']->get();
-          // print_r($this->data['products']->toSql());exit;
+          $this->data['products_colors'] = $colors__;
         }
         $this->data['business'] = Page::where('slug', 'business')->first();
         return View('maskFront::pages.search', $this->data);

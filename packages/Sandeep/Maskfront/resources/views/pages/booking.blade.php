@@ -315,12 +315,10 @@ li.disabled{
 																</ul>
 															</div>
 															<div class="btn-sec text-right">
-																<a href="https://www.mask-app.org/en/product/1" class="btn book-btn">Buy now</a>
+																<a href="{{url($locale.'/product/'.$product->id)}}" class="btn book-btn">Buy now</a>
 															</div>
 														</div>
 													</div>
-
-
 												</li>
 												<!-- <tr>
 												<td data-th="Image"><img style="width: 20%" src="@if(isset($product->image) && $product->image !=''){{url('files/'.$product->image)}} @endif  " alt=""></td>

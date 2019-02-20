@@ -225,28 +225,28 @@
                 <li class="plan_box">
                   <input class="membership_plan" type="radio" name="membership" value="134" checked="checked">
                   <span class="aside">
-                    <img src="https://mask-app.com/wp-content/uploads/2018/04/signup_icon04.png" class="plan_img"> <br>
+                    <img src="{{San_Help::san_Asset('images/signup_icon04.png')}}" class="plan_img"> <br>
                     Elite
                   </span>
                 </li>
                 <li class="plan_box">
                   <input class="membership_plan" type="radio" name="membership" value="135">
                   <span class="aside">
-                    <img src="https://mask-app.com/wp-content/uploads/2018/04/signup_icon03.png" class="plan_img"> <br>
+                    <img src="{{San_Help::san_Asset('images/signup_icon03.png')}}" class="plan_img"> <br>
                     Elegance
                   </span>
                 </li>
                 <li class="plan_box">
                   <input class="membership_plan" type="radio" name="membership" value="136">
                   <span class="aside">
-                    <img src="https://mask-app.com/wp-content/uploads/2018/04/signup_icon02.png" class="plan_img"> <br>
+                    <img src="{{San_Help::san_Asset('images/signup_icon02.png')}}" class="plan_img"> <br>
                     Standard
                   </span>
                 </li>
                 <li class="plan_box">
                   <input class="membership_plan" type="radio" name="membership" value="137">
                   <span class="aside">
-                    <img src="https://mask-app.com/wp-content/uploads/2018/04/signup_icon01.png" class="plan_img"> <br>
+                    <img src="{{San_Help::san_Asset('images/signup_icon01.png')}}" class="plan_img"> <br>
                     Free
                   </span>
                 </li>

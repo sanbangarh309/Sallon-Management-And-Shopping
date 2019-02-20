@@ -575,7 +575,7 @@
 	.close-hairline::before, .close-hairline::after {width: 60%;}
 	.modal-header .close {right: 0px;}
 	.modal h3.memyet {font-size: 17px !important;}
-	#services-pro .img-well {height:266px;}
+	#services-pro .img-well {height: 286px;}
 	.list-gutter li {font-size: 15px;flex: 0 0 100%;}
 	.business .smartgutter-one {margin-top: 0 !important;}
 	.main-nav::before{border:none;}
@@ -606,6 +606,11 @@
 	.search_products .filter_1 select {margin: 0 auto;}
 	.search_products .filter_1 {padding: 0;	text-align: center;}
 	.search_products .featured-serv .full_width_box {top: 30px;}
+	.owl-stage .owl-item .thumb {width: 100%;max-width: 100%;}
+	.cin-2 {display: flex;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-orient: vertical;-webkit-box-direction: normal;
+	-ms-flex-direction: column;	flex-direction: column;-webkit-box-align: center !important;-ms-flex-align: center !important;align-items: center !important;
+	height: 100%;padding-top: 45px;}
+	#services-pro .img-well {height: 286px;background-size: cover !important;}
 }
 
 /* XS Portrait */

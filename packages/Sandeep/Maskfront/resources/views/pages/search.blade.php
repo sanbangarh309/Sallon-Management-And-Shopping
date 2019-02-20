@@ -142,10 +142,12 @@
 															@if($type == 'products')
 															<div class="col-sm-12">
 																<div class="row">
+																@if(!$products->isEmpty())
 																	<div class="col-sm-3 col-md-2 left-filters">
 																		@include('maskFront::includes.product_filter')
 																	</div>
-																	<div class="col-sm-9 col-md-10">
+																@endif
+																	<div class="@if(!$products->isEmpty()) col-sm-9 @else col-sm-12 @endif col-md-10">
 																		<div class="row prod-item-list">
 																			@if(!$products->isEmpty())
 																			@foreach($products as $product)
@@ -201,7 +203,7 @@
 																			<li class="product_box" style="width: 100%;text-align:center">
 																				<div class="well pr-well">
 																					<div class="captions">
-																							No Product Found. Please Search Again
+																					<h2 style="text-align:center">We are loading products..</h2>
 																					</div>
 																				</div>
 																			</li>

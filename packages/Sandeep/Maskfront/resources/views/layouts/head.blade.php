@@ -211,7 +211,7 @@
  			</div>
  			@endif
  			@if($page =='dashboard')
- 			<div class="profile-dash" style="background:url(@if(isset($provider->banner) && $provider->banner !=''){{url('files/'.$provider->banner)}} @else https://mask-app.com/wp-content/uploads/2018/04/20130305-174142-1.jpg @endif)">
+ 			<div class="profile-dash" style="background:url(@if(isset($provider->banner) && $provider->banner !=''){{url('files/'.$provider->banner)}} @else ../images/mobile_slider.jpg @endif)">
  				<a href="#" type="button" class="btn banner_update" data-toggle="modal" data-target="#update_banner_Modal" title="Update Banner Image"><i class="fa fa-edit"></i></a>
  				<div class="container">
  					<div class="col-sm-12 texd-center pad-0">

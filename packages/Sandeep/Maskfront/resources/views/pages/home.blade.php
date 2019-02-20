@@ -77,11 +77,6 @@
                     @endif
                     <li><span class="fa fa-star {{$selected}}"></span></li>
                     @endfor
-                    <!-- <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li> -->
                   </ul>
                 </div>
                 <div class="col-sm-12 pad-0">
@@ -115,7 +110,7 @@
                 <blockquote>
                   <div class="row">
                     <div class="col-sm-12 text-center">
-                      <img class="img-circle" src="@if(\App\User::find($review->user_id)){{url('files/'.\App\User::find($review->user_id)->avatar)}}@else {{url('files/users/default.png')}} @endif" style="width: 100px;height:100px;">
+                      <img class="img-circle" src="@if(\App\User::find($review->user_id) && file_exists('files/'.\App\User::find($review->user_id)->avatar)){{url('files/'.\App\User::find($review->user_id)->avatar)}}@else {{url('files/users/default.png')}} @endif" style="width: 100px;height:100px;">
                     </div>
                     <div class="col-sm-12 text-center">
                       <p>“{!!$review->review!!}”</p>
