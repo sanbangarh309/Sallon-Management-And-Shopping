@@ -206,6 +206,7 @@ $(".time-btn").click(function(){
 //                     allok = 1;
 //                 }
 //                 if (allok == 0) {
+  
 //                     $('#guest_form').submit();
 //                 }
 //             }
@@ -215,6 +216,7 @@ $(".time-btn").click(function(){
 // });
 $('#add_guest').on('click', function(event){
   var err = 0;
+  // ajax_url
   var showalert = 0;
   var mandoryfields = ['fname','lname','guest_email','guest_mobile','guest_address','guest_pwd','guest_cpwd'];
   $.each(mandoryfields, function( index, value ) {
@@ -236,7 +238,29 @@ $('#add_guest').on('click', function(event){
     $('#guest_cpwd').removeClass('error_red');
   }
   if (err == 0) {
-    
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('#csrf_token').val()
+        },
+        type:'POST',
+        url:$('#ajax_url').val()+'/member_register',
+        data: $('#guest_form').serialize(),
+        success:function(data){
+          if (typeof data == 'string' || data instanceof String) {
+              $('#pay_msg_block').hide();
+              $('#pay_msg_block_success').show();
+              $('#pay_msg_block_success').text('User Registered Successfully..');
+              $('body').removeClass('modal-open');
+              setTimeout(function(){ window.location.href = data; }, 2000);
+          }else{
+              $('#pay_msg_block_success').hide();
+              $('#pay_msg_block').show();
+              $("#provider_register").animate({ scrollTop: 0 }, "slow");
+              $('#pay_msg_block').css("color", "red");
+              $('#pay_msg_block').text(data.message);
+          }
+        }
+    });
   }
   return false;
 });

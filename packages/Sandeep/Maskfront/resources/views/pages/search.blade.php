@@ -153,7 +153,11 @@
 																			@foreach($products as $product)
 																			<li class="product_box">
 																				<div class="well pr-well">
+																					@if(!$product->image)
+																					@php($img =  San_Help::san_Asset('images/not_available.jpg'))
+																					@else
 																					@php($img = url('files/'.$product->image))
+																					@endif
 																					<a href="{{route('product' ,$product->id)}}" class="product_image_link">
 																						<div class="thumb list-group-image item_thumb" style="background:url({{$img}})">
 																						</div>
@@ -161,10 +165,11 @@
 																					<div class="captions">
 																						<div class="col-sm-12 pad-0 user-areas">
 																							<div class="img-sec">
+																							   @if(isset($product->provider[0]))
 																								@php($img2 = url('files/'.$product->provider[0]->avatar))
-																								<img src="{{$img2}}" class="img-circle user-img">
-																								<h5>{!!San_Help::sanGetLang($product->name)!!}<span  class="small">{!!San_Help::sanGetLang($product->provider[0]->name)!!}</span></h5>
-
+																								@endif
+																								<img src="@if(isset($img2)){{$img2}}@endif" class="img-circle user-img">
+																								<h5>{!!San_Help::sanGetLang($product->name)!!}<span  class="small">@if(isset($product->provider[0])){!!San_Help::sanGetLang($product->provider[0]->name)!!}@endif</span></h5>
 																							</div>
 																							<div class="feed feed-outer">
 																								<ul class="list-inline rating-list">

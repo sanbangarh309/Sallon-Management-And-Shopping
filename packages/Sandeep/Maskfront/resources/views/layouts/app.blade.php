@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="@if(isset($locale)){{$locale}}@else en @endif">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mask Provides Sallons Management and ecommerce facilities">
-    <meta name="keywords" content="mask,sallon,hair products,massage,beauty">
-    <meta name="Robots" content="none">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @section('meta_tags')
+        @include('maskFront::layouts.meta')
+    @show
     <meta name="author" content="Sandeep Bangarh">
-    <title>MASK {{ucwords(str_replace("_"," ",$page))}}</title>
+    <!-- <title>MASK {{ucwords(str_replace("_"," ",$page))}}</title> -->
+    <title>Book Online with Mask | List Your Business Online In Riyadh | Mask</title>
+
     @section('style')
         @include('maskFront::layouts.style')
     @show
     @yield('custom_css')
  </head>
-<body class="{{$page}}">
+<body class="{{$page}} @if(isset($second_page)){{$second_page}}@endif">
     <div class="preloader">
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>

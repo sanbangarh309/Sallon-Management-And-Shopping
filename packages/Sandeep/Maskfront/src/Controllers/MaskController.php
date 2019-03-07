@@ -1496,7 +1496,7 @@ class MaskController extends Controller
             $ser->provider_id = $this->userId;
             $ser->save();
             $provider = Provider::find($this->userId);
-            if ($provider->service_ids != '') {
+            if ($provider && $provider->service_ids != '') {
                 $provider->service_ids = $provider->service_ids . ',' . $ser->id;
             } else {
                 $provider->service_ids = $ser->id;

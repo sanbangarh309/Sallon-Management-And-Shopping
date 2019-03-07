@@ -393,10 +393,14 @@ if (typeof DataTable === 'object'){
             }
         });
     }
-    if (availability_san != undefined) {
-        var avail_days = $.map(availability_san.days, function(value, index) {
-            return [index];
-        });
+	var avail_days = [];
+    if (availability_san != undefined && availability_san !='' && availability_san != null) {
+		if(availability_san.days){
+			avail_days = $.map(availability_san.days, function(value, index) {
+				return [index];
+			});
+		}
+        
         $.each(avail_days, function( index, value ) {
             $('#_sln_attendant_availabilities___new___days_'+value).prop('checked', true);
             // $( this ).prop('checked', true);
@@ -459,6 +463,7 @@ $('.edit_assistant').on('click',function(){
 $('.edit_services').on('click',function(){
     var id = $(this).data('id');
     if (!id) {
+		$('#servicee_form_add #edit_id').remove();
         $('h3#add_services').show();
         $('h3#edt_services').hide();
         $('button#add_service_btn').show();

@@ -13,7 +13,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if(!$provider->getBookings->isEmpty())
+		@if(isset($provider->getBookings) && !$provider->getBookings->isEmpty())
 		@foreach($provider->getBookings as $booking)
 		@if(trim($booking->status) == $status)
 		@php($user = \App\User::find($booking->user_id))

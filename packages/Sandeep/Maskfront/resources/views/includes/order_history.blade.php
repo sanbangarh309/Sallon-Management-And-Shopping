@@ -19,10 +19,12 @@
 			@php($pro_names = array())
 			@if($order->product_ids == null && $order->provider_id)
 				@php($id_data = unserialize($order->provider_id))
+				@if(isset($provider))
 				@foreach($id_data as $provider => $product)
 					@php($names = \TCG\Voyager\Models\Product::whereIn('id',$product)->pluck('name')->toArray())
 					@php(array_push($pro_names,\TCG\Voyager\Models\Provider::find($provider)->name))
 				@endforeach
+				@endif
 			@else
 				@php(array_push($names,\TCG\Voyager\Models\Product::find($order->product_ids)->name))
 				@php(array_push($pro_names,\TCG\Voyager\Models\Provider::find($order->provider_id)->name))

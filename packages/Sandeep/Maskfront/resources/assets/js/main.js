@@ -82,6 +82,11 @@ jQuery(function($) {
 				autoHideScrollbar:true,
 				theme:"rounded"
 			});
+			$("#content-7").mCustomScrollbar({
+				autoHideScrollbar:true,
+				theme:"rounded"
+			});
+			
 		}
 		
 	});
@@ -188,8 +193,16 @@ $(function () {
 		return this;
 
 	};
-
+	
 
 }(jQuery));
 
 $(".myParallax").parallax();
+ $(function () {
+	$(document).on("click", function (e) {
+			if ($(e.target).is("#navbar")==false&&$(e.target).is('.navbar-toggle')==false) {
+				$("#navbar").removeClass("in");
+			}
+	});
+});
+$("#navbar")

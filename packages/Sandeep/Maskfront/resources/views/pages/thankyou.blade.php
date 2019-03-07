@@ -100,7 +100,7 @@
                                                 @php($ass = \TCG\Voyager\Models\Service::whereIn('id',$sids)->get(array('name','price')))
                                                 @if(isset($ass) && !empty($ass))
                                                 @foreach($ass as $assss)
-                                                @php($total = $total + $assss->price)
+                                                @php($total = (float) $total + (float) $assss->price)
                                                 <li> <span class="service-label">{{$assss->name}}</span>
                                                     <small>({{San_Help::money($assss->price)}} {!!$currency!!})</small>
                                                 </li>

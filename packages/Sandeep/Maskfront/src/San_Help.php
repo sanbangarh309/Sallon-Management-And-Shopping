@@ -804,7 +804,7 @@ class San_Help
 								$_data['_booking_date'] = $_date;
 								$_data['_booking_time'] = $_time;
 								$_data['_services'] = $services_msg;
-								Self::sendSms($_data);
+								$res = Self::sendSms($_data);
 							}
 						}else{
 							$salon_data = \TCG\Voyager\Models\Provider::find($_sallon_id);
@@ -823,9 +823,9 @@ class San_Help
 							$_data['_booking_date'] = $_date;
 							$_data['_booking_time'] = $_time;
 							$_data['_services'] = $services_msg;
-							Self::sendSms($_data);
+							$res = Self::sendSms($_data);
 						}
-						return 'done';
+						return $res;
 					}
 
 				}
@@ -848,7 +848,7 @@ class San_Help
 			}
 			if($type=="new_register"){
 				$otp = $_data_rc['otp'];
-				$msg = urlencode('Hi, Please use this OTP to verify your number. '.$otp.' Thanks Mask Team');
+				$msg = 'Hi, Please use this OTP to verify your number. '.$otp.' Thanks Mask Team';
 			}
 			if($type=="booking_accepted" || $type=="booking_rejected" || $type=="booking_canceled" || $type=="new_booking" || $type=="new_order"){
 				$_sallon_name = $_data_rc['_sallon_name'];
@@ -856,29 +856,29 @@ class San_Help
 				$_time = $_data_rc['_booking_time'];
 				$services_msg = $_data_rc['_services'];
 				if($type=="booking_accepted"){
-					$msg = urlencode('Hi Your Booking has been Accepted by '.$_sallon_name.' for the '.$services_msg.', '.$_date.' '.$_time.'. Thanks Mask Team');
+					$msg = 'Hi Your Booking has been Accepted by '.$_sallon_name.' for the '.$services_msg.', '.$_date.' '.$_time.'. Thanks Mask Team';
 				}
 				if($type=="booking_rejected"){
-					$msg = urlencode('Hi, We apologise for inconvenience your booking has been rejected by '.$_sallon_name.' for the '.$services_msg.', '.$_date.' on '.$_time.'. Thanks Mask Team');
+					$msg = 'Hi, We apologise for inconvenience your booking has been rejected by '.$_sallon_name.' for the '.$services_msg.', '.$_date.' on '.$_time.'. Thanks Mask Team';
 				}
 				if($type=="booking_canceled"){
 					$_user_id = $_data_rc['booking_user_id'];
 					$_user_name = User::find($_user_id)->name;
-					$msg = urlencode('Hi, We apologise for inconvenience your booking has been cancelled by '.$_user_name.' for the '.$services_msg.', '.$_date.' on '.$_time.'. Thanks Mask Team');
+					$msg = 'Hi, We apologise for inconvenience your booking has been cancelled by '.$_user_name.' for the '.$services_msg.', '.$_date.' on '.$_time.'. Thanks Mask Team';
 				}
 				if($type=="new_booking"){
 					$_user_id = $_data_rc['booking_user_id'];
 					$_user_name = User::find($_user_id)->name;
-					$msg = urlencode('Hi, New Booking Received By '.$_user_name.' for '.$_date.' on '.$_time.' for '.$services_msg.', Please accept/reject. Thanks Mask Team');
+					$msg = 'Hi, New Booking Received By '.$_user_name.' for '.$_date.' on '.$_time.' for '.$services_msg.', Please accept/reject. Thanks Mask Team';
 				}
 			}
 			// 'sid' => 'MASKIT',
 			if ($msg !='') {
 				$fields = array(
-					'user' => 'user',
-					'password' =>'password',
+					'user' => '',
+					'password' =>'',
 					'msisdn' => $contact_number,
-					'sid' => 'sid',
+					'sid' => '',
 					'msg' => $msg,
 					'fl' => 0,
 					'dc' => 8

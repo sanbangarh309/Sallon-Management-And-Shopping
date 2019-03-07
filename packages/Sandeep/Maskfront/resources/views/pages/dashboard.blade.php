@@ -54,14 +54,14 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                 <div class="outer_div">
                   <div class="col-sm-12 pad-xs-0 outer-gutterbx">
                     <div class="col-sm-12 pad-0 profile-edittr">
-                      <div class="col-xs-9 pad-0">
-                        <h3>@if(isset($provider->name)){{$provider->name}}@endif<span class="aside"></span></h3>
-                        <p>@if(isset($provider->description)){!!$provider->description!!}@endif</p>
-                      </div>
-                      <div class="col-xs-2 col-xs-offset-1 add_team_div pad-0">
-                        <h5 style="text-align: center;">Wallet Amount<span class="aside">{{Auth::user()->rewardpoint_balance}}SAR</span></h5>
-                        <a href="#" type="button" class="btn" data-toggle="modal" style="width: 153px;" data-target="#update_des_Modal">{!!San_Help::sanLang('Withdraw Wallet')!!}</a>
-                      </div>
+						  <div class="col-sm-3 pad-0">
+							<h3>@if(isset($provider->name)){{$provider->name}}@endif<span class="aside"></span></h3>
+							<p>@if(isset($provider->description)){!!$provider->description!!}@endif</p>
+						  </div>
+						  <div class="col-sm-9 add_team_div flex_box pad-0 text-right">
+							<h5>Wallet Amount<span class="aside">{{Auth::user()->rewardpoint_balance}}SAR</span></h5>
+							<a href="#" type="button" class="btn" data-toggle="modal" style="width: 153px;" data-target="#update_des_Modal">{!!San_Help::sanLang('Withdraw Wallet')!!}</a>
+						  </div>
                     </div>
                     <div class="add_team_div">
                       <h3>{!!San_Help::sanLang('Our Team')!!}</h3>
@@ -69,9 +69,30 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                     </div>
                     @if(isset($provider->getAssistants))
                     <div class="col-sm-12 pad-xs-0 products-gutterbx">
-                      <div class="table-responsive">
-                        <table class="product-table" id="profile_table">
-                          <thead>
+                      <div class="table-responsives col-xs-12 pad-0">
+						<div class="col-md-12 team-members list-servicesbox">
+							<div class="col-md-8 content" id="content-7">
+								<ol class="list-inline verticle-list">
+									@if(!$provider->getAssistants->isEmpty())
+									@foreach($provider->getAssistants as $assistant)
+									<li>
+										<span class="product-fig" style="background:url(@if(isset($assistant->image) && $assistant->image !=''){{url('files/'.$assistant->image)}} @else {{ San_Help::san_Asset('images/user-img.jpg') }} @endif)"></span>
+										  <div class="serv-info">
+											  @if(isset($assistant->name)){{$assistant->name}}@endif
+										  </div>
+										  <div class="right_buttons">
+											  <a href="javascript:void(0)" class="edit-item edit_assistant" data-id="{{$assistant->id}}" data-sids="{{json_encode(unserialize($assistant->service_ids))}}" data-name="{{$assistant->name}}" title="Edit Assistant">Edit</a>
+										  </div>
+									</li>
+									@endforeach
+									@else
+										<li><div class="no-data">No Team Members Added Yet ,<a href="javascript:void(0)" type="button" class="btn edit_assistant">Click Here</a> To Add Team Member</div><li>
+									@endif 
+								</ol>
+							</div>
+						</div>
+                       <!-- <table class="product-table" id="profile_table">
+							<thead>
                             <tr>
                               <th class="item-image">Image</th>
                               <th class="item-name">Name</th>
@@ -86,7 +107,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                               <td><div class="product-fig" style="background:url(@if(isset($assistant->image) && $assistant->image !=''){{url('files/'.$assistant->image)}} @else {{ San_Help::san_Asset('images/user-img.jpg') }} @endif)"></div></td>
                               <td>@if(isset($assistant->name)){{$assistant->name}}@endif</td>
                               <td><a href="javascript:void(0)" class="edit-item edit_assistant" data-id="{{$assistant->id}}" data-sids="{{json_encode(unserialize($assistant->service_ids))}}" data-name="{{$assistant->name}}" title="Edit Assistant">Edit</a></td>
-                              <td><a href="{{url($locale.'/del_ass/'.$assistant->id)}}" class="delete-item">×</a></td>
+                              <td></td>
                             </tr>
                             @endforeach
                             @else
@@ -95,7 +116,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                             </tr>
                             @endif
                           </tbody>
-                        </table>
+                        </table>-->
                       </div>
                     </div>
                     @else
@@ -268,13 +289,15 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
       <a href="#" type="button" class="btn" data-toggle="modal" data-target="#update_gallary_images">Add Images</a>
     </div>
     <div class="col-sm-12 pad-0">
+    <?php //echo '<pre>';print_r($provider->provider_images);exit; ?>
       <div class="well gallery-well">
-        <ul class="list-inline hair-list">
+        <ul class="list-inline hair-list" id="content-7">
           @isset($provider->provider_images)
           @foreach($provider->provider_images as $provider_image)
           @php($img = url('files/'.$provider_image->filename))
           <li>
             <a href="javascript:void(0)" class="hair-style">
+              <div class="cross_mark"><a href="javascript:void(0)" class="cross_mark_" data-id="{{$provider_image->id}}"><i class="fa fa-trash fa-lg"></i></a></div>
               <div class="hair-image" style="background:url({{$img}})"></div>
             </a>
           </li>
@@ -289,10 +312,10 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
       <h3 style="text-align: center;">My Services</h3>
       <a href="#" type="button" class="btn edit_services">Add Service</a>
     </div>
-    @if($provider->getServices)
+    @if(isset($provider->getServices) && $provider->getServices)
     <div class="col-sm-12 pad-xs-0 products-gutterbx">
-      <div class="table-responsive">
-        <table class="product-table" id="service_table">
+      <div class="table-responsives col-xs-12 pad-0">
+        <!-- <table class="product-table" id="service_table">
           <thead>
             <tr>
               <th class="item-image">Image</th>
@@ -304,14 +327,33 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
           <tbody>
             @foreach($provider->getServices as $service)
             <tr>
-              <td><div class="product-fig" style="background:url(@if(isset($service->image) && $service->image !=''){{url('files/'.$service->image)}} @else {{ San_Help::san_Asset('images/user-img.jpg') }} @endif)"></div></td>
-              <td>@if(isset($service->name)){!!San_Help::sanGetLang($service->name,$locale)!!}@endif</td>
-              <td><a href="javascript:void(0)" data-id="{{$service->id}}" class="edit-item edit_services" data-service="{{json_encode($service)}}" title="Edit Service">Edit</a></td>
-              <td><a href="{{url($locale.'/del_ser/'.$service->id)}}" class="delete-item">×</a></td>
+              <td><</td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             @endforeach
           </tbody>
-        </table>
+        </table> -->
+
+        <div class="col-sm-12 list-servicesbox">
+            <div class="col-md-8 content"  id="content-6">
+              <ol class="list-inline verticle-list">
+              @foreach($provider->getServices as $service)
+                  <li>
+                      <span class="product-fig" style="background:url(@if(isset($service->image) && $service->image !=''){{url('files/'.$service->image)}} @else {{ San_Help::san_Asset('images/user-img.jpg') }} @endif)"></span>
+                      <div class="serv-info">
+                          <p>@if(isset($service->name)){!!San_Help::sanGetLang($service->name,$locale)!!}@endif</p>
+                      </div>
+                      <div class="right_buttons">
+                          <a href="javascript:void(0)" data-id="{{$service->id}}" class="edit-item edit_services" data-service="{{json_encode($service)}}" title="Edit Service">Edit</a>
+                           <a href="{{url($locale.'/del_ser/'.$service->id)}}" class="delete-item">×</a>
+                      </div>
+                  </li>
+                  @endforeach
+              </ol>
+            </div>
+        </div>
       </div>
     </div>
     @else
@@ -525,13 +567,28 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="{{ San_Help::san_Asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script src="{{ San_Help::san_Asset('js/userdetail.js') }}"></script>
+
 <script type="text/javascript">
 function showReplyWindow(id,reply){
   $('#new-review-formm #reply_on').val(id);
   $('#new-review-formm #review_body').val(reply);
   $('#leave_feedback').modal('show');
 }
+
+$('.cross_mark_').on('click',function(e){
+  e.preventDefault();
+  alert($(this).data('id'))
+})
+$("#content-6").mCustomScrollbar({
+		autoHideScrollbar:true,
+		theme:"rounded"
+});
+$("#content-7").mCustomScrollbar({
+		autoHideScrollbar:true,
+		theme:"rounded"
+});
 </script>
 @endpush
 @endsection

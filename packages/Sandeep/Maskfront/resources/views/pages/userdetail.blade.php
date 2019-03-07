@@ -120,7 +120,7 @@
                     <div role="tabpanel" class="tab-pane sln-salon-my-account-tab-pane" id="dmnd_hstry">
                       <div class="col-sm-12 pad-0 blk-gutter">
                         <div class="rewards_info">
-                          <div id="diamonds_history_wrapper" class="dataTables_wrapper">
+                          <div id="diamonds_history_wrapper" class="dataTables_wrapper table-responsive">
                             <table id="diamonds_history" class="hover dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="diamonds_history_info" style="width: 100%;">
                               <thead>
                                 <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="diamonds_history" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Booking ID: activate to sort column descending" style="width: 0px;">{!!San_Help::sanLang('Booking ID')!!}</th><th class="sorting" tabindex="0" aria-controls="diamonds_history" rowspan="1" colspan="1" aria-label="Jewelries: activate to sort column ascending" style="width: 0px;">{!!San_Help::sanLang('Jewelries')!!}</th><th class="sorting" tabindex="0" aria-controls="diamonds_history" rowspan="1" colspan="1" aria-label="Credit/Debit: activate to sort column ascending" style="width: 0px;">{!!San_Help::sanLang('Credit/Debit')!!}</th><th class="sorting" tabindex="0" aria-controls="diamonds_history" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 0px;">{!!San_Help::sanLang('Type')!!}</th><th class="sorting" tabindex="0" aria-controls="diamonds_history" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 0px;">{!!San_Help::sanLang('Date')!!}</th></tr>
@@ -163,7 +163,7 @@
                       </div>
                       <div role="tabpanel" class="tab-pane sln-salon-my-account-tab-pane" id="new">
                         <p class="hint">{!!San_Help::sanLang("Here you have your next reservations with us, pay attention to the 'pending' reservations")!!}</p>
-                        <div id="san_canceled_bookings" class="dataTables_wrapper no-footer">
+                        <div id="san_canceled_bookings" class="dataTables_wrapper no-footer table-responsive">
                           @include('maskFront::includes.user_bookings')
                         </div>
                         <br>
@@ -177,7 +177,7 @@
                       </div>
                       <div role="tabpanel" class="tab-pane sln-salon-my-account-tab-pane" id="old">
                         <p class="hint">{!!San_Help::sanLang('Here you have your past reservations, you can submit a review or re-schedule an appointment')!!}</p>
-                        <div id="sln-salon-my-account-history-content">
+                        <div id="sln-salon-my-account-history-content" class="table-responsive">
                           <table class="table">
                             <thead>
                               <tr>
@@ -238,7 +238,7 @@
 
                       <!-- Order History -->
                       <div role="tabpanel" class="tab-pane sln-salon-my-account-tab-pane" id="order_history">
-                        <div id="sln-salon-my-account-history-content" class="order_history_tab">
+                        <div id="sln-salon-my-account-history-content" class="order_history_tab table-responsive">
                           @include('maskFront::includes.order_history')
                         </div>
                       </div>

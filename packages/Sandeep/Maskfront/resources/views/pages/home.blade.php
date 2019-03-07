@@ -1,4 +1,5 @@
 @php($page = 'home')
+@php($second_page = 'shop')
 @extends('maskFront::layouts.app')
 @section('main-content')
 <section id="featured-service">
@@ -27,8 +28,13 @@
         @if(app('request')->segment(2) == 'shop')
         @if(!$prods->isEmpty())
         @foreach($prods as $prod)
+        @if(!$prod->image)
+						@php($img =  San_Help::san_Asset('images/not_available.jpg'))
+				@else
+						@php($img = url('files/'.$prod->image))
+				@endif
         <div class="col-sm-4 wow fadeInleft" data-wow-duration="500ms" data-wow-delay="150ms">
-          <div class="well img-well img-well" style="background:url({{url('files/'.$prod->image)}})">
+          <div class="well img-well img-well" style="background:url({{$img}})">
             <div class="fig-overlay"></div>
             <div class="caption">
               <div class="caption-inner cin-2">
@@ -62,8 +68,13 @@
         @endif
         @else
         @foreach($sallons as $sallon)
+        @if(!$sallon->avatar)
+						@php($img =  San_Help::san_Asset('images/not_available.jpg'))
+				@else
+						@php($img = url('files/'.$sallon->avatar))
+				@endif
         <div class="col-sm-4 wow fadeInleft" data-wow-duration="500ms" data-wow-delay="150ms">
-          <div class="well img-well img-well" style="background:url({{url('files/'.$sallon->avatar)}})">
+          <div class="well img-well img-well" style="background:url({{$img}})">
             <div class="fig-overlay"></div>
             <div class="caption">
               <div class="caption-inner cin-2">

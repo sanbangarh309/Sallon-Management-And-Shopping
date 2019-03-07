@@ -6,6 +6,14 @@
 	#guest_form select.error_red {
 		border: 1px solid red !important;
 	}
+	#pay_msg_block{
+		text-align: center;
+	}
+
+	#pay_msg_block_success{
+		text-align: center;
+	}
+	
 </style>
 @php($cntries = \Sandeep\Maskfront\Models\Country::all())
 <div class="panel payment-panel">

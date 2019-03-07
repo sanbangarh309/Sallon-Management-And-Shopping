@@ -288,4 +288,15 @@ Route::get('/chk_currency',function(){
 	echo '<pre>';print_r($data);exit;
 	return response()->json('mail sent');
 });
+
+Route::get('/test_sms',function(){
+	$data_sms = array(
+		'type' => 'new_register',
+		'contact_number' => 919896747812,
+		'otp' => 12345
+	);
+	$res = San_Help::sanSendSms($data_sms);
+	return response()->json($res);
+	
+})
 ?>

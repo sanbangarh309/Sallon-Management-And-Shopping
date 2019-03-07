@@ -1452,3 +1452,42 @@ Array
 
 Card expired
 
+========================================================
+
+Fort Merchant Page Request Parameters 
+Array
+(
+    [merchant_identifier] => OHimEBGV
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [merchant_reference] => 994484664
+    [service_command] => TOKENIZATION
+    [language] => en
+    [return_url] => https://mask-app.com/en/payment?r=merchantPageReturn
+    [signature] => 0bc9a7e1b770fc7d115048e777c55c900ef77dab0521c186548550d1e0ab3e4977f70922374916467d845869b7869114252d9f90fa6bfc76d5ccbd25d8252a13
+)
+
+
+========================================================
+
+Fort Merchant Page Response Parameters 
+Array
+(
+    [r] => merchantPageReturn
+    [response_code] => 00012
+    [service_command] => TOKENIZATION
+    [response_message] => Card expired
+    [signature] => b2e6beb7f82c8ffad9ed4e82588013c53c6a069ceece01de1c4563bef10d76cbd5f561e27e0c6edded701168783c6624b487e5d58926d13ce576049312696ad9
+    [merchant_identifier] => OHimEBGV
+    [merchant_reference] => 994484664
+    [access_code] => 5lMhqfXYGhRHBCT5vBH1
+    [expiry_date] => 1901
+    [return_url] => https://mask-app.com/en/payment?r=merchantPageReturn
+    [language] => en
+    [status] => 00
+)
+
+
+========================================================
+
+Card expired
+

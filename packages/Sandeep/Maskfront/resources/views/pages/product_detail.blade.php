@@ -39,25 +39,27 @@
 					</div>
 				</div>
 				<div class="col-sm-5 right-prods">
+				
 					<form role="form" action="{{url($locale.'/postbook/'.$product->id.'?tab=summary')}}" method="POST" id="product_form">
 						{{ csrf_field() }}
 						<input type="hidden" name="product_id" value="{{$product->id}}">
 						<input type="hidden" name="price" value="{{$product->price}}">
 						<input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
-						<h5>{!!San_Help::sanGetLang($product->category[0]->name,$locale)!!}</h5>
+						<h5>@if(!$product->category->isEmpty()){!!San_Help::sanGetLang($product->category[0]->name,$locale)!!}@endif</h5>
 						<h1 class="product-title">{!!San_Help::sanGetLang($product->name,$locale)!!}</h1>
 						<!-- <p class="pro-content"> {!!$product->description!!}</p> -->
 						<div class="pro-author">
 							<ul class="list-inline brand-seller">
 								<li>
-									<a href="{{url($locale.'/booking/'.$product->provider[0]->id.'?tab=profile')}}" class="seller-image"><img src="{{url('files/'.$product->provider[0]->avatar)}}" class="b-img"></a>
+									<a href="@if(!$product->provider->isEmpty()){{url($locale.'/booking/'.$product->provider[0]->id.'?tab=profile')}}@endif" class="seller-image"><img src="@if(!$product->provider->isEmpty()){{url('files/'.$product->provider[0]->avatar)}}@endif" class="b-img"></a>
 								</li>
 								<li>by</li>
 								<li>
-									<a href="{{url($locale.'/booking/'.$product->provider[0]->id.'?tab=profile')}}" class="seller-link">@if(!$product->provider->isEmpty()){!!San_Help::sanGetLang($product->provider[0]->name,$locale)!!}@endif</a>
+									<a href="@if(!$product->provider->isEmpty()){{url($locale.'/booking/'.$product->provider[0]->id.'?tab=profile')}}@endif" class="seller-link">@if(!$product->provider->isEmpty() && isset($product->provider[0])){!!San_Help::sanGetLang($product->provider[0]->name,$locale)!!}@endif</a>
 								</li>
 							</ul>
 						</div>
+						
 						<div class="ratings-box">
 							<ul class="list-inline rate-feedback">
 								@for ($i = 1; $i <= 5; $i ++)

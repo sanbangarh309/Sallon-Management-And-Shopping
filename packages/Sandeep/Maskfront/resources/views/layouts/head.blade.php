@@ -17,7 +17,8 @@
  					<h1><img class="img-responsive" src="{{ San_Help::san_Asset('images/logo.png') }}" alt="logo"></h1>
  				</a>
 				<div class="cart-ob visible-xs">
-					<a href="javascript:void(0)" style="background:none;" class="open_shpng_cart"><i class="fa fa-shopping-cart"></i><sup class="badge"></sup></a>
+					<a href="javascript:void(0)" class="open_shpng_cart" style="background:none;"><i class="fa fa-shopping-cart"></i><sup class="badge">@if(Auth::check()){{\TCG\Voyager\Models\Cart::where('user_id',Auth::user()->id)->count()}}@endif</sup></a>
+					<!--<a href="javascript:void(0)" style="background:none;" class="open_shpng_cart"><i class="fa fa-shopping-cart"></i><sup class="badge"></sup></a> -->
 				</div>
  				<div class="page-search pull-left hidden-xs hidden-sm">
  					<div class="panel form-panel search-block">
@@ -30,7 +31,7 @@
  												<span class="input-helper-addon"><i class="fa fa-search"></i></span>
  												@if(isset($type) && $type == 'services')
  												<input type="hidden" name="type" value="services">
- 												<input class="form-control" list="serv_cats" placeholder="{!!San_Help::sanLang('Search Services')!!}" name="sr"type="text" value="@if(isset($_GET['sr']) && ! is_numeric($_GET['sr'])){{$_GET['sr']}} @endif">
+ 												<input class="form-control" list="serv_cats" placeholder="{!!San_Help::sanLang('Search Services')!!}" name="sr" type="text" value="@if(isset($_GET['sr']) && ! is_numeric($_GET['sr'])){{$_GET['sr']}} @endif">
  												<datalist id="serv_cats">
  													@foreach($services as $service)
  													<option data-id="{{ $service->id }}" value="{!!San_Help::sanGetLang($service->name)!!}">
@@ -118,7 +119,7 @@
 									<div class="btn-group cst-group lang-select">
 										<select id="currency_chooser">
 											@foreach(config('money') as $name => $currency)
-											<option @if(session()->get('currency') == $name) selected="selected" @endif value="{{url($locale.'/set_currency/'.$name)}}">{{$name.'('.$currency['symbol'].')'}}</option>
+											<option @if(session()->get('currency') == $name) selected="selected" @endif value="{{url($locale.'/set_currency/'.$name)}}">{{$name}}</option>
 											@endforeach
 										</select>
 										<i class="fa fa-angle-down"></i>
@@ -197,7 +198,7 @@
 									<div class="btn-group cst-group lang-select">
 										<select id="currency_chooser">
 											@foreach(config('money') as $name => $currency)
-											<option @if(session()->get('currency') == $name) selected="selected" @endif value="{{url($locale.'/set_currency/'.$name)}}">{{$name.'('.$currency['symbol'].')'}}</option>
+											<option @if(session()->get('currency') == $name) selected="selected" @endif value="{{url($locale.'/set_currency/'.$name)}}">{{$name}}</option>
 											@endforeach
 										</select>
 										<i class="fa fa-angle-down"></i>
@@ -223,7 +224,7 @@
  							<ul class="list-inline rating-list">
  								@for ($i = 1; $i <= 5; $i ++)
 									@php($selected = "")
-									@if (!$provider->reviews->isEmpty() && $i <= $provider->reviews->avg('rating'))
+									@if (isset($provider->reviews) && !$provider->reviews->isEmpty() && $i <= $provider->reviews->avg('rating'))
 										@php($selected = "checked")
 									@endif
 									<li><span class="fa fa-star {{$selected}}"></span></li>

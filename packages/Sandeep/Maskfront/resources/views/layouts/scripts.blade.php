@@ -17,7 +17,6 @@
 @endif
 <script src="{{ San_Help::san_Asset('js/customSliderRange.js') }}"></script>
 <script src="{{ San_Help::san_Asset('js/wow.min.js') }}"></script>
-<script src="{{ San_Help::san_Asset('js/main.js') }}"></script>
 <script>
 $(".catg-list").click(function(){
 	$(".btm-main-menu").slideToggle( "slow", function() {});
@@ -40,11 +39,11 @@ $(".catg-list").click(function(){
 	</script>
 <script src="{{ San_Help::san_Asset('js/san_map.js') }}"></script>
 @endif
-<script src="{{ San_Help::san_Asset('js/san_custom.js') }}"></script>
-
 @if($page == 'product')
 <script src="{{ San_Help::san_Asset('js/product_detail.js') }}"></script>
 @endif
+<script src="{{ San_Help::san_Asset('js/main.js') }}"></script>
+<script src="{{ San_Help::san_Asset('js/san_custom.js') }}"></script>
 @if($page == 'home')
 <script src="{{ San_Help::san_Asset('js/owl.carousel.min.js') }}"></script>
 <script type="text/javascript">

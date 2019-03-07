@@ -507,7 +507,7 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <form class="form-horizontal custom_image_form" enctype="multipart/form-data" id="update_image_form" rel="" method="POST" role="form" action="{{url($locale.'/upload_gallary/'.$provider->id.'/providers')}}">
+          <form class="form-horizontal custom_image_form" enctype="multipart/form-data" id="update_image_form" rel="" method="POST" role="form" action="@if(isset($provider->id)){{url($locale.'/upload_gallary/'.$provider->id.'/providers')}}@endif">
             {{ csrf_field() }}
             <div class="form-group">
               <section class="cstm-upload">
@@ -600,6 +600,7 @@
 </div>
 <!--=========ADD-TEAM-MODAL-ENDS=========-->
 <!-- User Review -->
+@if(isset($provider->getBookings))
 @foreach($provider->getBookings as $booking)
 @php($user = \App\User::with('user_reviews')->find($booking->user_id))
 @php($review_book_id = !$user->user_reviews->isEmpty() ? $user->user_reviews[0]->record_id : '')
@@ -649,6 +650,7 @@
   </div>
 </div>
 @endforeach
+@endif
 <!-- End -->
 @endif
 <!--=========ADD-REVENUE-MODAL-STARTS=========-->

@@ -74,7 +74,7 @@
 					<label class="col-sm-3 control-label" for="payfort_fort_mp2_expiry_month">Expiration Date</label>
 					<div class="col-sm-9">
 						<div class="row">
-							<div class="col-xs-3">
+							<div class="col-sm-3 col-xs-6">
 								<select class="form-control" name="expiry_month" id="payfort_fort_mp2_expiry_month">
 									<option value="01">Jan (01)</option>
 									<option value="02">Feb (02)</option>
@@ -90,7 +90,7 @@
 									<option value="12">Dec (12)</option>
 								</select>
 							</div>
-							<div class="col-xs-3">
+							<div class="col-sm-3 col-xs-6">
 								<select class="form-control" name="expiry_year" id="payfort_fort_mp2_expiry_year">';
 									@php($today = getdate())
 									@php($year_expire = array())
