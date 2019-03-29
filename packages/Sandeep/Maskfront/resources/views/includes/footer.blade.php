@@ -49,15 +49,14 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 wow fadeInLeft">
-            <p>{!!San_Help::sanLang('rights reserved')!!}</p>
+            <p>{!!str_replace('%year%', date("Y"), San_Help::sanLang('rights reserved'))!!}</p>
           </div>
           <div class="col-sm-6">
         <div class="scl-box pull-right wow fadeInLeft">
           <ul class="list-inline social">
-            <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-pinterest-square"></i></a></li>
-            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="https://twitter.com/MASK_APP_"><i class="fa fa-twitter-square"></i></a></li>
+            <li><a href="https://www.youtube.com/channel/UCAlGTOmoO9ZigEQs_yTtJWQ"><i class="fa fa-youtube-play"></i></a></li>
+            <li><a href="https://www.instagram.com/mask_app_/"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
           </div>

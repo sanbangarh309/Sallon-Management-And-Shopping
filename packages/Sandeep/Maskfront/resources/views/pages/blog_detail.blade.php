@@ -25,7 +25,7 @@
 				<div class="col-sm-12 texd-center pad-0">
 					<a href="#">
 						<h3>
-							{{$post->title}}
+							{!!San_Help::sanGetLang($post->title)!!}
 							<span class="small">{{$post->excerpt}}</span>
 						</h3>
 					</a>
@@ -34,7 +34,8 @@
 </div>
 <div class="container">
 <section class="spinz-section">
-	{!!$post->body!!}
+	<!-- {!!$post->body!!} -->
+{!!San_Help::sanGetLang($post->body)!!}
 </section>
 </div>
 @endsection

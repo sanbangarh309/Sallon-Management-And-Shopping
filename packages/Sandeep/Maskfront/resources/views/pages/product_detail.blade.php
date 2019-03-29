@@ -205,13 +205,17 @@
 						@foreach($rel_products as $rel_product)
 						<div class="item product_box col-sm-3">
 							<div class="well pr-well">
-								@php($img = url('files/'.$rel_product->image))
+								@if(!$rel_product->image)
+									@php($img = url('files/not_available.jpg'))
+								@else
+									@php($img = url('files/'.$rel_product->image))
+								@endif
 								<div class="thumb list-group-image" style="background:url({{$img}})">
 								</div>
 								<div class="captions">
 									<div class="col-sm-12 pad-0 user-areas">
 										<div class="img-sec">
-											<img src="{{$img}}" class="img-circle user-img">
+											<img src="@if(!$product->provider->isEmpty()){{url('files/'.$product->provider[0]->avatar)}}@endif" class="img-circle user-img">
 											<h5>{{$rel_product->name}}<span  class="small">{{$rel_product->name}}</span></h5>
 											<h5 class="item-price">{{San_Help::money($rel_product->price)}} {!!$currency!!}</h5>
 										</div>

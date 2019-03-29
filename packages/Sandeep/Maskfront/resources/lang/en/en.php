@@ -113,7 +113,7 @@ return [
     'ar' => 'ماسك هو وجهة لمحترفي الجمال والصحة والعملاء. يمكن للمتخصصين عرض أعمالهم والتواصل مع العملاء وبناء أعمالهم بما يناسبهم. يمكن للعملاء اكتشاف خدمات ومقدمي خدمة جدد وحجزالمواعيد عبر الإنترنت والاستمتاع بالخدمات الاخرى.',
   ),
   'rights reserved' => array(
-    'en' => '@ 2018 East Union Limited Company, All rights reserved.',
+    'en' => '@ %year% East Union Limited Company, All rights reserved.',
     'ar' => 'جميع الحقوق محفوظة لشركة اتحاد الشرق المحدودة',
   ),
   'Signup Now' => array(

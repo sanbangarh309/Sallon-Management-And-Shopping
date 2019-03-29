@@ -5,7 +5,7 @@ var markers = [];
 	var icon2 = jQuery("#marker2").val();
 
 function searchSallon(id,type){
-  window.location.href = 'https://www.mask-app.org/en/search?type='+type+'&sr='+id+'&wr=';
+  window.location.href = 'https://mask-app.com/en/search?type='+type+'&sr='+id+'&wr=';
 }
 
 function initialize() {
@@ -51,10 +51,10 @@ function initialize() {
         for (i = 0; i < location.length; i++) {
 
         	if(location[i]['type']=='cuser'){
-        		j = "U";
-    		}else{
-    			j = i;
-    		}
+							j = "U";
+					}else{
+						j = i;
+					}
 
 	        marker = new google.maps.Marker({
 	            position: new google.maps.LatLng(location[i]['latitude'], location[i]['longitude']),
@@ -76,12 +76,13 @@ function initialize() {
 
           	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 	            return function() {
-
 	            	if(location[i]['type']=='cuser'){
 						infowindow.setContent('<div class="info_content">'+location[i]['name']+'</div>');
               				infowindow.open(map, marker);
 	            	}else{
-	            		infowindow.setContent('<div class="info_content"><div class="col-sm-4"><figure class="pro_img" style="background: url(files/'+location[i]['avatar']+')"></figure></div><div class="col-sm-8"><h3><a class="map_title" href="'+location[i]['link']+'">'+location[i]['name']+'</a><p class="map_add"><b>Address:</b><br/> '+location[i]['address']+'</p></h3></div></div>');
+									var link = 'booking/'+location[i]['id']+'?tab=profile';
+									var img  = 'https://mask-app.com/files/'+location[i]['avatar'];
+	            		infowindow.setContent('<div class="info_content"><div class="col-sm-4"><img src="'+img+'" class="pro_img" style="width:80%"></img></div><div class="col-sm-8"><h3><a class="map_title" href="'+link+'">'+location[i]['name']+'</a><p class="map_add"><b>Address:</b><br/> '+location[i]['address']+'</p></h3></div></div>');
               				infowindow.open(map, marker);
 	            	}
 
@@ -93,8 +94,8 @@ function initialize() {
         }
 
     	for (var s = 0; s < markers.length; s++) {
-		 	bounds.extend(markers[s].getPosition());
-		}
+				bounds.extend(markers[s].getPosition());
+			}
 
 		map.fitBounds(bounds);
 

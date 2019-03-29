@@ -20,6 +20,7 @@ use TCG\Voyager\Models\Category;
 use TCG\Voyager\Models\Product;
 use TCG\Voyager\Models\MultiImage;
 use Illuminate\Support\Facades\Hash;
+use Sandeep\Maskfront\Controllers\NotificationController as Notify;
 use Illuminate\Support\Str;
 use Validator;
 
@@ -132,6 +133,7 @@ class ApiController extends Controller
           'detail' => San_Help::sanLang('password mismatch', $this->lng)
         ]);
       }
+      
       $data = array();
       $str = trim($this->request->contact_number);
       $contactno = trim($this->request->contact_number);
@@ -154,7 +156,7 @@ class ApiController extends Controller
       if ($this->request->gender) {
         $data['gender'] = $this->request->gender;
       }
-      if ($this->request->phone) {
+      if ($this->request->contact_number) {
         $data['phone'] = $contactno;
       }
       if ($this->request->country) {
@@ -169,6 +171,7 @@ class ApiController extends Controller
         $data['role_id'] = 3;
       }
       $data['status'] = 2;
+      // echo '<pre>';print_r($data);exit;
       $user = User::create($data);
       if (isset($this->actions['reg_type']) && $this->actions['reg_type'] == 'provider') {
         $provider = $this->addProvider(array_merge(array(
@@ -191,6 +194,7 @@ class ApiController extends Controller
         'contact_number' => trim($contactno),
         'otp' => mt_rand(100000, 999999)
       );
+      
       San_Help::sanSendSms($data_sms);
       return response()->json([
         'status' => 'success',
@@ -218,6 +222,9 @@ class ApiController extends Controller
     }
     if (isset($this->request->name)) {
       $user->name = $this->request->name;
+    }
+    if ($this->request->gender) {
+      $user->gender = $this->request->gender;
     }
     if (isset($this->request->phone)) {
       $user->phone = $this->request->phone;
@@ -266,7 +273,7 @@ class ApiController extends Controller
           $dat->unsetRelation('getAvail');
         }
         $sallon_arr2['distance'] = $distance;
-        $sallon_arr2['rating'] = $dat->reviews->avg('rating');
+        $sallon_arr2['rating'] = $dat->reviews->avg('rating') ? $dat->reviews->avg('rating') : '0';
         $favourtes = User::whereNotNull('favourite')->get();
         $count_fav = 0;
         foreach ($favourtes as $value) {
@@ -533,6 +540,13 @@ class ApiController extends Controller
     if ($this->request->content && $this->request->content != '') {
       $pro->description = $this->request->content;
     }
+    if ($this->request->gender && $this->request->gender != '') {
+      $user = User::find($pro->id);
+      if($user){
+        $user->gender = $this->request->gender;
+        $user->save();
+      }
+    }
     $pro->save();
     return response()->json([
       'status' => 'success',
@@ -593,6 +607,8 @@ class ApiController extends Controller
           '_booking_id' => $book->id,
           'pro_id' => $book->salon_id
         );
+        $notify = new Notify();
+        $notify->sb_notification_fucntions($book->id,$type);
         San_Help::sanSendSms($data_sms);
         $msg_data['key'] = '';
         $msg_data['_booking_id'] = $book->id;
@@ -717,11 +733,15 @@ class ApiController extends Controller
         'detail' => $error
       ]);
     }
-    $services = Provider::has('getServices')->with('getServices')->find($this->request->saloon_id)->toArray();
-    foreach ($services['get_services'] as $key => $value) {
-      $value['price'] = San_Help::moneyApi($value['price'],$this->currency);
-      $services['get_services'][$key] = San_Help::sanReplaceNull($value);
+    $services = Provider::has('getServices')->with('getServices')->find($this->request->saloon_id);
+    if($services){
+      $services = $services->toArray();
+      foreach ($services['get_services'] as $key => $value) {
+        $value['price'] = San_Help::moneyApi($value['price'],$this->currency);
+        $services['get_services'][$key] = San_Help::sanReplaceNull($value);
+      }
     }
+    
     if ($services) {
       return response()->json([
         'status' => 'success',
@@ -730,7 +750,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        'status' => 'success',
+        'status' => 'failure',
         'detail' => 'no services',
         'status_code' => 404
       ], 404);
@@ -823,6 +843,13 @@ class ApiController extends Controller
           }
         }
       }
+
+      if ($sallon->getAssistants && $sallon->getAssistants != '') {
+        foreach ($sallon->getAssistants as $key => $day) {
+          $sallon->getAssistants[$key]->image = $sallon->getAssistants[$key]->image ? $sallon->getAssistants[$key]->image : ''; 
+        }
+      }
+      $sallon->name = San_Help::sanGetLang($sallon->name, $this->lng);
       // print_r($salon_settings);exit;
       $sallon->unsetRelation('reviews');
       $sallon->unsetRelation('getAvail');
@@ -1080,6 +1107,9 @@ class ApiController extends Controller
       $gmdate = strtotime("$gmdate + 30 mins");
       $c_date_str = strtotime($current_date);
       $sel_date_str = strtotime($this->request->_select_date);
+      // echo '<pre>';print_r($current_date);
+      // echo '<pre>';print_r($this->request->_select_date);
+      // exit;
       $provider = Provider::has('getAvail')->with('getServices')->find($this->request->saloon_id);
       $salon_settings = unserialize($provider->getAvail->availability);
       // print_r($salon_settings);exit;
@@ -1092,11 +1122,13 @@ class ApiController extends Controller
         foreach ($_sallon_services as $_sallon_ser) {
           $sallon_ser[$_sallon_ser['duration']] = strtotime($_sallon_ser['duration']);
         }
+        
         $lowest_ser_time = min($sallon_ser);
         $time = date("H:i", $lowest_ser_time);
         $parsed = date_parse($time);
         $lowest_minute = $parsed['hour'] * 60 + $parsed['minute'];
       }
+      
       $salon_from = $salon_settings['from'];
       $salon_to = $salon_settings['to'];
       $first_end = $salon_to['0'];
@@ -1113,7 +1145,9 @@ class ApiController extends Controller
 
       $first_end = date("H:i", strtotime("$first_end - $lowest_minute mins"));
       $secnd_end = date("H:i", strtotime("$secnd_end - $lowest_minute mins"));
+      
       $minutes = San_Help::get_minutes($startt, $first_end, $c_date_str, $sel_date_str);
+      
       if (! empty($minutes)) {
         foreach ($minutes as $minute) {
           $minute;
@@ -1596,7 +1630,7 @@ class ApiController extends Controller
       if ($bookid == 'not_ok') {
         return response()->json([
           'status' => 'failure',
-          'detail' => 'Something Went Wrong'
+          'detail' => 'Please Select another time slot'
         ], 422);
       }
       if($this->request->redeem == 1){
@@ -1788,6 +1822,8 @@ class ApiController extends Controller
         '_booking_id' => $this->request->bookid,
         'pro_id' => $book->salon_id
       );
+      $notify = new Notify();
+      $notify->sb_notification_fucntions($this->request->bookid,'new_booking');
       San_Help::sanSendSms($data_sms);
       $type = 'new_booking';
       $msg_data['key'] = '';
@@ -2165,6 +2201,8 @@ class ApiController extends Controller
 
       if ($this->request->has('product_id')) {
         $product = $query->where('id',$this->request->product_id)->first();
+        $product->name = San_Help::sanGetLang($product->name, $this->lng);
+        $product->sellername = Provider::find($product->provider_id) ? San_Help::sanGetLang(Provider::find($product->provider_id)->name, $this->lng) : 'no seller';
         $newcolors = array();
         if ($product->color) {
           $colors = explode(',', $product->color);
@@ -2190,9 +2228,19 @@ class ApiController extends Controller
             }
           }
         }
-        foreach ($product->reviews as $keyyy => $valueeee) {
-          $product->reviews[$keyyy]['image'] = User::find($valueeee->user_id)->avatar;
+        if(!$product->reviews->isEmpty()){
+          foreach ($product->reviews as $keyyy => $valueeee) {
+            $valueeee['image'] = User::find($valueeee->user_id)->avatar;
+            $product->reviews[$keyyy] = San_Help::sanReplaceNull($valueeee);
+          }
         }
+
+        foreach ($product->related_products as $relkeyyy => $relvalueeee) {
+          $relvalueeee['name'] = San_Help::sanGetLang($relvalueeee['name'], $this->lng);
+          $product->reviews[$relkeyyy] = San_Help::sanReplaceNull($relvalueeee);
+        }
+
+        
         $product->fav_counts = (string) $count_fav;
         $product->fav_status = (string) $fav_status;
         $product->share_count = (string) $count_fav;
@@ -2216,6 +2264,8 @@ class ApiController extends Controller
           }
         }
         $value->color = $newcolors;
+        $value->name = San_Help::sanGetLang($value->name, $this->lng);
+        $value->sellername = Provider::find($value->provider_id) ? San_Help::sanGetLang(Provider::find($value->provider_id)->name, $this->lng) : 'no seller';
         $favourtes = User::whereNotNull('favourite')->get();
         $count_fav = 0;
         $fav_status = 0;
@@ -2550,6 +2600,8 @@ class ApiController extends Controller
         '_booking_id' => $bookid,
         'pro_id' => $proids
       );
+      $notify = new Notify();
+      $notify->sb_notification_fucntions($bookid,$type);
       San_Help::sanSendSms($data_sms);
       $type = 'new_booking';
       $msg_data['key'] = '';
@@ -2701,6 +2753,7 @@ class ApiController extends Controller
       }
       $products = Product::where('provider_id',$this->request->salon_id)->get()->toArray();
       foreach ($products as $key => $value) {
+        $value->name = San_Help::sanGetLang($value->name, $this->lng);
         $products[$key] = San_Help::sanReplaceNull($value);
       }
       if (!empty($products)) {

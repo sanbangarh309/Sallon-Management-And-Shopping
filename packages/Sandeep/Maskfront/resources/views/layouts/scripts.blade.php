@@ -179,3 +179,4 @@ $(".catg-list").click(function(){
 		    });
         });
 </script>
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c8751adcbb218001761dad8&product=inline-share-buttons' async='async'></script>

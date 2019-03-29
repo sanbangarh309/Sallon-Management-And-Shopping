@@ -23,6 +23,7 @@ use TCG\Voyager\Models\Page;
 use TCG\Voyager\Models\Post;
 use Illuminate\Support\Facades\Hash;
 use TCG\Voyager\Models\MultiImage;
+use Sandeep\Maskfront\Controllers\NotificationController as Notify;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
@@ -113,7 +114,7 @@ class MaskController extends Controller
     public function blog_detail($id)
     {
         $this->data['post'] = Post::find($id);
-        return View('maskFront::pages.blog_detail', $this->data);
+        return View('maskFront::pages.blogs_detail', $this->data);
     }
 
     public function offer()
@@ -951,11 +952,15 @@ class MaskController extends Controller
         }
         $book->save();
         if ($type != '') {
+            $notify = new Notify();
+            $notify->sb_notification_fucntions($book->id,$type);
             $data_sms = array(
                 'type' => $type,
                 '_booking_id' => $book->id,
                 'pro_id' => $book->salon_id
             );
+            $notify = new Notify();
+            $notify->sb_notification_fucntions($book->id,$type);
             San_Help::sanSendSms($data_sms);
             $msg_data['key'] = '';
             $msg_data['_booking_id'] = $book->id;
@@ -1015,6 +1020,8 @@ class MaskController extends Controller
                 '_booking_id' => $book->id,
                 'pro_id' => $book->salon_id
             );
+            $notify = new Notify();
+            $notify->sb_notification_fucntions($book->id,$type);
             San_Help::sanSendSms($data_sms);
             $msg_data['key'] = '';
             $msg_data['_booking_id'] = $book->id;
@@ -1084,6 +1091,8 @@ class MaskController extends Controller
             '_booking_id' => $bookid,
             'pro_id' => $id
         );
+        $notify = new Notify();
+        $notify->sb_notification_fucntions($bookid,$type);
         San_Help::sanSendSms($data_sms);
         $msg_data['key'] = '';
         $msg_data['_booking_id'] = $bookid;
@@ -1109,7 +1118,9 @@ class MaskController extends Controller
 	            'type' => 'new_order',
 	            '_booking_id' => $bookid,
 	            'pro_id' => $proids
-	        );
+            );
+            $notify = new Notify();
+            $notify->sb_notification_fucntions($bookid,$type);
 	        San_Help::sanSendSms($data_sms);
 	        $type = 'new_order';
 	        $msg_data['key'] = '';

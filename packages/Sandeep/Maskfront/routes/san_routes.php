@@ -298,5 +298,12 @@ Route::get('/test_sms',function(){
 	$res = San_Help::sanSendSms($data_sms);
 	return response()->json($res);
 	
-})
+});
+
+Route::get('/notify',function(){
+	$obj = new \Sandeep\Maskfront\Controllers\NotificationController;
+	// $res = $obj->sb_notification_fucntions(80,'booking_accepted');
+	$res = $obj->chkNotification();
+	return response()->json($res);
+});
 ?>

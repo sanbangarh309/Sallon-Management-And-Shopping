@@ -875,10 +875,10 @@ class San_Help
 			// 'sid' => 'MASKIT',
 			if ($msg !='') {
 				$fields = array(
-					'user' => '',
-					'password' =>'',
+					'user' => 'mask-app',
+					'password' =>'mask-app.com',
 					'msisdn' => $contact_number,
-					'sid' => '',
+					'sid' => 'MASK',
 					'msg' => $msg,
 					'fl' => 0,
 					'dc' => 8
