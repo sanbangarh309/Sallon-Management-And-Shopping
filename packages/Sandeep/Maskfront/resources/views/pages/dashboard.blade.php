@@ -549,22 +549,30 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 </div>
 </div>
 </div>
-
-<div id="form-template" class="hidden">
-  <form>
-    <div class="row">
-      <div class="col-sm-12">
-        <input name="username" placeholder="Username" class="swal-content__input" type="text">
+<!-- Tracking Modal -->
+<div class="modal fade" id="tracking_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-align:center">Tracking Detail</h4>
+        </div>
+        <div class="modal-body">
+        <input id="order_id" value="" type="hidden">
+          <div class="form-group">
+            <input id="tracking_id" value="" placeholder="Enter Tracking Id" class="form-control" type="text">
+          </div>
+          <div class="form-group">
+            <button id="submit_btn" class="btn btn-success" type="button">Save</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <input name="password" placeholder="Password" class="swal-content__input" type="password">
-      </div>
-    </div>
-  </form>    
-</div>
-
+  </div>
+<!-- End -->
 </div>
 </div>
 </div>
@@ -605,6 +613,11 @@ $('.provider_order_status').on('change',function(e){
   var crnt = this;
   var id = $(this).data('id');
   var val = $(this).val();
+  if(val == 'shipped'){
+    $('#order_id').val(id);
+    $('#tracking_modal').modal('toggle');
+    return false;
+  }
   $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('#csrf_token').val()
@@ -614,6 +627,30 @@ $('.provider_order_status').on('change',function(e){
     data : {order_id:id,status:val},
     cache : false,
     success  : function(data) {
+      swal({
+        title: "Updated",
+        text: data.msg,
+        icon: "success",
+        button: "close",
+      });
+    }
+   });
+});
+
+$('#submit_btn').on('click',function(){
+  var id = $('#order_id').val();
+  var tracking_id = $('#tracking_id').val();
+  var val = 'shipped';
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('#csrf_token').val()
+    },
+    type : "POST",
+    url  : $('#ajax_url').val()+'/orderstatus',
+    data : {order_id:id,status:val,tracking_id:tracking_id},
+    cache : false,
+    success  : function(data) {
+      $('#tracking_modal').modal('toggle');
       swal({
         title: "Updated",
         text: data.msg,

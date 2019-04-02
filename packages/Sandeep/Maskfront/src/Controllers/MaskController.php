@@ -132,15 +132,15 @@ class MaskController extends Controller
         // $notify->sb_notification_fucntions($this->data['data']['bookid'],'new_order');
         // echo '<pre>';print_r($this->data['data']);exit;
         if (isset($this->userId) && isset($this->data['data']['book_date'])) {
-            // if(isset($this->data['data']['product_id'])){
-            //     Cart::where('user_id',Auth::user()->id)->where('product_id',$this->data['data']['product_id'])->where('color',$this->data['data']['product_color'])->delete();
-            // }
-            // if(isset($this->data['data']['booking_type']) && $this->data['data']['booking_type'] == 'cart_book'){
-            //     Cart::where('user_id',$this->userId)->delete();
-            // }
-            // foreach ($session_cart as $session_var) {
-            //     $this->request->session()->forget($session_var);
-            // }
+            if(isset($this->data['data']['product_id'])){
+                Cart::where('user_id',Auth::user()->id)->where('product_id',$this->data['data']['product_id'])->where('color',$this->data['data']['product_color'])->delete();
+            }
+            if(isset($this->data['data']['booking_type']) && $this->data['data']['booking_type'] == 'cart_book'){
+                Cart::where('user_id',$this->userId)->delete();
+            }
+            foreach ($session_cart as $session_var) {
+                $this->request->session()->forget($session_var);
+            }
             if($this->request->error_msg){
                 $this->request->session()->put('message', $this->request->error_msg);
                 $this->request->session()->put('alert-type', 'warning');
@@ -2200,6 +2200,9 @@ class MaskController extends Controller
         }
         $order = Order::find($this->request->order_id);
         $order->order_status = $this->request->status;
+        if($this->request->status == 'shipped' && $this->request->tracking_id){
+            $order->tracking_id = $this->request->order_id.'_'.$this->request->tracking_id;
+        }
         $order->save();
         $data_sms = array(
             'type' => 'order_status',
