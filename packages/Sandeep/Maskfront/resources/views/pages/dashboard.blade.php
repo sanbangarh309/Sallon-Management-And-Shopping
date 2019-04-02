@@ -44,6 +44,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
             <li @if(!isset($_GET['tab'])) class="active" @endif><a data-toggle="tab" href="#profile-tb">{!!San_Help::sanLang('Profile')!!}</a></li>
             <li><a data-toggle="tab" href="#booking-tb">{!!San_Help::sanLang('My Bookings')!!}</a></li>
             <li @if(isset($_GET['tab']) && $_GET['tab'] =='product') class="active" @endif><a data-toggle="tab" href="#products-tb">{!!San_Help::sanLang('Products')!!}</a></li>
+            <li @if(isset($_GET['tab']) && $_GET['tab'] =='order_history') class="active" @endif><a data-toggle="tab" href="#orders-tb">{!!San_Help::sanLang('Order history')!!}</a></li>
             <li @if(isset($_GET['tab']) && $_GET['tab'] =='gallary') class="active" @endif><a data-toggle="tab" href="#gallery-tb">{!!San_Help::sanLang('Gallery')!!}</a></li>
             <li @if(isset($_GET['tab']) && $_GET['tab'] =='service') class="active" @endif><a data-toggle="tab" href="#myservices-tb">{!!San_Help::sanLang('My Services')!!}</a></li>
             <li @if(isset($_GET['tab']) && $_GET['tab'] =='setting') class="active" @endif><a data-toggle="tab" href="#settings-tb">{!!San_Help::sanLang('Settings')!!}</a></li>
@@ -65,6 +66,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                     </div>
                     <div class="add_team_div">
                       <h3>{!!San_Help::sanLang('Our Team')!!}</h3>
+                      <input type="hidden" id="check_for_services" value="@if(!$provider->getServices->isEmpty())1 @endif">
                       <a href="javascript:void(0)" type="button" class="btn edit_assistant">{!!San_Help::sanLang('Add Team')!!}</a>
                     </div>
                     @if(isset($provider->getAssistants))
@@ -91,32 +93,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 								</ol>
 							</div>
 						</div>
-                       <!-- <table class="product-table" id="profile_table">
-							<thead>
-                            <tr>
-                              <th class="item-image">Image</th>
-                              <th class="item-name">Name</th>
-                              <th class="item-satus">Actions</th>
-                              <th class="item-delete"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @if(!$provider->getAssistants->isEmpty())
-                            @foreach($provider->getAssistants as $assistant)
-                            <tr>
-                              <td><div class="product-fig" style="background:url(@if(isset($assistant->image) && $assistant->image !=''){{url('files/'.$assistant->image)}} @else {{ San_Help::san_Asset('images/user-img.jpg') }} @endif)"></div></td>
-                              <td>@if(isset($assistant->name)){{$assistant->name}}@endif</td>
-                              <td><a href="javascript:void(0)" class="edit-item edit_assistant" data-id="{{$assistant->id}}" data-sids="{{json_encode(unserialize($assistant->service_ids))}}" data-name="{{$assistant->name}}" title="Edit Assistant">Edit</a></td>
-                              <td></td>
-                            </tr>
-                            @endforeach
-                            @else
-                            <tr style="text-align: center;">
-                              <td> No Team Members Added Yet ,<a href="javascript:void(0)" type="button" class="btn edit_assistant">Click Here</a> To Add Team Member </td>
-                            </tr>
-                            @endif
-                          </tbody>
-                        </table>-->
+                   
                       </div>
                     </div>
                     @else
@@ -283,6 +260,18 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
       </div>
     </div>
   </div>
+
+  <div id="orders-tb" class="tab-pane fade @if(isset($_GET['tab']) && $_GET['tab'] =='order_history') in active @endif">
+      <div class="well filter-well">  
+            <div class="col-sm-12 pad-xs-0 products-gutterbx">
+              <div class="table-responsive">
+              @include('maskFront::includes.provider_orders')
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div id="gallery-tb" class="tab-pane fade @if(isset($_GET['tab']) && $_GET['tab'] =='gallary')in active @endif">
     <div class="add_team_div-2 col-sm-12 gap-btm-10">
       <h3 class="text-uppercase">Our Gallery</h3>
@@ -295,7 +284,7 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
           @isset($provider->provider_images)
           @foreach($provider->provider_images as $provider_image)
           @php($img = url('files/'.$provider_image->filename))
-          <li>
+          <li id="{{$provider_image->id}}">
             <a href="javascript:void(0)" class="hair-style">
               <div class="cross_mark"><a href="javascript:void(0)" class="cross_mark_" data-id="{{$provider_image->id}}"><i class="fa fa-trash fa-lg"></i></a></div>
               <div class="hair-image" style="background:url({{$img}})"></div>
@@ -345,6 +334,9 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                       <div class="serv-info">
                           <p>@if(isset($service->name)){!!San_Help::sanGetLang($service->name,$locale)!!}@endif</p>
                       </div>
+                      <div class="serv-info">
+                          <p>@if(isset($service->name)){!!San_Help::moneyApi($service->price,$currency)!!}@endif</p>
+                      </div>
                       <div class="right_buttons">
                           <a href="javascript:void(0)" data-id="{{$service->id}}" class="edit-item edit_services" data-service="{{json_encode($service)}}" title="Edit Service">Edit</a>
                            <a href="{{url($locale.'/del_ser/'.$service->id)}}" class="delete-item">×</a>
@@ -385,8 +377,8 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
                 <div class="form-group">
                   <section class="cstm-upload">
                     <label for="file" class="input input-file">
-                      <div class="button"><input name="image" id="salon_image" value="" class="form-control" onchange="this.parentNode.nextSibling.value = this.value" type="file">{!!San_Help::sanLang('Browse')!!}</div>
-                      <input placeholder="Add Profile Image" readonly="" type="text">
+                      <div class="button"><input name="image" id="salon_image" value="" class="form-control" onchange="getValue(this);" type="file">{!!San_Help::sanLang('Browse')!!}</div>
+                      <input placeholder="Add Profile Image" readonly="" type="text" class="profile_image_section">
                     </label>
                   </section>
                 </div>
@@ -558,6 +550,20 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 </div>
 </div>
 
+<div id="form-template" class="hidden">
+  <form>
+    <div class="row">
+      <div class="col-sm-12">
+        <input name="username" placeholder="Username" class="swal-content__input" type="text">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <input name="password" placeholder="Password" class="swal-content__input" type="password">
+      </div>
+    </div>
+  </form>    
+</div>
 
 </div>
 </div>
@@ -578,9 +584,46 @@ function showReplyWindow(id,reply){
 }
 
 $('.cross_mark_').on('click',function(e){
+  var crnt = this;
+  var id = $(this).data('id');
   e.preventDefault();
-  alert($(this).data('id'))
-})
+  $.ajax({
+      type : "get",
+      url  : $('#ajax_url').val()+'/gallary/del/'+id,
+      cache : false,
+      success  : function(data) {
+          if (typeof data == 'string' || data instanceof String) {
+              alert('something went wrong'); 
+          }else{
+            $('li#'+id).remove();
+          }
+      }
+  })
+});
+$('.provider_order_status').on('change',function(e){
+  e.preventDefault();
+  var crnt = this;
+  var id = $(this).data('id');
+  var val = $(this).val();
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('#csrf_token').val()
+    },
+    type : "POST",
+    url  : $('#ajax_url').val()+'/orderstatus',
+    data : {order_id:id,status:val},
+    cache : false,
+    success  : function(data) {
+      swal({
+        title: "Updated",
+        text: data.msg,
+        icon: "success",
+        button: "close",
+      });
+    }
+   });
+});
+
 $("#content-6").mCustomScrollbar({
 		autoHideScrollbar:true,
 		theme:"rounded"
@@ -589,6 +632,14 @@ $("#content-7").mCustomScrollbar({
 		autoHideScrollbar:true,
 		theme:"rounded"
 });
+function showReviewWindow_(id,reviewid,reply){
+  $('#new-review-formm_'+reviewid+' .reply_on').val(reviewid);
+  $('#new-review-formm_'+reviewid+' .review_body').val(reply);
+  $("#display_order_reviews_"+id).slideToggle();
+}
+// $(".spr-summary-actions-newreview").click(function(){
+// 	$("#display_order_reviews_"+$(this).data('id')).slideToggle();
+// });
 </script>
 @endpush
 @endsection

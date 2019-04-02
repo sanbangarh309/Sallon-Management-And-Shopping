@@ -217,6 +217,15 @@ class San_Help
 		return file_exists($thumbpath);
 	}
 
+	public static function  deleteFiles($data,$slug){
+		$path = 'app/public/';
+		$file = storage_path('app/public/'.$data->image);
+		if(file_exists($file) && is_file($file)){
+			unlink($file);
+		}
+		return true;
+	}
+
 	/* Generate Password */
 	public static function gen_password($chars_min=6, $chars_max=8, $use_upper_case=false, $include_numbers=false, $include_special_chars=false) {
 		$length = rand($chars_min, $chars_max);
@@ -744,10 +753,16 @@ class San_Help
 
 		/* Sms Functions */
 		public static function sanSendSms($_data){
-			if(!empty($_data)){
+			if(!empty($_data) && isset($_data['type'])){
 				if($_data['type']=="new_register"){
 					if(!empty($_data['contact_number'])){
 						return Self::sendSms($_data);
+					}
+				}
+				if($_data['type']=="order_status"){
+					$user = User::find($_data['order']->order_user_id);
+					if(!empty($user) && $user->phone){
+						return Self::sendSms(array('id'=>$_data['order']->id,'contact_number'=>$user->phone,'type'=>'order_status','name'=>$user->name,'status'=>$_data['order']->order_status));
 					}
 				}
 				if($_data['type']=="booking_accepted" || $_data['type']=="booking_rejected" || $_data['type']=="booking_canceled" || $_data['type']=="new_booking"){
@@ -788,9 +803,9 @@ class San_Help
 						if (is_array($_data['pro_id'])) {
 							$salon_datas = \TCG\Voyager\Models\Provider::whereIn('id',$_data['pro_id'])->get();
 							foreach ($salon_datas as $key => $salon_data) {
-								$_sln_booking_phone = $salon_data->phone ? $salon_data->phone : User::find($_sallon_id)->phone;
+								$_sln_booking_phone = $salon_data->phone ? $salon_data->phone : User::find($_sallon_ids[0])->phone;
 								if($_data['type']=="booking_canceled" || $_data['type']=="new_booking" || $_data['type']=="new_order" ){
-									$_sln_booking_phone = $salon_data->phone ? $salon_data->phone : User::find($_sallon_id)->phone;
+									$_sln_booking_phone = $salon_data->phone ? $salon_data->phone : User::find($_sallon_ids[0])->phone;
 									$_data['contact_number'] = User::find($booking_user_id)->phone ? User::find($booking_user_id)->phone : $_booking_info->phone;
 								}
 
@@ -836,6 +851,7 @@ class San_Help
 		public static function sendSms($_data_rc){
 			$final = array();
 			$msg = '';
+			$sid = 'MASK';
 			$url = config('maskfront.sms_url');
 			$contact_number = $_data_rc['contact_number'];
 			$type = $_data_rc['type'];
@@ -846,9 +862,21 @@ class San_Help
 			}else{
 				$contact_number = '+'.$contact_number;
 			}
+			if (preg_match("/^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/", $contact_number)) {
+				$sid = 'MASKIT';
+			}
 			if($type=="new_register"){
 				$otp = $_data_rc['otp'];
 				$msg = 'Hi, Please use this OTP to verify your number. '.$otp.' Thanks Mask Team';
+			}
+			if($type=="notify_user"){
+				$msg = 'Hi, All customers are requested to login again in app for better user experience. Thanks Mask Team';
+			}
+			if($type=="order_status"){
+				$uname = $_data_rc['name'];
+				$orderid = $_data_rc['id'];
+				$status = $_data_rc['status'];
+				$msg = 'Hi '.$uname.' Your Order with ID '.$orderid.' has '.$status.'. Thanks Mask Team';
 			}
 			if($type=="booking_accepted" || $type=="booking_rejected" || $type=="booking_canceled" || $type=="new_booking" || $type=="new_order"){
 				$_sallon_name = $_data_rc['_sallon_name'];
@@ -878,7 +906,7 @@ class San_Help
 					'user' => 'mask-app',
 					'password' =>'mask-app.com',
 					'msisdn' => $contact_number,
-					'sid' => 'MASK',
+					'sid' => $sid,
 					'msg' => $msg,
 					'fl' => 0,
 					'dc' => 8

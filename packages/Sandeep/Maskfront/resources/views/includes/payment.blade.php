@@ -41,7 +41,7 @@
 			<label class="payment-option" for="po_cc_merchantpage2" style="font-weight: normal;">
 				<div class="img_logo">
 					<img src="{{ San_Help::san_Asset('images/cc1.png') }}" alt="">
-					<img src="'{{ San_Help::san_Asset('images/cc2.png') }}" alt="">
+					<img src="{{ San_Help::san_Asset('images/cc2.png') }}" alt="">
 					@if($locale=='en')
 					   <span class="pay-text">Pay with mada Debit Card</span>
 					@else
@@ -67,7 +67,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="payfort_fort_mp2_card_number">Card Number</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" name="card)number" id="payfort_fort_mp2_card_number" placeholder="Debit/Credit Card Number" maxlength="16">
+						<input type="text" class="form-control" name="cardnumber" id="payfort_fort_mp2_card_number" placeholder="Debit/Credit Card Number" maxlength="16">
 					</div>
 				</div>
 				<div class="form-group">

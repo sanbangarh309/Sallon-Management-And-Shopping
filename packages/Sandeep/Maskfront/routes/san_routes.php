@@ -8,6 +8,7 @@ Route::group(['namespace' => 'Sandeep\Maskfront\Controllers','prefix' => $locale
 	Route::get('fetch_users', 'FetchData@fetchUsers');
 	Route::get('fetch_services', 'FetchData@fetchServices');
 	Route::get('fetch_asssss', 'FetchData@addTeam');
+	Route::get('update_users', 'FetchData@updateIds');
 	/* Front End Routes */
 	Route::get('localization/{lang?}','LanguageController@index');
 	Route::get('/' , 'MaskController@index');
@@ -77,6 +78,8 @@ Route::group(['namespace' => 'Sandeep\Maskfront\Controllers','prefix' => $locale
 	Route::post('/favourite' , 'MaskController@favourite')->name('favourite');
 	Route::post('/user_forgot_pass', 'MaskController@forgotPwd')->name('user_forgot_pass');
 	Route::post('/update_pass' , 'MaskController@updatePwd')->name('update_pass');
+	Route::get('/gallary/del/{id}' , 'MaskController@delGallary');
+	Route::post('/orderstatus' , 'MaskController@orderStatus')->name('orderstatus');
 	/* Delete Product*/
 	Route::get('/del_pro/{id}' , function($id){
 		\TCG\Voyager\Models\Product::destroy($id);
@@ -206,6 +209,7 @@ Route::group(['namespace' => 'Sandeep\Maskfront\Controllers','prefix' => 'api'],
 	Route::get('/product_cats', function(){
 		$cats = \TCG\Voyager\Models\Category::orderBy('id', 'desc')->whereNull('parent_id')->where('type', 'procategory')->get()->toArray();
 		foreach ($cats as $key => $value) {
+			$value['name'] = San_Help::sanGetLang($value['name'], app('request')->lng?app('request')->lng:'en' );
 			$cats[$key] = San_Help::sanReplaceNull($value);
 		}
 		return response()->json([
@@ -300,10 +304,29 @@ Route::get('/test_sms',function(){
 	
 });
 
-Route::get('/notify',function(){
-	$obj = new \Sandeep\Maskfront\Controllers\NotificationController;
+Route::get('/chk_currency',function(){
+
+});
+
+Route::get('/notify_mobile',function(){
+	// foreach($users as $user){
+		$obj = new \Sandeep\Maskfront\Controllers\NotificationController;
+		// $res = $obj->sb_notification_fucntions(80,'booking_accepted');
+		$res = $obj->chkNotification_ios();
+		return response()->json($res);
+	// }
+});
+
+
+Route::get('/notify_users',function(){
+	$users = App\User::all();
+	foreach($users as $user){
+		$notify = Sandeep\Maskfront\Controllers\NotificationController();
+        $notify->sb_notification_fucntions($book->id,$type);
+		San_Help::sendSms(array('contact_number'=>$user->phone,'type'=>'notify_user'));
+	}
 	// $res = $obj->sb_notification_fucntions(80,'booking_accepted');
-	$res = $obj->chkNotification();
-	return response()->json($res);
+	// $res = $obj->chkNotification();
+	return response()->json('done');
 });
 ?>

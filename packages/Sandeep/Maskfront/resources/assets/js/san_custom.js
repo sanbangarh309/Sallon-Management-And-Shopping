@@ -1,6 +1,13 @@
 $('#login_btnn').on( 'click', function( event ) {
 	$('#login-form').submit();
 });
+function getValue(event){
+    $('.profile_image_section').val(event.value);
+}
+
+function showReviewWindow(id){
+ $('#'+id).show();
+}
 function searchProduct(id,type,search_type='',data){
     var url = $('#ajax_url').val()+'/search?type='+type; 
     // console.log(url);
@@ -277,6 +284,7 @@ $('.booking_accept').on('click',function(){
     var userid = $(this).data('uid');
     var status = $(this).data('status');
     var proid = $(this).attr('id');
+    $('.loading_').show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('#csrf_token').val()
@@ -298,6 +306,7 @@ $('.booking_accept').on('click',function(){
                 $('.booking-content div#completed_bookings_wrapper').html(data.com_html);
                 $('.booking-content div#confirmed_bookings_wrapper').html(data.con_html);
             }
+            $('.loading_').hide();
         }
     });
 });
@@ -437,6 +446,15 @@ $('.edit_assistant').on('click',function(){
         if ($('#addteam_form #edit_id').hasClass('edit_class')) {
             $('#addteam_form #edit_id').val('');
         }
+        var chkforservic = $('#check_for_services').val();
+        if($.trim(chkforservic) != 1){
+            swal({
+                title: "Service Not Available!",
+                text: "Please Add Service First!",
+                icon: "warning",
+              });
+            return false;
+        }
         $('#addteam_Modal').modal('show');
         return false;
     }
@@ -514,6 +532,7 @@ $('.edit_products').on('click',function(){
         $('#add-newproduct').modal('show');
         return false;
     }
+    $('.loading_').show();
     var prodct = $(this).data('product');
     if ($('#product_form_edit_add #edit_id').hasClass('edit_class')) {
         $('#product_form_edit_add #edit_id').val(id);
@@ -531,6 +550,7 @@ $('.edit_products').on('click',function(){
     $('h3#add_productss').hide();
     $('h3#edit_productss').show();
     $('.selectpicker').selectpicker('refresh');
+    $('.loading_').hide();
     $('#add-newproduct').modal('show');
 });
 // $('#services').on('change',function(){

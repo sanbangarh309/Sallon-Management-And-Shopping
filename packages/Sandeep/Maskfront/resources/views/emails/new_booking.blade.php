@@ -60,7 +60,7 @@
               </td>
               <td align="left" valign="top"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td height="20" align="left" valign="bottom" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#cccccc; font-weight:bold;">@if(isset($order_data)) Order @else Booking @endif ID<b style="color:#666666;">{{$booking_id}}</b></td>
+                  <td height="20" align="left" valign="bottom" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#cccccc; font-weight:bold;">@if(isset($order_data)) New Order Recieved @else New Booking Received @endif ID<b style="color:#666666;">{{$booking_id}}</b></td>
                 </tr>
                 <tr>
                   <td height="25" align="left" valign="bottom" style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#cccccc; font-weight:bold;">Status<b style="color:#666666;">@if(isset($order_data)) {{$order_data->order_status}} @else {{$booking_data->status}}@endif</b></td>
@@ -79,7 +79,7 @@
                 </tr>
                 <tr>
                     <td align="left" valign="top" style="font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#666666; font-weight:normal;">
-                      New @if($type == 'new_order') Order @else Booking @endif is Recieved, Please Check your Account to Approve or Refuse
+                      New @if($type == 'new_order') Order Details @else Booking is Recieved, Please Check your Account to Approve or Refuse @endif
                     </td>
                 </tr>
                 <tr>

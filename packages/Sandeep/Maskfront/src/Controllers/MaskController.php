@@ -71,6 +71,7 @@ class MaskController extends Controller
 
     public function index()
     {
+        // print_r(Hash::make(1234));exit;
         // echo '<pre>';print_r(San_Help::money(20,'EGP',true));exit;
         $this->data['services'] = Category::has('getServices')->whereNotNull('parent_id')->get();
         $this->data['sallons'] = Provider::with('reviews')->orderBy('id', 'desc')->where('status', 2)->take(9)->get();
@@ -127,17 +128,19 @@ class MaskController extends Controller
     {
         $session_cart = array('temp_book_id','product_qty','product_color','product_id','provider_id','booking_type','bookid','reward_points','sids','aids','book_date','book_time','total_amnt','total_amount');
         $this->data['data'] = $this->request->session()->all();
-        // echo '<pre>';print_r($this->request->all());exit;
+        // $notify = new Notify();
+        // $notify->sb_notification_fucntions($this->data['data']['bookid'],'new_order');
+        // echo '<pre>';print_r($this->data['data']);exit;
         if (isset($this->userId) && isset($this->data['data']['book_date'])) {
-            if(isset($this->data['data']['product_id'])){
-                Cart::where('user_id',Auth::user()->id)->where('product_id',$this->data['data']['product_id'])->where('color',$this->data['data']['product_color'])->delete();
-            }
-            if(isset($this->data['data']['booking_type']) && $this->data['data']['booking_type'] == 'cart_book'){
-                Cart::where('user_id',$this->userId)->delete();
-            }
-            foreach ($session_cart as $session_var) {
-                $this->request->session()->forget($session_var);
-            }
+            // if(isset($this->data['data']['product_id'])){
+            //     Cart::where('user_id',Auth::user()->id)->where('product_id',$this->data['data']['product_id'])->where('color',$this->data['data']['product_color'])->delete();
+            // }
+            // if(isset($this->data['data']['booking_type']) && $this->data['data']['booking_type'] == 'cart_book'){
+            //     Cart::where('user_id',$this->userId)->delete();
+            // }
+            // foreach ($session_cart as $session_var) {
+            //     $this->request->session()->forget($session_var);
+            // }
             if($this->request->error_msg){
                 $this->request->session()->put('message', $this->request->error_msg);
                 $this->request->session()->put('alert-type', 'warning');
@@ -186,7 +189,7 @@ class MaskController extends Controller
               $review->reply = $this->request->review;
               $review->updated_at = new \DateTime();
               $review->save();
-              return response()->json(compact('review'));
+              return response()->json(array('done'=>1));
             }else{
               return response()->json(array(
                   'message' => 'Something Went Wrong'
@@ -952,8 +955,8 @@ class MaskController extends Controller
         }
         $book->save();
         if ($type != '') {
-            $notify = new Notify();
-            $notify->sb_notification_fucntions($book->id,$type);
+            // $notify = new Notify();
+            // $notify->sb_notification_fucntions($book->id,$type);
             $data_sms = array(
                 'type' => $type,
                 '_booking_id' => $book->id,
@@ -975,10 +978,12 @@ class MaskController extends Controller
             ->find($proid);
         if ($status == 'Pending') {
             $pen_html = View('maskFront::includes.booking_list', [
+                'locale' => $this->data['locale'],
                 'status' => 'Pending',
                 'provider' => $provider
             ])->render();
             $con_html = View('maskFront::includes.booking_list', [
+                'locale' => $this->data['locale'],
                 'status' => 'Confirmed',
                 'provider' => $provider
             ])->render();
@@ -986,10 +991,12 @@ class MaskController extends Controller
         }
         if ($status == 'Confirmed') {
             $con_html = View('maskFront::includes.booking_list', [
+                'locale' => $this->data['locale'],
                 'status' => 'Confirmed',
                 'provider' => $provider
             ])->render();
             $com_html = View('maskFront::includes.booking_list', [
+                'locale' => $this->data['locale'],
                 'status' => 'Completed',
                 'provider' => $provider
             ])->render();
@@ -1120,7 +1127,7 @@ class MaskController extends Controller
 	            'pro_id' => $proids
             );
             $notify = new Notify();
-            $notify->sb_notification_fucntions($bookid,$type);
+            $notify->sb_notification_fucntions($bookid,'new_order');
 	        San_Help::sanSendSms($data_sms);
 	        $type = 'new_order';
 	        $msg_data['key'] = '';
@@ -1166,8 +1173,7 @@ class MaskController extends Controller
         $book->qty = $this->request->session()->get('product_qty') ? $this->request->session()->get('product_qty') : $qty;
         $book->color = $this->request->session()->get('product_color') ? $this->request->session()->get('product_color') : implode(',', array_unique($colors));;
         $book->status = 0;
-        $book->order_status = 'pending';
-        $book->order_status = 'pending';
+        $book->order_status = 'processing';
         $book->currency = $this->data['currency'];
         $book->save();
         return $book->id;
@@ -1685,7 +1691,7 @@ class MaskController extends Controller
         $login_detail->user_id = $user->id;
         $login_detail->key = $key;
         $login_detail->password = $this->request->password;
-        $login_detail->from = 'digittrix@gmail.com';
+        $login_detail->from = 'sales@mask-app.com';
         $login_detail->to = $user->email;
         // $login_detail->to = 'sandeep.digittrix@gmail.com';
         if ($this->request->user_type && $this->request->user_type == 'provider') {
@@ -2117,7 +2123,7 @@ class MaskController extends Controller
         $data = new \stdClass();
         $data->name = $this->request->name;
         $data->message = $this->request->message;
-        $data->to = 'sandeep.digittrix@gmail.com';
+        $data->to = 'support@mask-app.com';
         $data->from = $this->request->email;
         $data->subject = 'Help Message';
         \Mail::send('maskFront::emails.support', ['data' => $data], function ($m) use ($data) {
@@ -2167,6 +2173,45 @@ class MaskController extends Controller
         $user->password = Hash::make($this->request->password);
         $user->save();
         return response()->json(array('res' => 1,'msg' => San_Help::sanGetLang('password update', $this->data['locale'])));
+    }
+
+    function delGallary($id){
+        $img = MultiImage::find($id);
+        $path = 'app/public/';
+		$file = storage_path('app/public/'.$img->filename);
+		if(file_exists($file) && is_file($file)){
+			unlink($file);
+        }
+        $img->delete();
+        return response()->json(array('response' => 'success','msg' => 'Image Deleted'));
+    }
+
+    function orderStatus(){
+        $validator = Validator::make($this->request->all(), [
+            'order_id'         => 'required',
+            'status' => 'required'
+        ]);
+        if ($validator->fails()) {
+            $error = $validator->errors()->first();
+            return response()->json([
+                'res' => 0,
+                'msg' => $error
+            ]);
+        }
+        $order = Order::find($this->request->order_id);
+        $order->order_status = $this->request->status;
+        $order->save();
+        $data_sms = array(
+            'type' => 'order_status',
+            'order' => $order
+        );
+        $notify = new Notify();
+        $notify->sb_notification_fucntions($order,'order_status');
+        San_Help::sanSendSms($data_sms);
+        return response()->json([
+            'res' => 1,
+            'msg' => 'Order Status Updated to '.$this->request->status
+        ]);
     }
 
     function proceesRoute()

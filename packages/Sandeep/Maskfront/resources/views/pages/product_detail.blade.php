@@ -149,7 +149,8 @@
 					<div class="col-sm-12 p-0">
 						<div class="spr-container">
 							<div class="spr-header">
-								<h2 class="spr-header-title">{!!San_Help::sanLang('Customer Reviews')!!}</h2><div class="spr-summary">
+								<h2 class="spr-header-title">{!!San_Help::sanLang('Customer Reviews')!!}</h2>
+								<div class="spr-summary">
 									<div id="review_list">
 										@include('maskFront::includes.review_list')
 									</div>
@@ -327,6 +328,7 @@ function addToCart(buy){
 						var html = '';
 						var count = 0;
 						var total_amnt = 0;
+						let currency = '{!!session()->get('currency')!!}'
 						$.each(data, function( index, value ) {
 							// var fin_price = value.price;
 							count = parseInt(count)+1;
@@ -334,18 +336,22 @@ function addToCart(buy){
 							@if(session()->get('currency'))
 							let currencydata = {!! json_encode(config('money')[session()->get('currency')]) !!}
 							// fin_price = "{!!session()->get('currency')!!} "+(currencydata.convert_amnt * parseFloat(fin_price)).toPrecision(3);
-							total_amnt = "{!!session()->get('currency')!!} "+(currencydata.convert_amnt * parseFloat(total_amnt)).toPrecision(3);
-							// console.log(fin_price);
+							total_amnt = (currencydata.convert_amnt * parseFloat(total_amnt));
+							total_amnt = floorFigure(total_amnt,2);
+							console.log(currencydata);
+							console.log(value.price.toPrecision(3));
+							console.log(total_amnt);
 							@endif
+							
 							html +='<tr>'+
 							'<td height="30"><h5 class="item-name">'+value.product.name+'</h5></td>'+
-							'<td height="30"><h4 class="ui header" style="color: white;">'+total_amnt+'</h4></td>'+
+							'<td height="30"><h4 class="ui header" style="color: white;">'+currency+' '+floorFigure((currencydata.convert_amnt * parseFloat(value.price)),2)+'</h4></td>'+
 							'<td><a href="javascript:void(0);" data-id="'+value.id+'" class="ui icon button action-remove-from-cart">&times;</a></td>'+
 							'</tr>';
 						});
 						$('li.shopping-cart .badge').text(count);
 						$('#shopping-cart #append_cart_data').html(html);
-						$('#shopping-cart b#cart_total_amnt').text(total_amnt);
+						$('#shopping-cart b#cart_total_amnt').text(currency+' '+total_amnt);
 						$('#shopping-cart').addClass('open-menu');
 						$('.checkout_san_btn').prop('disabled', false);
 					}
@@ -359,6 +365,12 @@ function addToCart(buy){
 		swal("","{!!San_Help::sanLang('Please Select Color')!!}",'warning');
 	}
 }
+
+function floorFigure(figure, decimals){
+    if (!decimals) decimals = 2;
+    var d = Math.pow(10,decimals);
+    return (parseInt(figure*d)/d).toFixed(decimals);
+};
 
 function submitReview(){
 	$.ajax({

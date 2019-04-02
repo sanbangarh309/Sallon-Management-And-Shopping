@@ -19,7 +19,7 @@ function initialize() {
     try {
       var location = jQuery.parseJSON(locations);
     }catch(err){
-    var location = locations;
+    	var location = locations;
     }
     // console.log(location);
     	var san_lat = location['0']['latitude'];

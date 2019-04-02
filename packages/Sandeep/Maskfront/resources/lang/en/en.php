@@ -73,7 +73,7 @@ return [
     'ar' => 'العربية',
   ),
   'mail sent' => array(
-    'en' => 'Mail Sent',
+    'en' => 'We have recieved your request. We will contact you soon.',
     'ar' => 'تم ارسال البريد',
   ),
   'HI' => array(

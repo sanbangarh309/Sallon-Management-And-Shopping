@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use San_Help;
 use TCG\Voyager\Models\Provider;
+use TCG\Voyager\Models\Order;
 use TCG\Voyager\Models\Booking;
 use Sandeep\Maskfront\Models\FCMUser;
 use GuzzleHttp\Client;
@@ -34,13 +35,16 @@ class NotificationController extends Controller
 		// 	$this->notify_type = '';
 		// }
 		// $this->client = new Client();
+		define( 'API_ACCESS_KEY', 'AAAAOdfnfzc:APA91bEhA_OxbvW6nyG_Dfdo59_Xq3oOGVyJZ6et4hOqgIB4bkyt0V-KHgbRUK1Scmz6N7Q5YFbXsvUdA0BOnxeO5Nr15uzSFDsdm5waP1Qu-NwQ24D0rhb-fs6xtZh5PaR2148YtzJ_' );
+		define( 'API_ACCESS_KEY1', 'AAAAPsMwoLs:APA91bHmIgPG7_L-Ura9djKnRQK1jhLffWI1zF_5EYoRyQj5ymPu7WnNLErjnd0QBttq2wkT6_yhbXAJ_euPEEuQUwWsbDZJlWFVpnByAOGfv9VOEPm7fS4b6rbjibe4n8iCvacNSOsa2Ou0v1n6llMUF08F503KUw' );
 		$this->url = 'https://fcm.googleapis.com/fcm/send';
+		$this->lng = 'en';
     }
     
 
     function sb_notification_fucntions($booking_id,$type){
 
-    	if(!empty($booking_id)){
+    	if(!empty($booking_id) && !is_object($booking_id)){
 
             $device_type = '';
 
@@ -52,7 +56,7 @@ class NotificationController extends Controller
 
                     $booking_user_id = $_booking_info->user_id;
 
-                    $device_type = User::find($booking_user_id) ? User::find($booking_user_id)->source : 'web';
+                    $device_type = User::find($booking_user_id) ? User::find($booking_user_id)->device_type : 'web';
                     // print_r($device_type);exit;
                     // echo '<br/>booking_id - '.$booking_id;
                     // echo '<br/>device_type_arr - '.$device_type;
@@ -84,7 +88,7 @@ class NotificationController extends Controller
                         $_sallon_id = $_booking_info->salon_id;
                     }
                    
-                    $device_type = User::find($_booking_info ->user_id) ? User::find($_sallon_id)->source : 'web';
+                    $device_type = User::find($_booking_info ->user_id) ? User::find($_sallon_id)->device_type : 'web';
 
     				if($device_type=='android'){
 
@@ -102,40 +106,128 @@ class NotificationController extends Controller
     		}
 
             if($type=="new_booking"){
-
                 if(!empty($_booking_info)){
-
                     $_sallon_id = Booking::find($booking_id) ? Booking::find($booking_id)->salon_id :'';
-
                     if(empty($_sallon_id) && isset($_booking_info->salon_id)){
                         $_sallon_id = $_booking_info->salon_id;
                     }
-                    $device_type = User::find($_booking_info ->user_id) ? User::find($_sallon_id)->source : 'web';
-
+                    $device_type = User::find($_booking_info ->user_id) ? User::find($_sallon_id)->device_type : 'web';
                     if($device_type=='android'){
-
                         return $this->send_android_notification($_booking_info,$type);
-
                     }
                     if($device_type=='ios'){
-
                         return $this->send_ios_notification($_booking_info,$type);
-
                     }
-
                 }
+			}	
 
+			if($type=="new_order"){
+                if(!empty($_booking_info)){
+					$order = Order::find($booking_id);
+					if($order->product_ids == null){
+						$data = unserialize($order->provider_id);
+						foreach($data as $providerid => $products){
+							$device_type = User::find($providerid) ? User::find($providerid)->device_type : 'web';
+							
+							$order->provider_id = $providerid;
+							if($device_type=='android'){
+								$this->send_android_notification($order,$type,'provider');
+							}
+							if($device_type=='ios'){
+								$this->send_ios_notification($order,$type,'provider');
+							}
+						} 
+					}else{
+						$device_type = User::find($order->provider_id) ? User::find($order->provider_id)->device_type : 'web';
+						if($device_type=='android'){
+							$this->send_android_notification($order,$type,'provider');
+						}
+						if($device_type=='ios'){
+							$this->send_ios_notification($order,$type,'provider');
+						}
+					}
+                    
+                    $device_type = User::find($order->order_user_id) ? User::find($order->order_user_id)->device_type : 'web';
+                    if($device_type=='android'){
+                        return $this->send_android_notification($order,$type,'customer');
+                    }
+                    if($device_type=='ios'){
+                        return $this->send_ios_notification($order,$type,'customer');
+                    }
+                }
+			}
+
+    	}elseif(!empty($booking_id)){
+			if($type =='order_status'){
+				$user = User::find($booking_id->order_user_id);
+				if($user){
+					return $this->sendOrderNotify($booking_id);
+				}
+			}
+		}
+	}
+	
+	function sendOrderNotify($order){
+		$user = User::find($order->order_user_id);
+		$body = 'Hi '.$user->name.' Your Order with ID '.$order->id.' has '.$order->order_status;
+		$title = 'Order '.$order->order_status;
+		$device_token = $user->device_token;
+		// define( 'API_ACCESS_KEY', 'AAAAOdfnfzc:APA91bEhA_OxbvW6nyG_Dfdo59_Xq3oOGVyJZ6et4hOqgIB4bkyt0V-KHgbRUK1Scmz6N7Q5YFbXsvUdA0BOnxeO5Nr15uzSFDsdm5waP1Qu-NwQ24D0rhb-fs6xtZh5PaR2148YtzJ_' );
+		// define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
+		if(!empty($device_token) && $device_token!='(null)' ){
+			$fcmMsg = array(
+				'body' => $body,
+				'title' => $title,
+				'sound' => "default",
+				'color' => "#203E78" 
+			);
+
+			$fcmFields = array(
+				'to' => $device_token,
+                'priority' => 'high',
+                'data' => array('order_id'=>'','title'=>$title,'body'=>$body),
+				// 'notification' => $fcmMsg
+			);
+
+			if($user->device_type=='ios'){
+				$fcmFields['notification'] = $fcmMsg;
+			}
+			
+			if($order->order_status=="delivered"){
+                $fcmFields['data']['order_id'] = $order->id;
             }
 
-    	}
-
-    }
+            // echo '<pre>';print_r($fcmFields);exit;
+			
+			if($user->device_type=='ios'){
+				$headers = array(
+					'Authorization: key=' . API_ACCESS_KEY1,
+					'Content-Type: application/json'
+				);
+			}else{
+				$headers = array(
+					'Authorization: key=' . API_ACCESS_KEY,
+					'Content-Type: application/json'
+				);
+			}
+			$ch = curl_init();
+			curl_setopt( $ch,CURLOPT_URL, $this->url );
+			curl_setopt( $ch,CURLOPT_POST, true );
+			curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+			curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+			curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fcmFields ) );
+			$result = curl_exec($ch );
+			curl_close( $ch );
+			return json_decode($result,true);
+		}
+	}
 
 
 
 
 // Function to send Push Notification for Android Phone
-	function send_android_notification($_booking_info,$type){
+	function send_android_notification($_booking_info,$type,$user_type='customer'){
 		$body = $title = $device_token = '';
 		$booking_user_id = $_booking_info->user_id;
         $booking_id = $_booking_info->id;
@@ -177,6 +269,21 @@ class NotificationController extends Controller
 			$title = 'New Booking Recieved';
             $device_token = User::find($_sallon_id)->device_token;
 		}
+
+		if($type=="new_order"){
+			if($user_type =='provider'){
+				$sallon_name = Provider::find($_booking_info->provider_id) ? Provider::find($_booking_info->provider_id)->name : '';
+				$body = 'Hi '.$sallon_name.' You recieved New Order with ID '.$booking_id;
+				$title = 'New Booking Recieved';	
+				$device_token = User::find($_booking_info->provider_id)->device_token;
+			}else{
+				$user = User::find($_booking_info->order_user_id);
+				$body = 'Hi '.$user->name.' You recieved New Booking with ID '.$booking_id;
+				$title = 'Order Received by Mask Team';
+				$device_token = $user->device_token;
+			}
+			
+		}
 	// echo '<br/>send_android_notification';
 	// echo '<br/>device_token';
 	// pr($device_token);
@@ -187,7 +294,7 @@ class NotificationController extends Controller
 	// echo '<br/>_booking_info';
 	// pr($_booking_info);
 	// die();
-		define( 'API_ACCESS_KEY', 'AAAAOdfnfzc:APA91bEhA_OxbvW6nyG_Dfdo59_Xq3oOGVyJZ6et4hOqgIB4bkyt0V-KHgbRUK1Scmz6N7Q5YFbXsvUdA0BOnxeO5Nr15uzSFDsdm5waP1Qu-NwQ24D0rhb-fs6xtZh5PaR2148YtzJ_' );
+		// define( 'API_ACCESS_KEY', 'AAAAOdfnfzc:APA91bEhA_OxbvW6nyG_Dfdo59_Xq3oOGVyJZ6et4hOqgIB4bkyt0V-KHgbRUK1Scmz6N7Q5YFbXsvUdA0BOnxeO5Nr15uzSFDsdm5waP1Qu-NwQ24D0rhb-fs6xtZh5PaR2148YtzJ_' );
 
 		$singleID = $device_token;
 		
@@ -234,7 +341,7 @@ class NotificationController extends Controller
 
 
 // Function to send Push Notification for IOS Phone
-	function send_ios_notification($_booking_info,$type){
+	function send_ios_notification($_booking_info,$type,$user_type='customer'){
 		$body = $title = $device_token = $sallon_name = '';
 		
 		$booking_user_id = $_booking_info->user_id;
@@ -281,8 +388,23 @@ class NotificationController extends Controller
 
 		}
 
+		if($type=="new_order"){
+			if($user_type =='provider'){
+				$sallon_name = Provider::find($_booking_info->provider_id) ? Provider::find($_booking_info->provider_id)->name : '';
+				$body = 'Hi '.$sallon_name.' You recieved New Order with ID '.$booking_id;
+				$title = 'New Booking Recieved';	
+				$device_token = User::find($_booking_info->provider_id)->device_token;
+			}else{
+				$user = User::find($_booking_info->order_user_id);
+				$body = 'Hi '.$user->name.' You recieved New Booking with ID '.$booking_id;
+				$title = 'Order Received by Mask Team';
+				$device_token = $user->device_token;
+			}
+			
+		}
+
 		// define( 'API_ACCESS_KEY1', 'AAAAPsMwoLs:APA91bHmIgPG7_L-Ura9djKnRQK1jhLffWI1zF_5EYoRyQj5ymPu7WnNLErjnd0QBttq2wkT6_yhbXAJ_euPEEuQUwWsbDZJlWFVpnByAOGfv9VOEPm7fS4b6rbjibe4n8iCvacNSOsa2Ou0v1n6llMUF08F503KUw' );
-		define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
+		// define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
 	// $device_token = 'd4KAOIE0lm4:APA91bFF_Dy8tSSdwzL4KpuyyqagtzFjocwfuesT9LO-4vQemNlcvaeO9OdipSqk8rrke5e3TsmPBkdyJg6etV12aurq1semYgybd4GU06TM6pYCaHmJOq8_MFUTxz6PKryYf-SV8FK0-qt_d0R0muUBj603Xis-fw';
 
 		$singleID = $device_token;
@@ -305,7 +427,8 @@ class NotificationController extends Controller
 
 			$headers = array(
 				'Authorization: key=' . API_ACCESS_KEY1,
-				'Content-Type: application/json'
+				'Content-Type: application/json',
+				'project_id' => '269562716347'
 			);
 			
 			$ch = curl_init();
@@ -317,6 +440,7 @@ class NotificationController extends Controller
 			curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fcmFields ) );
 			$result = curl_exec($ch );
 			curl_close( $ch );
+			// echo '<pre>';print_r(json_decode($result,true));exit;
             return json_decode($result,true);
 		}
 
@@ -397,7 +521,7 @@ public function sanIos(){
             'Authorization' => 'key='.env('FCM_SERVER_IOS_KEY'),
             'Content-Type'=>'application/json',
             'project_id' => env('FCM_SENDER_ID_IOS')
-            );
+        );
         $final['json'] = $fields;
         $result = $this->post($final);
         // print_r($result);exit;
@@ -445,7 +569,7 @@ public function sanIos(){
 	}
 
 	function chkNotification(){
-		define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
+		// define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
 		$device_token = 'cpLkm8ERwl0:APA91bG-8q8g1YwYFKnkW-pSOjqJJpNbmIYO1p6jEbHTG4rKeqB5gnrG-q0m1ZUd6pT1k4DouYR0_CWuJLCrKoxL-NznwuWX5SSYesHEv8XgC1MdIugL1Qm08q9KKhzUhAOk1hd5b_Sj';
 
 		$singleID = $device_token;
@@ -488,4 +612,47 @@ public function sanIos(){
 		}
 	}
 
+	function chkNotification_ios(){
+		// define( 'API_ACCESS_KEY1', 'AAAA1fwAGbc:APA91bF62M88mJaukXxTs5KSn03tRkYWuSKgHPGHn82dC4MTL9wSdEeFLdVuP5xOf-NFrGI0xIA0yF2GNxQyxxqA2cUmTqimTIfjT7uykGd0Rcg_kkHAH8jUrW6p6AM2upT-1NowoXeX' );
+		$device_token = 'd4KAOIE0lm4:APA91bFF_Dy8tSSdwzL4KpuyyqagtzFjocwfuesT9LO-4vQemNlcvaeO9OdipSqk8rrke5e3TsmPBkdyJg6etV12aurq1semYgybd4GU06TM6pYCaHmJOq8_MFUTxz6PKryYf-SV8FK0-qt_d0R0muUBj603Xis-fw';
+
+		$singleID = $device_token;
+		
+		if(!empty($singleID) && $singleID!='(null)' ){
+
+		// 'vibrate' available in GCM, but not in FCM
+			$fcmMsg = array(
+				'body' => 'Sample Body',
+				'title' => 'Sample Title',
+				'sound' => "default",
+				'color' => "#203E78" 
+			);
+
+			$fcmFields = array(
+				'to' => $singleID,
+				'priority' => 'high',
+				'data' => array('booking_id'=>'80','title'=>'Sample Body','body'=>'Sample Title'),
+				'notification' => $fcmMsg
+			);
+
+			$headers = array(
+				'Authorization: key=' . API_ACCESS_KEY1,
+				'Content-Type: application/json'
+			);
+			
+
+			// print_r(json_encode($fcmFields));exit;
+			
+			$ch = curl_init();
+			curl_setopt( $ch,CURLOPT_URL, $this->url );
+			curl_setopt( $ch,CURLOPT_POST, true );
+			curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+			curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+			curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fcmFields ) );
+			$result = curl_exec($ch );
+			curl_close( $ch );
+            return json_decode($result,true);
+		}
+	}
 }

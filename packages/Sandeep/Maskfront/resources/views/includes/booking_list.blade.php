@@ -21,6 +21,7 @@
 		@php($services = \TCG\Voyager\Models\Service::whereIn('id',explode(',',$booking->service_ids))->pluck('name')->toArray())
 		@foreach($services as $key => $service)
 		@php($services[$key] = San_Help::sanGetLang($service,$locale))
+		@php($review_book_id = !$user->user_reviews->isEmpty() ? $user->user_reviews[0]->record_id : '')
 		@endforeach
 		<tr>
 			<td>
@@ -28,7 +29,7 @@
 					<li class="list-group-item">
 						<div class="media">
 							<figure class="pull-left">
-								<img class="media-object img-circle img-responsive" src="@if(isset($user->avatar) && $user->image 	!=''){{url('files/'.$user->avatar)}} @else {{ San_Help::san_Asset('images/member-1.jpg') }} @endif" alt="">
+								<img class="media-object img-circle img-responsive" src="@if(isset($user->avatar) && $user->avatar 	!=''){{url('files/'.$user->avatar)}} @else {{ San_Help::san_Asset('images/logo.png') }} @endif" alt="">
 							</figure>
 						</div>
 						<div class="col-sm-8 media-text">
@@ -41,18 +42,23 @@
 								<li class="gutter-service">Service : {!!implode(',',$services)!!}</li>
 								@if($status =='Completed')
 								<li class="gutter-comments">
-									@if(isset($reviews))
+									@if(isset($reviews) || ($review_book_id != $booking->id))
 									<span class="pull-left"><a href="javascript:void(0);"><i class="fa fa-comments"></i> No Reviews</a></span>
 									@else
-									<span class="pull-left"><a href="javascript:void(0)" data-toggle="modal" data-target="#see_user_review_{{$booking->id}}" class="reviews-btn" data-id="bookid"><i class="fa fa-comments"></i> Reviews</a></span>
-									<span class="pull-left"><a href="javascript:void(0)" data-toggle="modal" @if($user->user_reviews->isEmpty()) style="pointer-events: none;cursor: default;" @else onClick="showReplyWindow({{$user->user_reviews[0]->id}},'{!!$user->user_reviews[0]->reply!!}');return false;" @endif class="reply-btn" data-id="bookid"><i class="fa fa-mail-reply"></i> Reply</a></span>
+									<!-- data-toggle="modal" data-target="#see_user_review_{{$booking->id}}" -->
+									<span class="pull-left"><a href="javascript:void(0)" class="reviews-btn" onClick="showReviewWindow_({{$booking->id}},{{$user->user_reviews[0]->id}},'{!!$user->user_reviews[0]->reply!!}')" data-id="{{$booking->id}}"><i class="fa fa-comments"></i> Reviews</a></span>
+									<!-- onClick="showReplyWindow({{$user->user_reviews[0]->id}},'{!!$user->user_reviews[0]->reply!!}');return false;" -->
+									<span class="pull-left"><a href="javascript:void(0)" data-toggle="modal" @if($user->user_reviews->isEmpty()) style="pointer-events: none;cursor: default;" @else onClick="showReviewWindow_({{$booking->id}})" @endif class="reply-btn" data-id="bookid"><i class="fa fa-mail-reply"></i> Reply</a></span>
+									<div style="display:none;" id="display_order_reviews_{{$booking->id}}">
+									    @include('maskFront::includes.product_reviews')
+									</div>
 									@endif
 								</li>
 								@else
 								<button type="submit" class="btn btn-success submt-btn booking_accept" value="booking_accept" data-id="{{$booking->id}}" data-status="{{$status}}" data-uid="{{$user->id}}" id="{{$provider->id}}">
 									{!!San_Help::sanLang($btn1)!!}</button>
 
-									<button type="submit" class="btn btn-danger submt-btn booking_reject" value="booking_reject" data-id="{{$booking->id}}" data-status="{{$status}} data-uid="{{$user->id}}" id="booking_reject">{!!San_Help::sanLang($btn2)!!}</button>
+									<button type="submit" class="btn btn-danger submt-btn booking_reject" value="booking_reject" data-id="{{$booking->id}}" data-status="{{$status}}" data-uid="{{$user->id}}" id="booking_reject">{!!San_Help::sanLang($btn2)!!}</button>
 									@endif
 								</ul>
 							</div>

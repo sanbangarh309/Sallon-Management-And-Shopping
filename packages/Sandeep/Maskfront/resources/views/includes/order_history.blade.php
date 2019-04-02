@@ -19,9 +19,10 @@
 			@php($pro_names = array())
 			@if($order->product_ids == null && $order->provider_id)
 				@php($id_data = unserialize($order->provider_id))
-				@if(isset($provider))
+
+				@if(isset($id_data))
 				@foreach($id_data as $provider => $product)
-					@php($names = \TCG\Voyager\Models\Product::whereIn('id',$product)->pluck('name')->toArray())
+					@php($names[] = \TCG\Voyager\Models\Product::whereIn('id',$product)->pluck('name')->toArray())
 					@php(array_push($pro_names,\TCG\Voyager\Models\Provider::find($provider)->name))
 				@endforeach
 				@endif
@@ -29,10 +30,14 @@
 				@php(array_push($names,\TCG\Voyager\Models\Product::find($order->product_ids)->name))
 				@php(array_push($pro_names,\TCG\Voyager\Models\Provider::find($order->provider_id)->name))
 			@endif
+			
 			<td data-th="ID">{{$order->id}}</td>
 			<td data-th="When"><div>{{$order->created_at}}</div></td>
 			<td data-th="Product">
-				{{implode(',',$names)}}</td>
+				@foreach($names as $name)
+					{{implode(',',$name)}},
+				@endforeach
+			</td>
 			<td data-th="Price"><nobr>{{$order->price}}SAR</nobr></td>
 			<td data-th="Service Provider"><nobr><strong>{{implode(',',$pro_names)}}</strong></nobr></td>
 			<td data-th="Status">

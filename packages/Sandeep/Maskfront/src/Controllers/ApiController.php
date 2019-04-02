@@ -164,6 +164,7 @@ class ApiController extends Controller
       }
       if ($this->request->_reg_source) {
         $data['source'] = $this->request->_reg_source;
+        $data['device_type'] = $this->request->_reg_source;
       }
       if (isset($this->actions['reg_type']) && $this->actions['reg_type'] == 'provider') {
         $data['role_id'] = 2;
@@ -228,6 +229,9 @@ class ApiController extends Controller
     }
     if (isset($this->request->phone)) {
       $user->phone = $this->request->phone;
+    }
+    if ($this->request->address && $this->request->address != '') {
+      $user->address = $this->request->address;
     }
     $user->save();
     return response()->json([
@@ -539,6 +543,9 @@ class ApiController extends Controller
     }
     if ($this->request->content && $this->request->content != '') {
       $pro->description = $this->request->content;
+    }
+    if ($this->request->address && $this->request->address != '') {
+      $pro->address = $this->request->address;
     }
     if ($this->request->gender && $this->request->gender != '') {
       $user = User::find($pro->id);
@@ -2057,6 +2064,12 @@ class ApiController extends Controller
         ]);
       }
       $rewards = Reward::where('user_id',$this->request->userid)->get()->toArray();
+      // Carbon
+      foreach($rewards as $key => $reward){
+        $rewards[$key]['created_at'] = Carbon::parse($rewards[0]['created_at'])->toDateString();
+      }
+      // print_r(Carbon::parse($rewards[0]['created_at'])->toDateString());
+      // echo '<pre>';print_r($rewards);exit;
       return response()->json([
         'status' => 'success',
         'detail' => $rewards,
@@ -2165,6 +2178,9 @@ class ApiController extends Controller
       //   ]);
       // }
       $query = Product::with('product_images')->with('reviews')->with('related_products')->where('active',1);
+      if($this->request->has('saloon_id')){
+        $query = $query->where('provider_id',$this->request->saloon_id);
+      }
       //  Filter
       if ($this->request->has('cat_name') && $this->request->cat_name !='') {
         $pr = $this->request->cat_name;
@@ -2601,7 +2617,7 @@ class ApiController extends Controller
         'pro_id' => $proids
       );
       $notify = new Notify();
-      $notify->sb_notification_fucntions($bookid,$type);
+      $notify->sb_notification_fucntions($bookid,'new_booking');
       San_Help::sanSendSms($data_sms);
       $type = 'new_booking';
       $msg_data['key'] = '';
@@ -2650,7 +2666,7 @@ class ApiController extends Controller
       $order->qty = $qty;
       $order->color = implode(',', array_unique($colors));
       $order->status = 0;
-      $order->order_status = 'pending';
+      $order->order_status = 'processing';
       $order->currency = $this->currency;
       $order->save();
       return $order->id;

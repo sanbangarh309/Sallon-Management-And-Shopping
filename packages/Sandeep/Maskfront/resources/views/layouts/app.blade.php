@@ -17,6 +17,9 @@
     <div class="preloader">
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>
+    <div class="submit_catgry loading_">
+		<i class="fa fa-spinner fa-spin"></i><span>Loading....</span>
+   </div>
     @section('head')
         @include('maskFront::layouts.head')
     @show

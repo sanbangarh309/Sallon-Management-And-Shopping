@@ -26,7 +26,6 @@
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="center" class="masthead" style="padding:50px 0;color:#000; background:#000 url({{ San_Help::san_Asset('images/top-banner.jpg') }}); background-size: cover; background-position:center center; position:relative;" border="0">
-
                             <h2 style="margin: 0 auto !important;max-width: 90%;font-weight:400">@if(isset($data['booking_type']) && $data['booking_type'] == 'services')Booking @else Order @endif Recieved.</h2>
 							<div class="col-sm-12 pad-0">
 							 @if(isset($data['booking_type']) && $data['booking_type'] == 'services')
@@ -48,7 +47,7 @@
 							</div>
 							@endif
                             </div>
-                            <img src="{{ San_Help::san_Asset('images/logo2.jpg') }}" class="logo-img" alt="" style="position: absolute;left: 0;top: 0;">
+                            <img src="{{ San_Help::san_Asset('images/logo.jpg') }}" class="logo-img" alt="" style="position: absolute;left: 0;top: 0;">
 
                         </td>
                     </tr>
@@ -112,14 +111,14 @@
                                                 @endif
                                                 @endif
                                                 @elseif(isset($data['product_id']))
-                                                        @php($product = \TCG\Voyager\Models\Product::find($data['product_id']))
-                                                        @php($total = $data['total_amnt'])
-                                                        <li> <span class="service-label">{{$product->name}}</span>
-                                                            <small>({{$data['total_amnt']}})</small>
-                                                        </li>
+                                                    @php($product = \TCG\Voyager\Models\Product::find($data['product_id']))
+                                                    @php($total = $data['total_amnt'])
+                                                    <li> <span class="service-label">{{$product->name}}</span>
+                                                       <small>({{$data['total_amnt']}})</small>
+                                                    </li>
                                                 @elseif(isset($data['booking_type']) && $data['booking_type'] == 'cart_book')
                                                 @php($cartdata = \TCG\Voyager\Models\Cart::with('product')->where('user_id', Auth::user()->id)->get())
-                                                  @foreach($cartdata as $cart)
+                                                  @foreach($cartdata as $cart) 
                                                     <li> <span class="service-label">{{$cart->product->name}}</span>
                                                          <small>({{San_Help::money($cart->total)}} {!!$currency!!})</small>
                                                     </li>
@@ -134,8 +133,8 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 sln-data-vals">
                                             <ul class="sln-list--dashed">
-                                                <li>
-                                                    <span class="service-label">{{San_Help::money($data['total_amnt'])}} {!!$currency!!}</span>
+                                                <li> <?php //echo '<pre>';print_r(San_Help::money(str_replace( ',', '', $data['total_amnt'] ))); ?>
+                                                    <span class="service-label">{{San_Help::money(str_replace( ',', '', $data['total_amnt'] ))}} {!!$currency!!}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -163,7 +162,6 @@
                                 Thanks<br>Mask Team
                             </p>
                         </div>
-
                     </td>
                 </tr>
             </table>

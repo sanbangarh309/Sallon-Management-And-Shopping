@@ -1768,7 +1768,22 @@ box-shadow:0 16px 38px -12px rgba(69, 61, 61, 0.56), 0 4px 25px 0 rgba(74, 71, 7
 .card-blog:hover {
 	box-shadow: 0 0 8px #404040;
 }
-
+.submit_catgry {max-width: 200px;display: block;background: #ddd;font-size: 16px;border: 0px;border-radius: 3px;}
+.loading_ {
+	display: none;
+	background: #e9e9e9;
+	position: fixed;
+	z-index: 999;
+	height: 2em;
+	width: 8em;
+	overflow: visible;
+	margin: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 4px;
+}
 @media(max-width:1400px){.search_products .page-fluid {padding-left: 7%;padding-right: 4%;}}
 
 

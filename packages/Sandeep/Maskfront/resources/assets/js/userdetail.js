@@ -201,14 +201,14 @@ function highlightStar(obj,id) {
   });
 }
 
-function submitReview(){
+function submitReview(crnt){
   $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('#csrf_token').val()
     },
     type : "POST",
     url  : $('#ajax_url').val()+'/addreview',
-    data : $('#new-review-formm').serialize(),
+    data : $(crnt).serialize(),
     cache : false,
     success  : function(data) {
       if (data.message) {
@@ -216,7 +216,10 @@ function submitReview(){
       }else{
         swal("","Feedback Given","success");
       }
-      $('#leave_feedback').modal('toggle');
+      if(!data.done){
+        $('#leave_feedback').modal('toggle');
+      }
+      
     },
     error : function(data){
       if (data.message) {
@@ -224,7 +227,9 @@ function submitReview(){
       }else{
         swal("","Feedback Given","success");
       }
-      $('#leave_feedback').modal('toggle');
+      if(!data.done){
+        $('#leave_feedback').modal('toggle');
+      }
     }
   });
 }

@@ -453,8 +453,8 @@
               <input name="type" value="banner" type="hidden">
               <section class="cstm-upload">
                 <label for="file" class="input input-file">
-                  <div class="button"><input id="banner_img" onchange="this.parentNode.nextSibling.value = this.value" type="file" class="form-control" name="image">{!!San_Help::sanLang('Browse')!!}</div>
-                  <input placeholder="Add Profile Image" readonly="" type="text">
+                  <div class="button"><input id="banner_img" onchange="getValue(this);" type="file" class="form-control" name="image">{!!San_Help::sanLang('Browse')!!}</div>
+                  <input placeholder="Add Profile Image" readonly="" type="text" class="profile_image_section">
                 </label>
               </section>
             </div>
@@ -483,8 +483,8 @@
               <input name="type" value="profile" type="hidden">
               <section class="cstm-upload">
                 <label for="file" class="input input-file">
-                  <div class="button"><input id="featured_img" onchange="this.parentNode.nextSibling.value = this.value" type="file" class="form-control" name="image">{!!San_Help::sanLang('Browse')!!}</div>
-                  <input placeholder="Add Profile Image" readonly="" type="text">
+                  <div class="button"><input id="featured_img" onchange="getValue(this);" type="file" class="form-control" name="image">{!!San_Help::sanLang('Browse')!!}</div>
+                  <input placeholder="Add Profile Image" readonly="" type="text" class="profile_image_section">
                 </label>
               </section>
             </div>
@@ -512,8 +512,8 @@
             <div class="form-group">
               <section class="cstm-upload">
                 <label for="file" class="input input-file">
-                  <div class="button"><input id="featured_img" multiple onchange="this.parentNode.nextSibling.value = this.value" type="file" class="form-control" name="providers_images[]">{!!San_Help::sanLang('Browse')!!}</div>
-                  <input placeholder="Add Gallary Images" readonly="" type="text">
+                  <div class="button"><input id="featured_img" multiple onchange="getValue(this);" type="file" class="form-control" name="providers_images[]">{!!San_Help::sanLang('Browse')!!}</div>
+                  <input placeholder="Add Gallary Images" readonly="" type="text" class="profile_image_section">
                 </label>
               </section>
             </div>
@@ -584,8 +584,8 @@
             <div class="form-group">
               <section class="cstm-upload pic--upload">
                 <label for="file" class="input input-file">
-                  <div class="button"><input id="featured_img" onchange="this.parentNode.nextSibling.value = this.value" type="file" class="form-control" name="image">Browse</div>
-                  <input placeholder="Add Profile Image" readonly="" type="text">
+                  <div class="button"><input id="featured_img" onchange="getValue(this);" type="file" class="form-control" name="image">Browse</div>
+                  <input placeholder="Add Profile Image" readonly="" type="text" class="profile_image_section">
                 </label>
               </section>
             </div>
@@ -710,7 +710,7 @@
       <div class="modal-header">
         <button type="button" class="close_addgallary close" data-dismiss="modal" aria-label="Close"><span class="close-hairline"></span></button>
         <h3 class="text-center text-uppercase" id="add_services">{!!San_Help::sanLang('Add Services')!!}</h3>
-        <h3 class="text-center text-uppercase" style="display: none;" id="edt_services">{!!San_Help::sanLang('Edit Services')!!}</h3>
+        <h3 class="text-center text-uppercase" style="display: none;" id="edt_services">{!!San_Help::sanLang('Update Service')!!}</h3>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
@@ -847,7 +847,7 @@
             </div>
             <div class="form-group text-center">
               <button type="submit" class="btn yell-btn submt-btn" value="add_service" name="add_service" id="add_service_btn">{!!San_Help::sanLang('Add Service')!!}</button>
-              <button type="submit" class="btn yell-btn submt-btn" value="add_service"  id="edit_service_btn" style="display: none;" name="add_service">{!!San_Help::sanLang('Edit Service')!!}</button>
+              <button type="submit" class="btn yell-btn submt-btn" value="add_service"  id="edit_service_btn" style="display: none;" name="add_service">{!!San_Help::sanLang('Update Service')!!}</button>
             </div>
           </form>
         </div>
@@ -858,7 +858,7 @@
 <!--=========ADD-SERVICE-MODAL-ENDS=========-->
 @endif
 <div id="add-newproduct" class="modal fade" role="dialog" aria-hidden="false">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-md" style="max-width:700px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close_addgallary close" data-dismiss="modal" aria-label="Close"><span class="close-hairline"></span></button>

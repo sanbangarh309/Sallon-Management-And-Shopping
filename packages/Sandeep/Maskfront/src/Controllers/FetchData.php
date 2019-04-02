@@ -587,6 +587,17 @@ class FetchData extends Controller
     return $balance;
   }
 
+  function updateIds(){
+    $users = User::all();
+    foreach($users as $user){
+      if($user->wp_id !=''){
+        $user->id = $user->wp_id;
+      $user->save();
+      } 
+    }
+    echo json_encode(array('succes_done'));
+  }
+
   public function getPostMeta($id){
     $db_ext = DB::connection('mysql2');
     $new_arr = array();
